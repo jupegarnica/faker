@@ -86,6 +86,8 @@ await serve(async (request: Request) => {
       const data = typeof node === "function" ? node(...restPath) : null;
       body = JSON.stringify({
         data: data ?? `faker${fakerPath.join(".")} not found`,
+        docs: `https://fakerjsdocs.netlify.app/api/${fakerPath[1]}.html#${fakerPath[2]}`,
+        status
       });
       if (!data) {
         status = 404;
