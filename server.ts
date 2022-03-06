@@ -75,7 +75,6 @@ await serve(async (request: Request) => {
       let node: any = faker;
       for (let index = 0; index < fakerPath.length; index++) {
         [path, ...restPath] = restPath;
-
         node = node[path] ? node[path] : node;
         console.log(path, typeof node);
         if (typeof node === "function") {
@@ -87,7 +86,7 @@ await serve(async (request: Request) => {
       body = JSON.stringify({
         data: data ?? `faker${fakerPath.join(".")} not found`,
         docs: `https://fakerjsdocs.netlify.app/api/${fakerPath[1]}.html#${
-          fakerPath[2]
+          fakerPath?.[2]
         }`,
         status,
       });
