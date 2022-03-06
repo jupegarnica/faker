@@ -7,7 +7,7 @@ import console from "./services/logger.ts";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/locale/es.ts";
 faker.setLocale("es");
 
-const markdown: string = Deno.readTextFileSync("README.md");
+const markdown: string = await  Deno.readTextFile("README.md");
 
 const readmeContent: string = render(markdown, {
   baseUrl: "/",
