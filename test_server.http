@@ -1,0 +1,17 @@
+@host = http://localhost:8000
+###
+GET https://faker.deno.dev/pong
+# GET https://faker.deno.dev/faker
+
+###
+
+GET /random/image
+
+
+###
+
+GET /finance/account/4
+
+###
+
+/lorem/sentences/2

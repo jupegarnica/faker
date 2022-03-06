@@ -4,6 +4,8 @@ import { CSS, render } from "https://deno.land/x/gfm@0.1.19/mod.ts";
 import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 // import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";
 import console from "./services/logger.ts";
+import { faker } from "https://deno.land/x/deno_faker@v1.0.3/locale/es.ts";
+faker.setLocale("es");
 
 const markdown: string = Deno.readTextFileSync("README.md");
 
@@ -46,44 +48,60 @@ await serve(async (request: Request) => {
   let body = searchParams.get("body") as BodyInit;
   const requestedHeaders = searchParams.get("headers");
   const _headers = requestedHeaders ? JSON.parse(requestedHeaders) : undefined;
-  const status = searchParams.get("status");
+  let status = Number(searchParams.get("status"));
   const _delay = searchParams.get("delay");
   const delay = _delay ? Number(_delay) : 0;
   let headers = { "Access-Control-Allow-Origin": "*", ..._headers };
-
   try {
     if (delay) {
       await wait(delay);
     }
     // show readme
-
-    if (pathname === "/" && !body && !_headers && !status) {
-      const body = createHtml({ CSS, body: readmeContent });
-      headers = new Headers(headers);
-      headers.set("content-type", "text/html; charset=utf-8");
-
-      return new Response(body, { headers });
-    }
-    // faker
-    // if (pathname.toLowerCase().startsWith("/faker")) {
-    //   return new Response("faker");
-    // }
-
-    // pong
-    if (pathname.toLowerCase() === "/pong") {
+    if (pathname === "/" && !body) {
+      body = createHtml({ CSS, body: readmeContent });
+      headers = { ...headers, "content-type": "text/html; charset=utf-8" };
+    } else if (pathname.toLowerCase() === "/pong") {
       body = request.body ?? body;
       headers = {
         ...headers,
         ...Object.fromEntries(request.headers.entries()),
       } as Headers;
-      return new Response(body, { headers });
+    } else if (pathname !== "/") {
+      // FAKER
+      const fakerPath = pathname.split("/");
+
+      let [path, ...restPath] = fakerPath;
+      // deno-lint-ignore no-explicit-any
+      let node: any = faker;
+      for (let index = 0; index < fakerPath.length; index++) {
+        [path, ...restPath] = restPath;
+
+        node = node[path] ? node[path] : node;
+        console.log(path, typeof node);
+        if (typeof node === "function") {
+          break;
+        }
+      }
+
+      const data = typeof node === "function" ? node(...restPath) : null;
+      body = JSON.stringify({
+        data: data ?? `faker${fakerPath.join(".")} not found`,
+      });
+      if (!data) {
+        status = 404;
+      } else {
+        headers = {
+          ...headers,
+          "content-type": "application/json; charset=utf-8",
+        };
+      }
     }
 
-    const responseStatus = status ? Number(status) : 200;
-    console[request.method](responseStatus, request.url);
+    status ||= 200;
+    console[request.method](status, pathname);
 
     return new Response(body, {
-      status: responseStatus,
+      status,
       headers,
     });
   } catch (error) {

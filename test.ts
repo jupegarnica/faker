@@ -41,7 +41,7 @@ Deno.test({
     const response = await fetch(BASE_URL + "/?status=201");
     const body = await response.text();
     assertEquals(response.status, 201);
-    assertEquals(body, "");
+    // assertEquals(body, "");
   },
 });
 
@@ -106,5 +106,41 @@ Deno.test({
     const body = await response.text();
     assertEquals(response.status, 200);
     assertEquals(duration > delay, true);
+  },
+});
+
+Deno.test({
+  name: "faker find method",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/random/image`,
+    );
+    const body = await response.json();
+    assertEquals(response.status, 200);
+    assertEquals(typeof body.data, "string");
+  },
+});
+
+Deno.test({
+  name: "faker not found method",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/not/found/method`,
+    );
+    const body = await response.json();
+    assertEquals(response.status, 404);
+    assertEquals(body.data, "faker.not.found.method not found");
+  },
+});
+
+Deno.test({
+  name: "faker pass args to method",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/finance/account/3`,
+    );
+    const body = await response.json();
+    assertEquals(response.status, 200);
+    assertEquals(body.data.length, 3);
   },
 });
