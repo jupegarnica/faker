@@ -2,15 +2,16 @@
 
 **An API REST to mock any other one.**
 
-Http rest api to get fake the response body, status, headers and/or delay the response.
+Http rest api to get fake the response body, status, headers and/or delay the
+response.
 
 - Live at: https://mock-api.deno.dev/
 - Source at: https://github.com/jupegarnica/mock-api
 
 ## Usage
 
-Make an HTTP request and specify the search params status, body, header or delay.
-any pathname or method will be ignored.
+Make an HTTP request and specify the search params status, body, header or
+delay. any pathname or method will be ignored.
 
 ### Body
 
@@ -30,8 +31,8 @@ hola
 
 ### Code Status
 
-Specify a search status param get back that code status.
-The status must be inside the range 200 to 599.
+Specify a search status param get back that code status. The status must be
+inside the range 200 to 599.
 
 ```http
 GET https://mock-api.deno.dev/?status=301
@@ -87,7 +88,6 @@ date: Sun, 04 Jul 2021 15:31:36 GMT
 
 Replay with same body and header as the request
 
-
 ```http
 POST https://mock-api.deno.dev/pong?status=201?delay=100?body=ignored
 X-hello: world
@@ -102,5 +102,4 @@ content-length: 7
 date: Sun, 04 Jul 2021 15:31:36 GMT
 
 {"a":1}
-
 ```

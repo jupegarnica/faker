@@ -82,7 +82,7 @@ export async function flushQueue(): Promise<void> {
         username: config.username,
         password: config.password,
       });
-    } catch (error) {
+    } catch (_) {
       await client.connect({
         hostname: config.hostname,
         port: Number(config.port),
@@ -95,6 +95,7 @@ export async function flushQueue(): Promise<void> {
     let to = "";
     let subject = "";
     for (const email of queue) {
+      // deno-lint-ignore no-explicit-any
       const data: any = email;
       content += `${data.content}\n`;
       from = email.from;

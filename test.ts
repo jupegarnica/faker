@@ -6,7 +6,7 @@ Deno.test({
   name: "default response to status 200 and empty text body",
   fn: async () => {
     const response = await fetch(BASE_URL + "/");
-    const body = await response.text();
+    await response.text();
     assertEquals(response.status, 200);
     // assertEquals(body, "");
     assertEquals(
@@ -39,7 +39,7 @@ Deno.test({
   name: "should respond with status specified",
   fn: async () => {
     const response = await fetch(BASE_URL + "/?status=201");
-    const body = await response.text();
+    await response.text();
     assertEquals(response.status, 201);
     // assertEquals(body, "");
   },
@@ -76,7 +76,7 @@ Deno.test({
     const response = await fetch(
       BASE_URL + `/?headers={"x-hello":"world"}`,
     );
-    const body = await response.text();
+    await response.text();
     assertEquals(response.headers.get("x-hello"), "world");
   },
 });
@@ -103,7 +103,7 @@ Deno.test({
       BASE_URL + `/?delay=${delay}`,
     );
     const duration = Date.now() - start;
-    const body = await response.text();
+    await response.text();
     assertEquals(response.status, 200);
     assertEquals(duration > delay, true);
   },

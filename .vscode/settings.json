@@ -27,11 +27,11 @@
   "deno.suggest.imports.hosts": {
     "https://deno.land/": true
   },
-  "deno.suggest.imports.autoDiscover":true,
+  "deno.suggest.imports.autoDiscover": true,
   "deno.config": "./deno.jsonc",
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
-  "deno.codeLens.referencesAllFunctions":true,
+  "deno.codeLens.referencesAllFunctions": true,
   "deno.codeLens.testArgs": [
     "--allow-all"
   ],

@@ -1,26 +1,25 @@
 {
-    // Use IntelliSense para saber los atributos posibles.
-    // Mantenga el puntero para ver las descripciones de los existentes atributos.
-    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-
-        {
-            "request": "launch",
-            "name": "Launch Program",
-            "type": "pwa-node",
-            "program": "${file}",
-            "cwd": "${workspaceFolder}",
-            "runtimeExecutable": "deno",
-            "runtimeArgs": [
-                "run",
-                "--unstable",
-                "--config",
-                "./deno.jsonc",
-                "--inspect",
-                "--allow-all"
-            ],
-            "attachSimplePort": 9229
-        }
-    ]
+  // Use IntelliSense para saber los atributos posibles.
+  // Mantenga el puntero para ver las descripciones de los existentes atributos.
+  // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "request": "launch",
+      "name": "Launch Program",
+      "type": "pwa-node",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--unstable",
+        "--config",
+        "./deno.jsonc",
+        "--inspect",
+        "--allow-all"
+      ],
+      "attachSimplePort": 9229
+    }
+  ]
 }
