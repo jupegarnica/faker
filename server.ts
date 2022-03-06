@@ -76,7 +76,7 @@ await serve(async (request: Request) => {
       for (let index = 0; index < fakerPath.length; index++) {
         [path, ...restPath] = restPath;
         node = node[path] ? node[path] : node;
-        console.log(path, typeof node);
+        // console.log(path, typeof node);
         if (typeof node === "function") {
           break;
         }
