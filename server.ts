@@ -86,7 +86,7 @@ await serve(async (request: Request) => {
       body = JSON.stringify({
         data: data ?? `faker${fakerPath.join(".")} not found`,
         docs: `https://fakerjsdocs.netlify.app/api/${
-          fakerPath[1]
+          fakerPath?.[1]
         }.html#${fakerPath?.[2]}`,
         status,
       });
