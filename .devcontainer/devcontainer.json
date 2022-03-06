@@ -1,0 +1,27 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.194.3/containers/deno
+{
+  "name": "Deno",
+  "dockerFile": "Dockerfile",
+  "settings": {
+    // Enables the project as a Deno project
+    "deno.enable": true,
+    // Enables Deno linting for the project
+    "deno.lint": true,
+    "deno.suggest.imports.hosts": {
+      "https://deno.land/": true
+    },
+    // Sets Deno as the default formatter for the project
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  // This will install the vscode-deno extension
+  "extensions": [
+    "denoland.vscode-deno",
+    "umbo.vscode-velociraptor"
+  ],
+  "remoteUser": "vscode",
+  "onCreateCommand": "vr",
+  "features": {
+    "github-cli": "latest"
+  }
+}

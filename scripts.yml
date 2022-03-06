@@ -1,0 +1,131 @@
+# allow:
+#   - write
+#   - read
+#   - net
+#   - env
+
+# envFile:
+#   - .env
+
+scripts:
+  main:
+    desc: Runs main script
+    cmd: main.ts
+
+  inspect:
+    desc: Runs main script
+    cmd: main.ts
+    inspectBrk: 127.0.0.1:9229
+
+  server:
+    desc: Starts deploy server
+    cmd: deno run  --watch server.ts
+    # cmd: deployctl run  --watch server.ts
+    allow:
+      - read
+      - net
+      - env
+
+  docs:
+    - echo "visit https://doc.deno.land/builtin/stable"
+    - google-chrome https://doc.deno.land/builtin/stable || sh $BROWSER https://doc.deno.land/builtin/stable
+
+  deps:
+    desc: Update dependencies with ensuring pass tests
+    cmd: udd deps.ts --test="vr test"
+
+  lint:
+    desc: Runs lint
+    cmd: deno lint --ignore=cov_profile
+
+  fmt:
+    desc: Runs format
+    cmd: deno fmt --ignore=cov_profile
+
+  post-commit:
+    desc: Commit formatted files
+    env:
+      VR_HOOKS: "false"
+    cmd: |
+          touch .stagedFiles
+          FILES=$(cat .stagedFiles)
+          rm .stagedFiles
+          [ -z "$FILES" ] && exit 0
+          echo "$FILES" | xargs git add &&
+          git commit -m "format: apply auto format"
+    gitHook: post-commit
+  pre-commit:
+    desc: Lints and formats staged files
+    cmd: |
+      FILES=$(git diff --staged --name-only --diff-filter=ACMR "*.*ts" "*.*js")
+          [ -z "$FILES" ] && exit 0
+          echo "$FILES" | xargs deno lint
+          echo "$FILES" | xargs deno fmt
+          echo "$FILES" > .stagedFiles
+    gitHook: pre-commit
+
+
+
+  test:
+    desc: Runs the tests
+    cmd: deno test --reload
+    gitHook: pre-push
+
+  cov:
+    desc: Shows uncovered lists
+    cmd:
+      - vr test --coverage=coverage
+      - deno coverage --unstable coverage --lcov > coverage/coverage.lcov
+      - which genhtml || sudo apt install lcov
+      - genhtml -o coverage/html coverage/coverage.lcov
+      - deno run -A https://deno.land/std/http/file_server.ts coverage/html
+  ci:
+    desc: Runs lint, check format and test
+    cmd:
+      - vr lint
+      - vr fmt --check
+      - vr test
+
+  commitlint:
+    # cmd: echo --- ${GIT_ARGS} ---
+    cmd: deno run --allow-read="./.git" commitlint.ts
+    gitHook: commit-msg
+  # tag:
+  #   cmd: deno run -A --unstable https://deno.land/x/release/release.ts patch
+  tag:
+    desc: Create tag
+    cmd: |
+      #Get the highest tag number
+      VERSION=`git describe --abbrev=0 --tags`
+      VERSION=${VERSION:-'0.0.0'}
+      echo $VERSION
+      #Get number parts
+      MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+      MINOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+      PATCH="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+
+      #Increase version
+      PATCH=$((PATCH+1))
+
+      #Get current hash and see if it already has a tag
+      GIT_COMMIT=`git rev-parse HEAD`
+      NEEDS_TAG=`git describe --contains $GIT_COMMIT`
+
+      #Create new tag
+      NEW_TAG="$MAJOR.$MINOR.$PATCH"
+      echo "Updating to $NEW_TAG"
+
+      #Only tag if no tag already (would be better if the git describe command above could have a silent option)
+      if [ -z "$NEEDS_TAG" ]; then
+          echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
+          git tag $NEW_TAG
+      else
+          echo "Already a tag on this commit" && exit 0
+      fi
+  release:
+    desc: Create release
+    cmd: |
+      #!/bin/sh
+      git pull
+      vr tag &&
+      git push origin main --tags
