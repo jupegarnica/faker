@@ -8,23 +8,15 @@
 #   - .env
 
 scripts:
-  main:
-    desc: Runs main script
-    cmd: main.ts
+  test:
+    desc: Runs the tests
+    cmd: deno test -A
+    gitHook: pre-push
 
-  inspect:
-    desc: Runs main script
-    cmd: main.ts
-    inspectBrk: 127.0.0.1:9229
 
   server:
     desc: Starts deploy server
-    cmd: deno run  --watch server.ts
-    # cmd: deployctl run  --watch server.ts
-    allow:
-      - read
-      - net
-      - env
+    cmd: deno run --watch -A --no-check server.ts
 
   docs:
     - echo "visit https://doc.deno.land/builtin/stable"
@@ -66,10 +58,6 @@ scripts:
 
 
 
-  test:
-    desc: Runs the tests
-    cmd: deno test --reload
-    gitHook: pre-push
 
   cov:
     desc: Shows uncovered lists
