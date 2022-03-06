@@ -11,7 +11,7 @@ scripts:
   test:
     desc: Runs the tests
     cmd: deno test -A
-    gitHook: pre-push
+    # gitHook: pre-push
 
 
   server:
