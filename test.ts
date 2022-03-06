@@ -2,7 +2,6 @@ import { assertEquals } from "https://deno.land/std@0.100.0/testing/asserts.ts";
 // import './server.ts';
 const BASE_URL = "http://localhost:8000";
 
-
 Deno.test({
   name: "default response to status 200 and empty text body",
   fn: async () => {
@@ -10,21 +9,22 @@ Deno.test({
     const body = await response.text();
     assertEquals(response.status, 200);
     // assertEquals(body, "");
-    assertEquals(response.headers.get("content-type"), "text/html; charset=utf-8");
+    assertEquals(
+      response.headers.get("content-type"),
+      "text/html; charset=utf-8",
+    );
   },
 });
-
-
 
 Deno.test({
   name: "should mirror body and headers on /pong",
   only: false,
   fn: async () => {
-    const body = JSON.stringify({a: 1});
+    const body = JSON.stringify({ a: 1 });
     const response = await fetch(BASE_URL + "/pong", {
       method: "POST",
       headers: {
-        'x-test': 'test',
+        "x-test": "test",
       },
       body,
     });

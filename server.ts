@@ -57,7 +57,7 @@ await serve(async (request: Request) => {
     }
     // show readme
 
-    if (pathname === '/' && !body && !_headers && !status) {
+    if (pathname === "/" && !body && !_headers && !status) {
       const body = createHtml({ CSS, body: readmeContent });
       headers = new Headers(headers);
       headers.set("content-type", "text/html; charset=utf-8");
@@ -68,7 +68,6 @@ await serve(async (request: Request) => {
     // if (pathname.toLowerCase().startsWith("/faker")) {
     //   return new Response("faker");
     // }
-
 
     // pong
     if (pathname.toLowerCase() === "/pong") {
