@@ -6,6 +6,15 @@ import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 import logger from "./services/logger.ts";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
 
+// Deno.addSignalListener("SIGINT", () => {
+//   console.log("SIGINT");
+//   Deno.exit(0);
+// });
+// Deno.addSignalListener("SIGTERM", () => {
+//   console.log("SIGTERM");
+//   Deno.exit(0);
+// });
+
 const html = String.raw;
 const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
   html`
