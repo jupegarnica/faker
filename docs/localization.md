@@ -12,6 +12,7 @@ faker.setLocale("de");
 // or
 faker.locale = "de";
 ```
+### Locales included
 
  * az
  * cz
