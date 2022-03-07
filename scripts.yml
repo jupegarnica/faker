@@ -14,8 +14,6 @@ scripts:
 
   test-ci:
     desc: Runs the tests
-    env:
-      NO_COLOR: "1"
     cmd:
       - vr server-ci & sleep 5 && vr test
     gitHook: pre-push
