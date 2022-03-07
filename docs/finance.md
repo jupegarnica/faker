@@ -4,11 +4,11 @@
 
 Return random account number
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | length | number |   `8`   |
-:::
+
 
 ```js
 faker.finance.account(); // 30764440
@@ -20,7 +20,7 @@ faker.finance.account(12); // 194294967472
 Return random account name
 
 ```js
-faker.finance.accountName(); // Investment Account 
+faker.finance.accountName(); // Investment Account
 ```
 
 ## routingNumber <Badge text="5.0.0+" type="tip" vertical="middle"/>
@@ -35,17 +35,17 @@ faker.finance.routingNumber();
 
 Return random mask
 
-::: tip
+
 | Param    | Type    | Default |
 | -------- | ------- | :-----: |
 | length   | number  |   `4`   |
 | parens   | boolean | `false` |
 | ellipsis | boolean | `false` |
-:::
+
 
 ```js
 faker.finance.mask(); // 8493
-faker.finance.mask(5, true); // (17126) 
+faker.finance.mask(5, true); // (17126)
 faker.finance.mask(5, true, true); // (...17126)
 faker.finance.mask(5, false, true); // ...17126
 ```
@@ -54,20 +54,20 @@ faker.finance.mask(5, false, true); // ...17126
 
 Return random amount
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | min    | number |   `0`   |
 | max    | number | `1000`  |
 | dec    | number |   `2`   |
 | symbol | string |  `''`   |
-:::
+
 
 ```js
-faker.finance.amount(); // 466.98 
-faker.finance.amount(42); // 197.40  
+faker.finance.amount(); // 466.98
+faker.finance.amount(42); // 197.40
 faker.finance.amount(42, 43); // 42.24
-faker.finance.amount(42, 43, 10); // 42.1601538648 
+faker.finance.amount(42, 43, 10); // 42.1601538648
 faker.finance.amount(42, 43, 2, '$'); // $42.89
 ```
 
@@ -115,11 +115,11 @@ faker.finance.bitcoinAddress(); // 3FINQD7C6JW7XPF4NMNHOJYAXLKLP
 
 Return random credit card number
 
-::: tip
+
 | Param    | Type   | Default |
 | -------- | ------ | :-----: |
 | provider | string |  `''`   |
-:::
+
 
 ```js
 faker.finance.creditCardNumber();
@@ -145,11 +145,11 @@ faker.finance.ethereumAddress();
 
 Return random iban
 
-::: tip
+
 | Param    | Type    | Default |
 | -------- | ------- | :-----: |
 | formated | boolean | `false` |
-:::
+
 
 ```js
 faker.finance.iban(); // BE56302102061244

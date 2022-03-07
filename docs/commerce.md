@@ -28,14 +28,14 @@ faker.commerce.productName(); // Rustic Granite Shirt
 
 Generates random price
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | min    | number |   `1`   |
 | max    | number | `1000`  |
 | dec    | number |   `2`   |
 | symbol | string |   ``    |
-:::
+
 
 ```js
 faker.commerce.price(); // 4.00

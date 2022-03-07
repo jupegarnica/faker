@@ -2,13 +2,13 @@
 
 ## zipCode([format])
 
-Generates random zipcode. If format is not specified, the locale's zip format is used. Use formats that are supported with [replaceSymbols](/docs/helpers.html#replacesymbols-format)
+Generates random zipcode. If format is not specified, the locale's zip format is used. Use formats that are supported with [replaceSymbols](/docs/helpers.md#replacesymbols-format)
 
-::: tip
+
 | Param  | Type   |   Default   |
 | ------ | ------ | :---------: |
 | format | string | `undefined` |
-:::
+
 
 ```js
 faker.address.zipCode(); // 98101-1234
@@ -26,17 +26,17 @@ faker.address.zipCodeByState("wa"); // 98101
 
 ## city
 
-::: v-pre
+
 Generates a random localized city name. The format string can contain any method provided by faker wrapped in `{{}}`, e.g. `{{name.firstName}}` in order to build the city name.
 
-::: tip
+
 If no format string is provided one of the following is randomly used:
 
 - `{{address.cityPrefix}} {{name.firstName}}{{address.citySuffix}}`
 - `{{address.cityPrefix}} {{name.firstName}}`
 - `{{name.firstName}}{{address.citySuffix}}`
 - `{{name.lastName}}{{address.citySuffix}}`
-  :::
+
 
 ```js
 faker.address.city() // Lake Raoulfort
@@ -71,11 +71,11 @@ faker.address.streetName(); // Rowe Coves
 
 Returns a random localized street address. Pass in optional object boolean to get a full address.
 
-::: tip
+
 | Param          | Type    | Default |
 | -------------- | ------- | :-----: |
 | useFullAddress | boolean | `false` |
-:::
+
 
 ```js
 faker.address.streetAddress(); // 294 White Parkways
@@ -150,12 +150,12 @@ faker.address.stateAbbr(); // WV
 
 Returns a random latitude.
 
-::: warning Params Available <Badge text="5.0.0+" type="tip" vertical="middle"/>
+
 | Param | Type   | Default |
 | ----- | ------ | :-----: |
 | max   | number |  `90`   |
 | min   | number |  `-90`  |
-:::
+
 
 ```js
 faker.address.latitude(); // 78.9197
@@ -166,12 +166,12 @@ faker.address.latitude(70, 10); // 40.1239
 
 Returns a random longitude.
 
-::: warning Params Available <Badge text="5.0.0+" type="tip" vertical="middle"/>
+
 | Param | Type   | Default |
 | ----- | ------ | :-----: |
 | max   | number |  `180`  |
 | min   | number | `-180`  |
-:::
+
 
 ```js
 faker.address.longitude(); // 78.9197

@@ -4,13 +4,13 @@
 
 Generates random first name
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | gender | number | `null`  |
 
 **NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think lol
-:::
+
 
 ```js
 faker.name.firstName(); // Joshuah
@@ -20,13 +20,13 @@ faker.name.firstName(); // Joshuah
 
 Generates random last name
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | gender | number | `null`  |
 
 **NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
-:::
+
 
 ```js
 faker.name.lastName(); // Ortiz
@@ -36,7 +36,7 @@ faker.name.lastName(); // Ortiz
 
 Generates random full name with optional random suffix/prefix
 
-::: tip
+
 | Param     | Type   |         Default          |
 | --------- | ------ | :----------------------: |
 | firstName | string | `faker.name.firstName()` |
@@ -44,7 +44,7 @@ Generates random full name with optional random suffix/prefix
 | gender    | number |        `0` or `1`        |
 
 **NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
-:::
+
 
 ```js
 faker.name.findName(); // Jamey Thiel
@@ -65,13 +65,13 @@ faker.name.jobTitle(); // Senior Data Facilitator
 
 Generates random prefix
 
-::: tip
+
 | Param  | Type   |  Default   |
 | ------ | ------ | :--------: |
 | gender | number | `0` or `1` |
 
 **NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
-:::
+
 
 ```js
 faker.name.prefix(); // Mr.

@@ -11,23 +11,23 @@ faker.company.suffixes(); // ["Inc", "and Sons", "LLC", "Group"]
 ## companyName([formatIndex])
 
 Return random company name. Using one of the following format options
-::: v-pre
+
 - `{{name.lastName}} {{company.companySuffix}}`
 - `{{name.lastName}} - {{name.lastName}}`
 - `{{name.lastName}}, {{name.lastName}} and {{name.lastName}}`
-:::
 
-::: tip
+
+
 | Param       | Type   | Default |
 | ----------- | ------ | :-----: |
 | formatIndex | number |  `0-2`  |
-:::
+
 
 ```js
-faker.company.companyName(); // Zboncak and Sons 
+faker.company.companyName(); // Zboncak and Sons
 faker.company.companyName(0); // Nikolaus Group
-faker.company.companyName(1); // Keeling - Lind 
-faker.company.companyName(2); // Swaniawski, Howe and Leffler 
+faker.company.companyName(1); // Keeling - Lind
+faker.company.companyName(2); // Swaniawski, Howe and Leffler
 ```
 
 ## companySuffix
@@ -59,7 +59,7 @@ faker.company.bs(); // ubiquitous empower e-business
 Return random catch phrase adjective
 
 ```js
-faker.company.catchPhraseAdjective(); // Down-sized 
+faker.company.catchPhraseAdjective(); // Down-sized
 ```
 
 ## catchPhraseDescriptor
@@ -67,7 +67,7 @@ faker.company.catchPhraseAdjective(); // Down-sized
 Return random catch phrase descriptor
 
 ```js
-faker.company.catchPhraseDescriptor(); // bi-directional 
+faker.company.catchPhraseDescriptor(); // bi-directional
 ```
 
 ## catchPhraseNoun

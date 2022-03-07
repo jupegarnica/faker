@@ -4,11 +4,11 @@
 
 Returns a random value from the provided array
 
-::: tip
+
 | Param | Type  |      Default      |
 | ----- | ----- | :---------------: |
 | array | array | `["a", "b", "c"]` |
-:::
+
 
 ```js
 faker.helpers.randomize(); // a
@@ -19,11 +19,11 @@ faker.helpers.randomize(['bob', 'joe', 'tim']); // joe
 
 slugify the provided string
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | string | string |  `""`   |
-:::
+
 
 ```js
 faker.helpers.slugify(); // ""
@@ -35,12 +35,12 @@ faker.helpers.slugify("bob was here"); // bob-was-here
 
 replace a symbol with a number
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | string | string |  `""`   |
 | symbol | string |  `"#"`  |
-:::
+
 
 ```js
 faker.helpers.replaceSymbolWithNumber(); // ""
@@ -56,11 +56,11 @@ Parses string for symbols (numbers or letters) and replaces them appropriately.
 - `?` with be replaced with a letter
 - `*` will be replaced with a number or a letter
 
-::: tip
+
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | format | string |  `""`   |
-:::
+
 
 ```js
 faker.helpers.replaceSymbols("#####"); // 98101
@@ -72,11 +72,11 @@ faker.helpers.replaceSymbols("bob-###-42-??") // bob-226-42-KB
 
 Takes an array and returns it randomized
 
-::: tip
+
 | Param | Type  | Default |
 | ----- | ----- | :-----: |
 | array | array |  `[]`   |
-:::
+
 
 ```js
 faker.helpers.shuffle(); // []
@@ -87,12 +87,12 @@ faker.helpers.shuffle(["a", "b", "c"]); // ["c", "a", "b"]
 
 replaces mustache variable in string with provided key pair
 
-::: tip
+
 | Param | Type   | Default |
 | ----- | ------ | :-----: |
 | str   | string |  `n/a`  |
 | data  | object |  `n/a`  |
-:::
+
 
 ```js
 faker.helpers.mustache(); // ""
