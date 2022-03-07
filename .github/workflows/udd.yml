@@ -16,13 +16,14 @@ jobs:
       - name: Update dependencies
         run: >
           deno run -A https://deno.land/x/udd/main.ts
-          $(find . -name "*.ts") --test="vr ci"
+          **/*.ts
+      - run: vr ci
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: "chore(deps): update deno dependencies"
           title: Update Deno Dependencies
-          body: >
+          body: |
             Automated updates by [deno-udd](https://github.com/hayd/deno-udd)
             and [create-pull-request](https://github.com/peter-evans/create-pull-request)
             GitHub action
