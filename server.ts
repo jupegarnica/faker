@@ -4,7 +4,8 @@ import { CSS, render } from "https://deno.land/x/gfm@0.1.19/mod.ts";
 import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 // import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";
 import logger from "./services/logger.ts";
-import { faker } from "https://deno.land/x/deno_faker@v1.0.3/locale/es.ts";
+import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
+
 const html = String.raw;
 const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
   html`
@@ -87,6 +88,8 @@ if (import.meta.main) {
       } else if (pathname !== "/") {
         // FAKER
         const fakerPath = pathname.replace(".", "/").split("/").filter(Boolean);
+        const language = request.headers.get("accept-language") || "es";
+        faker.setLocale(language);
 
         let [path, ...restPath] = ["", ...fakerPath];
         // deno-lint-ignore no-explicit-any
@@ -102,25 +105,45 @@ if (import.meta.main) {
           }
           node = nextNode;
         }
-        const data = method(...restPath);
+        let data, message;
+        try {
+          data = method(
+            ...restPath
+              .map(decodeURIComponent)
+              .map((arg) => {
+                try {
+                  const result = JSON.parse(arg);
+                  return typeof result === "object" ? result : arg;
+                } catch {
+                  return arg;
+                }
+              }),
+          );
+          status ||= 200;
+          if (!data) {
+            message = `faker.${fakerPath.join(".")}() not valid`;
+            status = 404;
+          }
+        } catch (error) {
+          status = 400;
+          message = error.message;
+        }
         body = JSON.stringify(
           {
-            data: data ?? `faker.${fakerPath.join(".")} not found`,
+            data: data,
             docs: `${baseUrl}/docs/${fakerPath
               ?.[0]}.md#${fakerPath?.[1] || ""}`,
             status,
+            message,
+            language: faker.locale,
           },
           null,
           2,
         );
-        if (!data) {
-          status = 404;
-        } else {
-          headers = {
-            ...headers,
-            "content-type": "application/json; charset=utf-8",
-          };
-        }
+        headers = {
+          ...headers,
+          "content-type": "application/json; charset=utf-8",
+        };
       }
 
       status ||= 200;

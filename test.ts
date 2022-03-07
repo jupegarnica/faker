@@ -1,14 +1,18 @@
-import { assertEquals } from "https://deno.land/std@0.100.0/testing/asserts.ts";
+import {
+  assertEquals,
+  assertArrayIncludes,
+  assertMatch,
+} from "https://deno.land/std@0.100.0/testing/asserts.ts";
 import "./server.ts";
 const BASE_URL = "http://localhost:8000";
 
 Deno.test({
-  name: "default response to status 200 and empty text body",
+  name: "base path should respond with the readme",
   fn: async () => {
     const response = await fetch(BASE_URL + "/");
-    await response.text();
+    const body = await response.text();
     assertEquals(response.status, 200);
-    // assertEquals(body, "");
+    assertEquals(body.length > 4000, true);
     assertEquals(
       response.headers.get("content-type"),
       "text/html; charset=utf-8",
@@ -46,6 +50,15 @@ Deno.test({
 });
 
 Deno.test({
+  name: "shouldn't matter method",
+  fn: async () => {
+    const response = await fetch(BASE_URL + "/?status=201", { method: "PATH" });
+    await response.text();
+    assertEquals(response.status, 201);
+    // assertEquals(body, "");
+  },
+});
+Deno.test({
   name: "should fail if the status is out of range [200, 599]",
   fn: async () => {
     const response = await fetch(BASE_URL + "/?status=601");
@@ -58,7 +71,7 @@ Deno.test({
   },
 });
 Deno.test({
-  name: "should respond with headers specified",
+  name: "should respond with body specified",
   fn: async () => {
     const response = await fetch(BASE_URL + "/?body=hello%20world");
     const body = await response.text();
@@ -71,7 +84,7 @@ Deno.test({
   },
 });
 Deno.test({
-  name: "should respond with body specified",
+  name: "should respond with headers specified",
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/?headers={"x-hello":"world"}`,
@@ -110,7 +123,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "faker find method",
+  name: "[faker] should find method",
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/random/image`,
@@ -122,19 +135,20 @@ Deno.test({
 });
 
 Deno.test({
-  name: "faker not found method",
+  name: "[faker] not found method",
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/not/found/method`,
     );
     const body = await response.json();
     assertEquals(response.status, 404);
-    assertEquals(body.data, "faker.not.found.method not found");
+    assertEquals(body.data, null);
+    assertEquals(body.message, "faker.not.found.method() not valid");
   },
 });
 
 Deno.test({
-  name: "faker pass args to method",
+  name: "[faker] pass args to method",
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/finance/account/3`,
@@ -146,7 +160,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "faker work userCard",
+  name: "[faker] work userCard",
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/helpers/userCard`,
@@ -160,7 +174,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "faker docs must work",
+  name: "[faker] docs must work",
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/docs/helpers.md`,
@@ -168,5 +182,61 @@ Deno.test({
     const body = await response.text();
     assertEquals(response.status, 200);
     assertEquals(body.length > 5000, true);
+  },
+});
+
+Deno.test({
+  name:
+    "[faker] should be able to specify language as a header accept-language",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/name/firstName`,
+      { headers: { "accept-language": "pt_BR" } },
+    );
+    const body = await response.json();
+    assertEquals(body.language, "pt_BR");
+    assertEquals(!!body.data, true);
+  },
+});
+
+Deno.test({
+  name: "[faker] should decode url argumentes",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/phone/phoneNumber/${encodeURIComponent("(###) ###-####")}`,
+    );
+    const body = await response.json();
+    assertMatch(body.data, /\(\d{3}\) \d{3}-\d{4}/);
+  },
+});
+
+Deno.test({
+  name: "[faker] should decode url argumentes as object",
+  fn: async () => {
+    // faker.helpers.mustache('{{foo}} was {{baz}}', {foo: 'bar', baz: 42}); // bar was 42
+
+    const response = await fetch(
+      BASE_URL +
+        `/helpers/mustache/${encodeURIComponent("{{foo}} was {{baz}}")}/${
+          encodeURIComponent('{"foo": "bar", "baz": 42}')
+        }`,
+    );
+    const body = await response.json();
+    assertEquals(body.data, 'bar was 42');
+  },
+});
+
+
+Deno.test({
+  name: "[faker] should decode url argumentes as array",
+  fn: async () => {
+    // faker.helpers.randomize(['bob', 'joe', 'tim']);
+    const array = ['bob', 'joe', 'tim'];
+    const response = await fetch(
+      BASE_URL +
+        `/helpers/randomize/${encodeURIComponent(JSON.stringify(array))}/`,
+    );
+    const body = await response.json();
+    assertArrayIncludes( array, [body.data]);
   },
 });
