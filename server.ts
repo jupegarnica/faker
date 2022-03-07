@@ -32,7 +32,10 @@ const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
     </body>
   </html>
   `;
-async function renderMarkdownToHtml(path: string, baseUrl = '/'): Promise<string> {
+async function renderMarkdownToHtml(
+  path: string,
+  baseUrl = "/",
+): Promise<string> {
   const markdown: string = await Deno.readTextFile(path);
 
   const readmeContent: string = render(markdown, {
@@ -63,10 +66,8 @@ if (import.meta.main) {
       }
       if (pathname === "/" || pathname.startsWith("/docs") && !body) {
         // RENDER DOCS
-        const path =  pathname === "/"
-          ? "./README.md"
-          : "." + pathname
-          console.log({pathname});
+        const path = pathname === "/" ? "./README.md" : "." + pathname;
+        console.log({ pathname });
 
         body = await renderMarkdownToHtml(path, baseUrl);
         headers = { ...headers, "content-type": "text/html; charset=utf-8" };
@@ -98,12 +99,16 @@ if (import.meta.main) {
           node = nextNode;
         }
         const data = method(...restPath);
-        body = JSON.stringify({
-          data: data ?? `faker.${fakerPath.join(".")} not found`,
-          docs: `${baseUrl}/docs/${fakerPath
-            ?.[0]}.md#${fakerPath?.[1] || ""}`,
-          status,
-        }, null, 2);
+        body = JSON.stringify(
+          {
+            data: data ?? `faker.${fakerPath.join(".")} not found`,
+            docs: `${baseUrl}/docs/${fakerPath
+              ?.[0]}.md#${fakerPath?.[1] || ""}`,
+            status,
+          },
+          null,
+          2,
+        );
         if (!data) {
           status = 404;
         } else {

@@ -159,8 +159,6 @@ Deno.test({
   },
 });
 
-
-
 Deno.test({
   name: "faker docs must work",
   fn: async () => {
