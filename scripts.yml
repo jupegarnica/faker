@@ -16,7 +16,7 @@ scripts:
     desc: Runs the tests
     cmd:
       - vr server-ci & sleep 5 && vr test
-    gitHook: pre-push
+    # gitHook: pre-push
 
 
   server:
