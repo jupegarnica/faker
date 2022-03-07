@@ -72,7 +72,7 @@ if (import.meta.main) {
       if (delay) {
         await wait(delay);
       }
-      if (!body && pathname === "/" || pathname.startsWith("/docs") ) {
+      if (!body && pathname === "/" || pathname.startsWith("/docs")) {
         // RENDER DOCS
         const path = pathname === "/" ? "./README.md" : "." + pathname;
         body = await renderMarkdownToHtml(path, baseUrl);
