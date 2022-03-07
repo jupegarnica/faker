@@ -1,6 +1,6 @@
 import {
-  assertEquals,
   assertArrayIncludes,
+  assertEquals,
   assertMatch,
 } from "https://deno.land/std@0.100.0/testing/asserts.ts";
 import "./server.ts";
@@ -222,21 +222,20 @@ Deno.test({
         }`,
     );
     const body = await response.json();
-    assertEquals(body.data, 'bar was 42');
+    assertEquals(body.data, "bar was 42");
   },
 });
-
 
 Deno.test({
   name: "[faker] should decode url argumentes as array",
   fn: async () => {
     // faker.helpers.randomize(['bob', 'joe', 'tim']);
-    const array = ['bob', 'joe', 'tim'];
+    const array = ["bob", "joe", "tim"];
     const response = await fetch(
       BASE_URL +
         `/helpers/randomize/${encodeURIComponent(JSON.stringify(array))}/`,
     );
     const body = await response.json();
-    assertArrayIncludes( array, [body.data]);
+    assertArrayIncludes(array, [body.data]);
   },
 });
