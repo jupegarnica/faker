@@ -158,3 +158,17 @@ Deno.test({
     assertEquals(typeof body.data.website, "string");
   },
 });
+
+
+
+Deno.test({
+  name: "faker docs must work",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/docs/helpers`,
+    );
+    const body = await response.text();
+    assertEquals(response.status, 200);
+    assertEquals(body, "string");
+  },
+});

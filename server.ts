@@ -5,18 +5,9 @@ import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 // import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";
 import console from "./services/logger.ts";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/locale/es.ts";
-
-if (import.meta.main) {
-  const markdown: string = await Deno.readTextFile("README.md");
-
-  const readmeContent: string = render(markdown, {
-    baseUrl: "/",
-    allowIframes: false,
-  });
-
-  const html = String.raw;
-  const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
-    html`
+const html = String.raw;
+const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
+  html`
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -41,11 +32,22 @@ if (import.meta.main) {
     </body>
   </html>
   `;
+async function renderMarkdownToHtml(path: string, baseUrl = '/'): Promise<string> {
+  const markdown: string = await Deno.readTextFile(path);
 
-  console.info("listen http://localhost:8000/");
+  const readmeContent: string = render(markdown, {
+    baseUrl,
+    allowIframes: false,
+  });
+  return createHtml({ CSS, body: readmeContent });
+}
+
+if (import.meta.main) {
+  console.info("Listen at http://localhost:8000/");
+
   await serve(async (request: Request) => {
-    const { pathname, searchParams } = new URL(request.url);
-    // const BASE_URL = `${protocol}//${host}`;
+    const { pathname, searchParams, protocol, host } = new URL(request.url);
+    const baseUrl = `${protocol}//${host}`;
     let body = searchParams.get("body") as BodyInit;
     const requestedHeaders = searchParams.get("headers");
     const _headers = requestedHeaders
@@ -59,9 +61,14 @@ if (import.meta.main) {
       if (delay) {
         await wait(delay);
       }
-      if (pathname === "/" && !body) {
-        // SHOW README
-        body = createHtml({ CSS, body: readmeContent });
+      if (pathname === "/" || pathname.startsWith("/docs") && !body) {
+        // RENDER DOCS
+        const path =  pathname === "/"
+          ? "./README.md"
+          : "." + pathname
+          console.log({pathname});
+
+        body = await renderMarkdownToHtml(path, baseUrl);
         headers = { ...headers, "content-type": "text/html; charset=utf-8" };
       } else if (pathname.toLowerCase() === "/pong") {
         // PONG
@@ -93,10 +100,10 @@ if (import.meta.main) {
         const data = method(...restPath);
         body = JSON.stringify({
           data: data ?? `faker.${fakerPath.join(".")} not found`,
-          docs: `https://fakerjsdocs.netlify.app/api/${fakerPath
-            ?.[0]}.html#${fakerPath?.[1] || ""}`,
+          docs: `${baseUrl}/docs/${fakerPath
+            ?.[0]}.md#${fakerPath?.[1] || ""}`,
           status,
-        });
+        }, null, 2);
         if (!data) {
           status = 404;
         } else {
