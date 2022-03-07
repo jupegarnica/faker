@@ -4,13 +4,12 @@
 
 Generates random first name
 
-
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | gender | number | `null`  |
 
->  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think lol
-
+> If locale dataset supports gender names, passing in `0` will give you male
+> names and any other number will give you female names... I think lol
 
 ```js
 faker.name.firstName(); // Joshuah
@@ -20,13 +19,12 @@ faker.name.firstName(); // Joshuah
 
 Generates random last name
 
-
 | Param  | Type   | Default |
 | ------ | ------ | :-----: |
 | gender | number | `null`  |
 
->  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
-
+> If locale dataset supports gender names, passing in `0` will give you male
+> names and any other number will give you female names... I think
 
 ```js
 faker.name.lastName(); // Ortiz
@@ -36,21 +34,20 @@ faker.name.lastName(); // Ortiz
 
 Generates random full name with optional random suffix/prefix
 
-
 | Param     | Type   |         Default          |
 | --------- | ------ | :----------------------: |
 | firstName | string | `faker.name.firstName()` |
 | lastName  | string | `faker.name.lastName()`  |
 | gender    | number |        `0` or `1`        |
 
->  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
-
+> If locale dataset supports gender names, passing in `0` will give you male
+> names and any other number will give you female names... I think
 
 ```js
 faker.name.findName(); // Jamey Thiel
-faker.name.findName('Bob'); // Bob Grant III
-faker.name.findName('Bob', 'Smith'); // Bob Smith
-faker.name.findName(null, 'Smith'); // Miracle Smith
+faker.name.findName("Bob"); // Bob Grant III
+faker.name.findName("Bob", "Smith"); // Bob Smith
+faker.name.findName(null, "Smith"); // Miracle Smith
 ```
 
 ## jobTitle
@@ -65,13 +62,12 @@ faker.name.jobTitle(); // Senior Data Facilitator
 
 Generates random prefix
 
-
 | Param  | Type   |  Default   |
 | ------ | ------ | :--------: |
 | gender | number | `0` or `1` |
 
->  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
-
+> If locale dataset supports gender names, passing in `0` will give you male
+> names and any other number will give you female names... I think
 
 ```js
 faker.name.prefix(); // Mr.

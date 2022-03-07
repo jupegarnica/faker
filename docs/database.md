@@ -1,11 +1,13 @@
 # database
 
 ## column
+
 Return database column name
 
 ```js
 faker.database.column(); // createdAt
 ```
+
 ## type
 
 Return database column type
@@ -19,7 +21,7 @@ faker.database.type(); // text
 Return database collation
 
 ```js
-faker.database.collation(); // cp1250_general_ci 
+faker.database.collation(); // cp1250_general_ci
 ```
 
 ## engine

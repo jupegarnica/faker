@@ -16,12 +16,9 @@ Return random company name. Using one of the following format options
 - `{{name.lastName}} - {{name.lastName}}`
 - `{{name.lastName}}, {{name.lastName}} and {{name.lastName}}`
 
-
-
 | Param       | Type   | Default |
 | ----------- | ------ | :-----: |
 | formatIndex | number |  `0-2`  |
-
 
 ```js
 faker.company.companyName(); // Zboncak and Sons

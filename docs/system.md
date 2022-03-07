@@ -12,15 +12,13 @@ faker.system.fileName(); // benchmark_connect_synthesize.kpxx
 
 generates a file name with extension or optional type
 
-
 | Param | Type   |            Default             |
 | ----- | ------ | :----------------------------: |
 | ext   | string | `faker.system.commonFileExt()` |
 
-
 ```js
 faker.system.commonFileName(); // small_frozen_pants_circuit.pdf
-faker.system.commonFileName('bob'); // rwanda_franc_back_up.bob
+faker.system.commonFileName("bob"); // rwanda_franc_back_up.bob
 ```
 
 ## mimeType
@@ -59,28 +57,22 @@ faker.system.fileType(); // text
 
 returns a file extension
 
-
 | Param    | Type   |          Default          |
 | -------- | ------ | :-----------------------: |
 | mimeType | string | `faker.system.mimeType()` |
 
-
 ```js
 faker.system.fileExt(); // msi
-faker.system.fileExt('image/jpeg'); // jpg
+faker.system.fileExt("image/jpeg"); // jpg
 ```
 
 ## directoryPath
 
-
 Not yet implemented
-
 
 ## filePath
 
-
 Not yet implemented
-
 
 ## semver
 

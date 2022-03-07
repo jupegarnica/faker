@@ -12,11 +12,9 @@ faker.lorem.word(); // maiores
 
 Generates random lorem words
 
-
 | Param | Type   | Default |
 | ----- | ------ | :-----: |
 | num   | number |   `3`   |
-
 
 ```js
 faker.lorem.words(); // et reiciendis enim
@@ -27,14 +25,12 @@ faker.lorem.words(6); // ipsam aut aut aut quasi reprehenderit
 
 Generates random lorem sentence
 
-
 | Param     | Type   | Default |
 | --------- | ------ | :-----: |
 | wordCount | number | `3-10`  |
 | range     | number |   `7`   |
 
->  Seems range is disabled at this time
-
+> Seems range is disabled at this time
 
 ```js
 faker.lorem.sentence(); // In est sint rerum dolorum illo totam nesciunt sint.
@@ -45,12 +41,9 @@ faker.lorem.sentence(3); // Est neque qui.
 
 Generates random lorem sentence
 
-
 | Param     | Type   | Default |
 | --------- | ------ | :-----: |
 | wordCount | number |   `3`   |
-
-
 
 ```js
 faker.lorem.slug(); // repudiandae-magnam-voluptatem
@@ -61,20 +54,17 @@ faker.lorem.slug(4); // sed-quo-labore-aliquid
 
 Generates random lorem sentences
 
-
 | Param         | Type   | Default |
 | ------------- | ------ | :-----: |
 | sentenceCount | number |  `2-6`  |
 | separator     | string |  `' '`  |
-
-
 
 ```js
 faker.lorem.sentences();
 // Aliquid doloribus quam. Qui quod et aut qui facere commodi voluptatem. Nihil deserunt est quo tenetur quis. Occaecati consectetur dolore qui eligendi et ea nulla praesentium.
 faker.lorem.sentences(1);
 // Autem explicabo omnis voluptatem aut velit.
-faker.lorem.sentences(2, '=');
+faker.lorem.sentences(2, "=");
 // Et voluptates velit tenetur vero laboriosam.=Eligendi quis omnis ipsum nesciunt.
 ```
 
@@ -82,11 +72,9 @@ faker.lorem.sentences(2, '=');
 
 Generates random lorem sentence
 
-
 | Param         | Type   | Default |
 | ------------- | ------ | :-----: |
 | sentenceCount | number |   `3`   |
-
 
 ```js
 faker.lorem.paragraph();
@@ -99,12 +87,10 @@ faker.lorem.paragraph(5);
 
 Generates random lorem sentence
 
-
 | Param          | Type   |  Default  |
 | -------------- | ------ | :-------: |
 | paragraphCount | number |    `3`    |
 | separator      | number | `'\n \r'` |
-
 
 ```js
 faker.lorem.paragraphs();
@@ -127,7 +113,7 @@ Explicabo aliquid dolorem. Ea voluptatibus suscipit quis sed. Fugit facere vero 
 
 Est minima vel ut sint possimus velit autem quia veniam. Eum velit ut et voluptatibus voluptatem consequuntur deserunt ut. Exercitationem iusto unde quae maxime velit autem modi aliquam. Sequi ab voluptas ad quaerat quis et a. Et veniam aperiam commodi veritatis officia sunt atque dolorum.
 */
-faker.lorem.paragraphs(2, '=>');
+faker.lorem.paragraphs(2, "=>");
 /**
  Vitae cumque molestias sit porro alias aut hic nisi eveniet. Quia mollitia possimus exercitationem illo voluptas similique. Accusamus placeat qui corrupti porro ratione quidem.=>Totam illum ad. Sequi provident voluptatem provident est corrupti et. Soluta velit dolor necessitatibus consequuntur saepe quae. Ut nisi qui et distinctio id magnam minima cumque. Veritatis aut esse.
 */
@@ -148,11 +134,9 @@ faker.lorem.text();
 
 Returns lines of lorem separated by `'\n'`
 
-
 | Param     | Type   | Default |
 | --------- | ------ | :-----: |
 | lineCount | number |  `1-5`  |
-
 
 ```js
 faker.lorem.lines();

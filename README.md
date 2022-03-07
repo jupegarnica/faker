@@ -2,25 +2,23 @@
 
 **An API REST to fake any other one.**
 
-
 Goals:
 
 - Be responded with an specific body, status or headers.
 - Get random fake data using [faker.js](https://www.npmjs.com/package/faker)
 - Get delayed response.
 
-
 **Live at: https://faker.deno.dev/**
 
 **Source at: https://github.com/jupegarnica/faker**
 
-
 ## Usage
 
-Make an HTTP request with search params like status, body, header or
-delay to get the response you want.
+Make an HTTP request with search params like status, body, header or delay to
+get the response you want.
 
 Example:
+
 ```http
 GET https://faker.deno.dev/?body=hola&delay=1000&status=400
 
@@ -29,8 +27,8 @@ content-type: text/plain
 content-length: 4
 
 hola
-
 ```
+
 ### body
 
 Specify a search body param to retrieve a response with that body.
@@ -106,10 +104,11 @@ content-type: text/plain
 
 ## Faker API
 
-Any other pathname will be used to call faker.js.
-A path like `/name/firstName` will call `faker.name.firstName()`;
+Any other pathname will be used to call faker.js. A path like `/name/firstName`
+will call `faker.name.firstName()`;
 
 ### Basic
+
 ```http
 GET https://faker.deno.dev/name/firstName
 
@@ -126,9 +125,11 @@ content-type: application/json; charset=utf-8
 
 ### Language
 
-Default language is `es`,  but can be specified with the `accept-language` header.
+Default language is `es`, but can be specified with the `accept-language`
+header.
 
-To know the languages includes checkout the docs at [/docs/localization.md](/docs/localization.md#locales-included)
+To know the languages includes checkout the docs at
+[/docs/localization.md](/docs/localization.md#locales-included)
 
 ```http
 GET https://faker.deno.dev/name/firstName
@@ -147,7 +148,6 @@ content-type: application/json; charset=utf-8
 ```
 
 ### Passing arguments
-
 
 ```http
 GET https://localhost:8000/phone.phoneNumber/%22(###)%20###-####%22

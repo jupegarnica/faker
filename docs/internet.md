@@ -11,12 +11,10 @@ faker.internet.avatar();
 
 ## email([firstName[, lastName[, provider]]])
 
-
-This uses real domains so it is likely to create a "real" email address. Use `exampleEmail()` to be safe.
-
+This uses real domains so it is likely to create a "real" email address. Use
+`exampleEmail()` to be safe.
 
 Generates random email address
-
 
 | Param     | Type   |                Default                |
 | --------- | ------ | :-----------------------------------: |
@@ -24,43 +22,41 @@ Generates random email address
 | lastName  | string |        `faker.name.lastName()`        |
 | provider  | string | `gmail.com` `yahoo.com` `hotmail.com` |
 
-
 ```js
 faker.internet.email(); // Ottis_Cremin16@yahoo.com
-faker.internet.email('bob'); // bob_jon@example.com
-faker.internet.email('bob', 'jon'); // bob_jon73@hotmail.com
-faker.internet.email('bob', 'jon', 'somedomain.com'); // bob_jon@somedomain.com
+faker.internet.email("bob"); // bob_jon@example.com
+faker.internet.email("bob", "jon"); // bob_jon73@hotmail.com
+faker.internet.email("bob", "jon", "somedomain.com"); // bob_jon@somedomain.com
 ```
 
 ## exampleEmail
 
-Generates random email address from [safe domains](https://en.wikipedia.org/wiki/Example.com)
-
+Generates random email address from
+[safe domains](https://en.wikipedia.org/wiki/Example.com)
 
 | Param     | Type   |         Default          |
 | --------- | ------ | :----------------------: |
 | firstName | string | `faker.name.firstName()` |
 | lastName  | string | `faker.name.lastName()`  |
 
-
 ```js
 faker.internet.exampleEmail(); // Rhiannon_Von81@example.com
-faker.internet.exampleEmail('bob'); // bob26@example.net
-faker.internet.exampleEmail('bob', 'jon'); // bob_jon@example.com
+faker.internet.exampleEmail("bob"); // bob26@example.net
+faker.internet.exampleEmail("bob", "jon"); // bob_jon@example.com
 ```
 
 ## userName([firstName[, lastName]])
 
 Generates a username based on one of several patterns.
 
-The pattern is chosen randomly from one of the following: `firstname#` `firstname.lastname` `firstname.lastname#` `firstnamelastname` `firstnamelastname#`
-
+The pattern is chosen randomly from one of the following: `firstname#`
+`firstname.lastname` `firstname.lastname#` `firstnamelastname`
+`firstnamelastname#`
 
 | Param     | Type   |         Default          |
 | --------- | ------ | :----------------------: |
 | firstName | string | `faker.name.firstName()` |
 | lastName  | string | `faker.name.lastName()`  |
-
 
 ```js
 faker.internet.userName(); // Maci12
@@ -135,15 +131,14 @@ faker.internet.userAgent();
 
 ## color([baseRed255[, baseGreen255[, baseBlue255]]])
 
-Generates a random hexadecimal color based on [this awesome response](http://stackoverflow.com/questions/43044/algorithm-to-randomly-generate-an-aesthetically-pleasing-color-palette)
-
+Generates a random hexadecimal color based on
+[this awesome response](http://stackoverflow.com/questions/43044/algorithm-to-randomly-generate-an-aesthetically-pleasing-color-palette)
 
 | Param        | Type   | Default |
 | ------------ | ------ | :-----: |
 | baseRed255   | number |   `0`   |
 | baseGreen255 | number |   `0`   |
 | baseBlue255  | number |   `0`   |
-
 
 ```js
 faker.internet.color(); // #630c7b
@@ -164,7 +159,6 @@ faker.internet.mac(); // 00:87:14:24:31:ba
 
 Generates a random password.
 
-
 | Param     | Type    | Default |
 | --------- | ------- | :-----: |
 | len       | number  |  `15`   |
@@ -174,11 +168,10 @@ Generates a random password.
 
 **Note:** `pattern` param is ignored if memorable is set to `true`
 
-
 ```js
 faker.internet.password(); // 0ViHvR3Qp7AAsir
 faker.internet.password(8); // m9Qw6dzR
 faker.internet.password(8, true); // qecuquha
 faker.internet.password(8, false, /^[A-Z]*$/); // PQGGVATB
-faker.internet.password(8, false, /^[A-Z]*$/, 'bob'); // bobTXMPD
+faker.internet.password(8, false, /^[A-Z]*$/, "bob"); // bobTXMPD
 ```
