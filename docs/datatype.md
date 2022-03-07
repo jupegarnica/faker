@@ -11,7 +11,7 @@ Generates random `number` data type.
 | ------- | ----- | :----------------------------------: |
 | options | mixed | `{min: 0, max: 99999, precision: 1}` |
 
-**NOTE**: passing a number as the param will set the `max` value to that number and use the `min` and `precision` defaults
+>  passing a number as the param will set the `max` value to that number and use the `min` and `precision` defaults
 
 
 ```js
@@ -31,9 +31,9 @@ Generates random `float` data type.
 | ------- | ----- | :----------------------------------: |
 | options | mixed | `{min: 0, max: 99999, precision: 1}` |
 
-**NOTE 1**: passing a number as the param will set the `max` value to that number and use the `min` and `precision` defaults
+>  passing a number as the param will set the `max` value to that number and use the `min` and `precision` defaults
 
-**NOTE 2**: javascript has single data type `number` for all kinds of numbers. Statement `typeof(faker.datatype.number(10)) === typeof(faker.datatype.float(10))` equals `true`
+>  javascript has single data type `number` for all kinds of numbers. Statement `typeof(faker.datatype.number(10)) === typeof(faker.datatype.float(10))` equals `true`
 
 
 
@@ -54,7 +54,7 @@ Generates array of random number or string.
 | ----- | ----- | :---------------: |
 | length | number | 10 |
 
-**NOTE**: this method has no fine-grained control to create array of numbers or strings only, or specify criteria for array elements
+>  this method has no fine-grained control to create array of numbers or strings only, or specify criteria for array elements
 
 
 ```js
@@ -98,7 +98,7 @@ faker.datatype.string(5); // '_9Kss'
 Generates random JSON. It has default length of 7, and no options.
 
 
-**NOTE**: The generated data type is `string`. To treat it like javascript `object`, use `JSON.parse()` function.
+>  The generated data type is `string`. To treat it like javascript `object`, use `JSON.parse()` function.
 
 
 ```js
@@ -114,7 +114,7 @@ Generates random hex (base-16) number.
 | Param | Type  |      Default      |
 | ----- | ----- | :---------------: |
 | length | number | 1 |
-**NOTE**: The generated data type is `string`. To treat it like javascript `number`, use `parseInt()` function.
+>  The generated data type is `string`. To treat it like javascript `number`, use `parseInt()` function.
 
 
 ```js

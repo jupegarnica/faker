@@ -33,7 +33,7 @@ Generates random lorem sentence
 | wordCount | number | `3-10`  |
 | range     | number |   `7`   |
 
-**NOTE**: Seems range is disabled at this time
+>  Seems range is disabled at this time
 
 
 ```js

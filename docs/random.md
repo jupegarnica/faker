@@ -9,9 +9,9 @@ Generates random number
 | ------- | ----- | :----------------------------------: |
 | options | mixed | `{min: 0, max: 99999, precision: 1}` |
 
-**NOTE 1**: passing a number as the param will set the `max` value to that number and use the `min` and `precision` defaults
+>  passing a number as the param will set the `max` value to that number and use the `min` and `precision` defaults
 
-**NOTE 2**: Starting from <Badge text="v5.5.0" type="tip" vertical="middle"/> `faker.datatype.number` is more preferred to use
+>  Starting from <Badge text="v5.5.0" type="tip" vertical="middle"/> `faker.datatype.number` is more preferred to use
 
 
 ```js
@@ -59,7 +59,7 @@ faker.random.objectElement({ name:'bob', color: 'blue', age: 22}, 'key'); // nam
 Returns random UUID
 
 
-**NOTE**: Starting from <Badge text="v5.5.0" type="tip" vertical="middle"/> `faker.datatype.uuid` is more preferred to use
+>  Starting from <Badge text="v5.5.0" type="tip" vertical="middle"/> `faker.datatype.uuid` is more preferred to use
 
 
 ```js
@@ -71,7 +71,7 @@ faker.random.uuid(); // 202e301c-1a22-4ed9-8f86-88e5520a76c6
 Returns random boolean
 
 
-**NOTE**: Starting from <Badge text="v5.5.0" type="tip" vertical="middle"/> `faker.datatype.boolean` is more preferred to use
+>  Starting from <Badge text="v5.5.0" type="tip" vertical="middle"/> `faker.datatype.boolean` is more preferred to use
 
 
 ```js

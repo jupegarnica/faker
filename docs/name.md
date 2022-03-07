@@ -9,7 +9,7 @@ Generates random first name
 | ------ | ------ | :-----: |
 | gender | number | `null`  |
 
-**NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think lol
+>  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think lol
 
 
 ```js
@@ -25,7 +25,7 @@ Generates random last name
 | ------ | ------ | :-----: |
 | gender | number | `null`  |
 
-**NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
+>  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
 
 
 ```js
@@ -43,7 +43,7 @@ Generates random full name with optional random suffix/prefix
 | lastName  | string | `faker.name.lastName()`  |
 | gender    | number |        `0` or `1`        |
 
-**NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
+>  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
 
 
 ```js
@@ -70,7 +70,7 @@ Generates random prefix
 | ------ | ------ | :--------: |
 | gender | number | `0` or `1` |
 
-**NOTE**: If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
+>  If locale dataset supports gender names, passing in `0` will give you male names and any other number will give you female names... I think
 
 
 ```js
