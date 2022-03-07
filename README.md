@@ -150,7 +150,7 @@ content-type: application/json; charset=utf-8
 ### Passing arguments
 
 ```http
-GET https://localhost:8000/phone.phoneNumber/%22(###)%20###-####%22
+GET https://faker.deno.dev/phone/phoneNumber/%22(###)%20###-####%22
 accept-language: en
 
 HTTP/1.1 200 OK
