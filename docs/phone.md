@@ -9,7 +9,7 @@ Generates random phone number
 | ------ | ------ | :--------------------------: |
 | format | string | `faker.phone.phoneFormats()` |
 
-**NOTE**: format is passed to [faker.helpers.replaceSymbolWithNumber()](/api/helpers.html#replacesymbolwithnumber-string-symbol)
+**NOTE**: format is passed to [faker.helpers.replaceSymbolWithNumber()](/docs/helpers.html#replacesymbolwithnumber-string-symbol)
 :::
 
 ```js
@@ -26,12 +26,12 @@ Generates random phone number format
 | ----- | ------ | :-----: |
 | index | number |   `0`   |
 
-**NOTE**: index value is based on the locales definition 
+**NOTE**: index value is based on the locales definition
 :::
 
 ```js
 faker.phone.phoneNumberFormat(); // 127-631-6723
-faker.phone.phoneNumberFormat(5); // (214) 291-8333 
+faker.phone.phoneNumberFormat(5); // (214) 291-8333
 ```
 
 ## phoneFormats
@@ -39,5 +39,5 @@ faker.phone.phoneNumberFormat(5); // (214) 291-8333
 Generates random phone formats
 
 ```js
-faker.phone.phoneFormats(); // ###.###.#### x#### 
+faker.phone.phoneFormats(); // ###.###.#### x####
 ```

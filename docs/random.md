@@ -63,7 +63,7 @@ Returns random UUID
 :::
 
 ```js
-faker.random.uuid(); // 202e301c-1a22-4ed9-8f86-88e5520a76c6 
+faker.random.uuid(); // 202e301c-1a22-4ed9-8f86-88e5520a76c6
 ```
 
 ## boolean
@@ -75,7 +75,7 @@ Returns random boolean
 :::
 
 ```js
-faker.random.boolean(); // true 
+faker.random.boolean(); // true
 ```
 
 ## word
@@ -83,7 +83,7 @@ faker.random.boolean(); // true
 Returns random word from faker methods that can generate words
 
 ```js
-faker.random.word(); // compress 
+faker.random.word(); // compress
 ```
 
 ## words([count])
@@ -103,7 +103,7 @@ faker.random.words(4); // neural wireless Borders invoice
 
 ## image
 
-alias to [faker.image.image()](/api/image.html#image-width-height-randomize)
+alias to [faker.image.image()](/docs/image.html#image-width-height-randomize)
 
 ```js
 faker.random.image() // http://lorempixel.com/640/480/city
@@ -111,7 +111,7 @@ faker.random.image() // http://lorempixel.com/640/480/city
 
 ## locale
 
-Return random locale. See [Localization](/localization.html#localization) for more info
+Return random locale. See [Localization](/docs/localization.html#localization) for more info
 
 ```js
 faker.random.locale() // nl

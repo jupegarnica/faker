@@ -2,7 +2,7 @@
 
 ## zipCode([format])
 
-Generates random zipcode. If format is not specified, the locale's zip format is used. Use formats that are supported with [replaceSymbols](/api/helpers.html#replacesymbols-format)
+Generates random zipcode. If format is not specified, the locale's zip format is used. Use formats that are supported with [replaceSymbols](/docs/helpers.html#replacesymbols-format)
 
 ::: tip
 | Param  | Type   |   Default   |
