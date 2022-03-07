@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.100.0/testing/asserts.ts";
-// import './server.ts';
+import "./server.ts";
 const BASE_URL = "http://localhost:8000";
 
 Deno.test({
@@ -142,5 +142,19 @@ Deno.test({
     const body = await response.json();
     assertEquals(response.status, 200);
     assertEquals(body.data.length, 3);
+  },
+});
+
+Deno.test({
+  name: "faker work userCard",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL + `/helpers/userCard`,
+    );
+    const body = await response.json();
+    assertEquals(response.status, 200);
+    assertEquals(typeof body.data.address, "object");
+    assertEquals(typeof body.data.address.city, "string");
+    assertEquals(typeof body.data.website, "string");
   },
 });
