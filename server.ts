@@ -3,7 +3,7 @@ import { serve } from "https://deno.land/std@0.128.0/http/server.ts";
 import { CSS, render } from "https://deno.land/x/gfm@0.1.19/mod.ts";
 import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 // import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";
-import console from "./services/logger.ts";
+import logger from "./services/logger.ts";
 import { faker } from "https://deno.land/x/deno_faker@v1.0.3/locale/es.ts";
 const html = String.raw;
 const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
@@ -36,17 +36,25 @@ async function renderMarkdownToHtml(
   path: string,
   baseUrl = "/",
 ): Promise<string> {
-  const markdown: string = await Deno.readTextFile(path);
-
-  const readmeContent: string = render(markdown, {
-    baseUrl,
-    allowIframes: false,
-  });
-  return createHtml({ CSS, body: readmeContent });
+  // const timer = `Render path ${path} on`;
+  try {
+    // console.time(timer);
+    const markdown: string = await Deno.readTextFile(path);
+    const readmeContent: string = render(markdown, {
+      baseUrl,
+      allowIframes: false,
+    });
+    const text = createHtml({ CSS, body: readmeContent });
+    return text;
+  } catch (error) {
+    throw error;
+  } finally {
+    // console.timeEnd(timer);
+  }
 }
 
 if (import.meta.main) {
-  console.info("Listen at http://localhost:8000/");
+  logger.info("Listen at http://localhost:8000/");
 
   await serve(async (request: Request) => {
     const { pathname, searchParams, protocol, host } = new URL(request.url);
@@ -64,11 +72,9 @@ if (import.meta.main) {
       if (delay) {
         await wait(delay);
       }
-      if (pathname === "/" || pathname.startsWith("/docs") && !body) {
+      if (!body && pathname === "/" || pathname.startsWith("/docs") ) {
         // RENDER DOCS
         const path = pathname === "/" ? "./README.md" : "." + pathname;
-        console.log({ pathname });
-
         body = await renderMarkdownToHtml(path, baseUrl);
         headers = { ...headers, "content-type": "text/html; charset=utf-8" };
       } else if (pathname.toLowerCase() === "/pong") {
@@ -92,8 +98,6 @@ if (import.meta.main) {
           const nextNode = node[path] ? node[path] : node;
           if (typeof nextNode === "function") {
             method = nextNode.bind(node);
-            console.info(path, typeof method);
-
             break;
           }
           node = nextNode;
@@ -125,7 +129,7 @@ if (import.meta.main) {
         headers,
       });
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return new Response(String(error), {
         status: 500,
         headers,

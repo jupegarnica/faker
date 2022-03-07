@@ -163,10 +163,10 @@ Deno.test({
   name: "faker docs must work",
   fn: async () => {
     const response = await fetch(
-      BASE_URL + `/docs/helpers`,
+      BASE_URL + `/docs/helpers.md`,
     );
     const body = await response.text();
     assertEquals(response.status, 200);
-    assertEquals(body, "string");
+    assertEquals(body.length > 5000, true);
   },
 });
