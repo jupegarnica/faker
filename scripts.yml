@@ -15,10 +15,10 @@ scripts:
   test-ci:
     desc: Runs the tests
     cmd:
-       pll:
-         - vr server-ci
-         - sleep 2 && vr test --no-check
-         - sleep 10 && killall deno
+      - vr cache
+      - pll:
+        - timeout 10 vr server-ci || exit 0
+        - sleep 1 && vr test --no-check
     # gitHook: pre-push
   cache:
     cmd: deno cache server.ts
@@ -38,7 +38,7 @@ scripts:
 
   update:
     desc: Update dependencies ensuring pass tests
-    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.[tj]s* --test="echo 'holaa'"
+    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.[tj]s* --test="vr test-ci"
 
   lint:
     desc: Runs lint

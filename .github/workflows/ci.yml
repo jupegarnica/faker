@@ -13,7 +13,6 @@ jobs:
         run: |
           touch .env
           echo SAMPLE_TOKEN=sample_token >> .env
-      - run: vr cache
       - name: Run CI
         env:
           VR_HOOKS: "false"
