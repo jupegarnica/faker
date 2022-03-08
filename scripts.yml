@@ -37,8 +37,8 @@ scripts:
     - google-chrome https://doc.deno.land/builtin/stable || sh $BROWSER https://doc.deno.land/builtin/stable
 
   update:
-    desc: Update dependencies with ensuring pass tests
-    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.ts --test="vr test-ci"
+    desc: Update dependencies ensuring pass tests
+    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.ts **/*.tsx **/*.js **/*.jsx
 
   lint:
     desc: Runs lint
