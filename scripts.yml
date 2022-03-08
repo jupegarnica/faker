@@ -15,8 +15,13 @@ scripts:
   test-ci:
     desc: Runs the tests
     cmd:
-      - vr server-ci & sleep 5 && vr test
+       pll:
+         - vr server-ci
+         - sleep 2 && vr test --no-check
+         - sleep 10 && killall deno
     # gitHook: pre-push
+  cache:
+    cmd: deno cache server.ts
 
   start:
     desc: Starts deploy server
@@ -26,22 +31,33 @@ scripts:
     cmd: deno run -A --watch --no-check server.ts
   server-ci:
     desc: Starts deploy server
-    cmd: deno run -A server.ts
+    cmd: deno run -A --no-check server.ts
   docs:
     - echo "visit https://doc.deno.land/builtin/stable"
     - google-chrome https://doc.deno.land/builtin/stable || sh $BROWSER https://doc.deno.land/builtin/stable
 
-  deps:
+  update:
     desc: Update dependencies with ensuring pass tests
-    cmd: udd deps.ts --test="vr test"
+    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.ts --test="vr test-ci"
 
   lint:
     desc: Runs lint
-    cmd: deno lint --ignore=cov_profile
+    cmd: deno lint --ignore=coverage
 
   fmt:
     desc: Runs format
-    cmd: deno fmt --ignore=cov_profile
+    cmd: deno fmt --ignore=coverage
+
+
+  pre-commit:
+    desc: Lints and formats staged files
+    cmd: |
+      FILES=$(git diff --staged --name-only --diff-filter=ACMR "*.*ts" "*.*js")
+          [ -z "$FILES" ] && exit 0
+          echo "$FILES" | xargs deno lint
+          echo "$FILES" | xargs deno fmt
+          echo "$FILES" > .stagedFiles
+    gitHook: pre-commit
 
   post-commit:
     desc: Commit formatted files
@@ -55,16 +71,6 @@ scripts:
           echo "$FILES" | xargs git add &&
           git commit -m "format: apply auto format"
     gitHook: post-commit
-  pre-commit:
-    desc: Lints and formats staged files
-    cmd: |
-      FILES=$(git diff --staged --name-only --diff-filter=ACMR "*.*ts" "*.*js")
-          [ -z "$FILES" ] && exit 0
-          echo "$FILES" | xargs deno lint
-          echo "$FILES" | xargs deno fmt
-          echo "$FILES" > .stagedFiles
-    gitHook: pre-commit
-
 
 
 
