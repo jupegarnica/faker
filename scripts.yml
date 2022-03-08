@@ -38,7 +38,7 @@ scripts:
 
   update:
     desc: Update dependencies ensuring pass tests
-    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.ts **/*.tsx **/*.js **/*.jsx
+    cmd: deno run -A https://deno.land/x/udd/main.ts  **/*.[tj]s* --test="echo 'holaa'"
 
   lint:
     desc: Runs lint
