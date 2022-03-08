@@ -19,7 +19,7 @@ scripts:
       - pll:
         - timeout 10 vr server-ci || exit 0
         - sleep 1 && vr test --no-check
-    # gitHook: pre-push
+    gitHook: pre-push
   cache:
     cmd: deno cache server.ts
 
