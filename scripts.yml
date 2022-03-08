@@ -15,20 +15,22 @@ scripts:
   test-ci:
     desc: Runs the tests
     cmd:
-      - vr cache
-      - pll:
-        - timeout 10 vr server-ci || exit 0
+      pll:
+        - timeout 17 vr server-ci || exit 0
         - sleep 1 && vr test --no-check
     gitHook: pre-push
+
   cache:
     cmd: deno cache server.ts
 
   start:
     desc: Starts deploy server
     cmd: deno run -A server.ts
+
   dev:
     desc: Starts dev mode
     cmd: deno run -A --watch --no-check server.ts
+
   server-ci:
     desc: Starts deploy server
     cmd: deno run -A --no-check server.ts
