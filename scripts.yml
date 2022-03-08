@@ -32,9 +32,6 @@ scripts:
   server-ci:
     desc: Starts deploy server
     cmd: deno run -A --no-check server.ts
-  docs:
-    - echo "visit https://doc.deno.land/builtin/stable"
-    - google-chrome https://doc.deno.land/builtin/stable || sh $BROWSER https://doc.deno.land/builtin/stable
 
   update:
     desc: Update dependencies ensuring pass tests
@@ -71,8 +68,6 @@ scripts:
           echo "$FILES" | xargs git add &&
           git commit -m "format: apply auto format"
     gitHook: post-commit
-
-
 
   cov:
     desc: Shows uncovered lists
@@ -132,3 +127,7 @@ scripts:
       git pull
       vr tag &&
       git push origin main --tags
+
+  docs:
+    - echo "visit https://doc.deno.land/builtin/stable"
+    - google-chrome https://doc.deno.land/builtin/stable || sh $BROWSER https://doc.deno.land/builtin/stable
