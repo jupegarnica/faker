@@ -15,7 +15,7 @@ jobs:
       - uses: jurassiscripts/setup-velociraptor@v1
       - run: vr cache
       - run: vr update
-      - run: vr ci
+      # - run: vr ci
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
