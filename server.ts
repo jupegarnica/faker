@@ -4,7 +4,60 @@ import { CSS, render } from "https://deno.land/x/gfm@0.1.19/mod.ts";
 import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 // import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";
 import logger from "./services/logger.ts";
-import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
+// import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
+import { faker } from "https://cdn.skypack.dev/@faker-js/faker@6.0.0-beta.0";
+const validFakerNameSpaces = [
+  "fake",
+  "unique",
+  "mersenne",
+  "random",
+  "helpers",
+  "datatype",
+  "address",
+  "animal",
+  "commerce",
+  "company",
+  "database",
+  "date",
+  "finance",
+  "git",
+  "hacker",
+  "image",
+  "internet",
+  "lorem",
+  "music",
+  "name",
+  "phone",
+  "system",
+  "time",
+  "vehicle",
+  "word",
+];
+const docsBaseUrl = "https://fakerjs.dev";
+function createDocsLink(fakerPath: string[]) {
+  let namespace = fakerPath[0];
+  const method = fakerPath[1];
+  if (!validFakerNameSpaces.includes(namespace)) {
+    namespace = "helpers";
+  }
+  return `${docsBaseUrl}/api/${namespace}.html#${method}`;
+}
+function stringToItsType(
+  value: string,
+): string | number | boolean | null | undefined | Record<string, unknown> {
+  if (value === "true") return true;
+  if (value === "false") return false;
+  if (value === "null") return null;
+  if (value === "undefined") return undefined;
+  if (value === "NaN") return NaN;
+  if (!isNaN(Number(value))) return Number(value);
+  try {
+    const result = JSON.parse(value);
+    return typeof result === "object" ? result : value;
+  } catch {
+    return value;
+  }
+}
 
 const html = String.raw;
 const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
@@ -96,6 +149,7 @@ if (import.meta.main) {
         let node: any = faker;
         // deno-lint-ignore ban-types
         let method: Function = () => null;
+
         for (let index = 0; index < fakerPath.length; index++) {
           [path, ...restPath] = restPath || [];
           const nextNode = node[path] ? node[path] : node;
@@ -110,14 +164,7 @@ if (import.meta.main) {
           data = method(
             ...restPath
               .map(decodeURIComponent)
-              .map((arg) => {
-                try {
-                  const result = JSON.parse(arg);
-                  return typeof result === "object" ? result : arg;
-                } catch {
-                  return arg;
-                }
-              }),
+              .map(stringToItsType),
           );
           status ||= 200;
           if (!data) {
@@ -131,8 +178,7 @@ if (import.meta.main) {
         body = JSON.stringify(
           {
             data: data,
-            docs: `${baseUrl}/docs/${fakerPath
-              ?.[0]}.md#${fakerPath?.[1] || ""}`,
+            docs: createDocsLink(fakerPath),
             status,
             message,
             language: faker.locale,

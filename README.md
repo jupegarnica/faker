@@ -5,7 +5,7 @@
 Goals:
 
 - Be responded with an specific body, status or headers.
-- Get random fake data using [faker.js](https://www.npmjs.com/package/faker)
+- Get random fake data using [faker.js](https://fakerjs.dev/)
 - Get delayed response.
 
 **Live at: https://faker.deno.dev/**
@@ -104,7 +104,7 @@ content-type: text/plain
 
 ## Faker API
 
-Any other pathname will be used to call faker.js. A path like `/name/firstName`
+Any other pathname will be used to call [faker.js](https://fakerjs.dev/). A path like `/name/firstName`
 will call `faker.name.firstName()`;
 
 ### Basic
@@ -117,7 +117,7 @@ content-type: application/json; charset=utf-8
 
 {
   "data": "Octavio",
-  "docs": "https://faker.deno.dev/docs/name.md#firstName",
+  "docs": "https://fakerjs.dev/api/name.md#firstName",
   "status": 200,
   "language": "es"
 }
@@ -140,7 +140,7 @@ content-type: application/json; charset=utf-8
 
 {
   "data": "Chesley",
-  "docs": "https://faker.deno.dev/docs/name.md#firstName",
+  "docs": "https://fakerjs.dev/api/name.md#firstName",
   "status": 200,
   "language": "en"
 
@@ -149,20 +149,29 @@ content-type: application/json; charset=utf-8
 
 ### Passing arguments
 
+Once a path found a method on faker the rest of the path will be used as arguments.
+
+Using path  `phone/phoneNumber/###-###-####` will call `faker.phone.phoneNumber('###-###-####')`
+
 ```http
-GET https://faker.deno.dev/phone/phoneNumber/%22(###)%20###-####%22
-accept-language: en
+GET https://faker.deno.dev/phone/phoneNumber/###-###-####
+
 
 HTTP/1.1 200 OK
 content-type: application/json; charset=utf-8
 
 {
-  "data": "Chesley",
-  "docs": "https://faker.deno.dev/docs/name.md#firstName",
+  "data": "956 687 564",
+  "docs": "https://fakerjs.dev/api/phone.html#phoneNumber",
   "status": 200,
-  "language": "en"
-
+  "language": "es"
 }
 ```
 
+
+
+
+
 ### Faker docs
+
+Every call to any faker namespace will return a url to the faker docs.
