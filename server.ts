@@ -172,6 +172,7 @@ if (import.meta.main) {
             status = 404;
           }
         } catch (error) {
+          logger.error(error);
           status = 400;
           message = error.message;
         }

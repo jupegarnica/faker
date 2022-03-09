@@ -1,6 +1,12 @@
 @host = http://localhost:8000
 ###
 GET https://faker.deno.dev/pong
+Accept-Language: en
+Accept-Encoding: gzip, deflate
+User-Agent: deno/0.24.0
+Host: faker.deno.dev
+Connection: keep-alive
+
 
 ###
 GET /random/image

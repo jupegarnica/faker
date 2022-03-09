@@ -31,7 +31,7 @@ hola
 
 **Try yourself: https://faker.deno.dev?body=hola&status=569**
 
-### body
+### Body
 
 Specify a search body param to retrieve a response with that body.
 

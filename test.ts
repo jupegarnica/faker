@@ -239,3 +239,15 @@ Deno.test({
     assertArrayIncludes(array, [body.data]);
   },
 });
+
+Deno.test({
+  name: "[faker] git/commmitMessage should work ",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL +
+        `/git/commitMessage`,
+    );
+    const body = await response.json();
+    assertEquals(body.data.length > 4, true);
+  },
+});
