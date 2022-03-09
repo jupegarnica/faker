@@ -12,10 +12,6 @@ Goals:
 
 **Source at: https://github.com/jupegarnica/faker**
 
-
-
-
-
 ## Usage
 
 Make an HTTP request with search params like status, body, header or delay to
@@ -34,7 +30,6 @@ hola
 ```
 
 **Try yourself: https://faker.deno.dev?body=hola&status=569**
-
 
 ### body
 
@@ -111,8 +106,8 @@ content-type: text/plain
 
 ## Faker API
 
-Any other pathname will be used to call [faker.js](https://fakerjs.dev/). A path like `/name/firstName`
-will call `faker.name.firstName()`;
+Any other pathname will be used to call [faker.js](https://fakerjs.dev/). A path
+like `/name/firstName` will call `faker.name.firstName()`;
 
 ### Basic
 
@@ -156,9 +151,11 @@ content-type: application/json; charset=utf-8
 
 ### Passing arguments
 
-Once a path found a method on faker the rest of the path will be used as arguments.
+Once a path found a method on faker the rest of the path will be used as
+arguments.
 
-Using path  `phone/phoneNumber/###-###-####` will call `faker.phone.phoneNumber('###-###-####')`
+Using path `phone/phoneNumber/###-###-####` will call
+`faker.phone.phoneNumber('###-###-####')`
 
 ```http
 GET https://faker.deno.dev/phone/phoneNumber/###-###-####
@@ -181,17 +178,13 @@ It can recibe any type of argument, like object, array, string, number.
 
 ```http
 GET https://faker.deno.dev/datatype/number/{"max":3,"min":1}
-
 ```
 
 If needed use `encodeURIComponent` to pass and argument with special characters.
 
-
-
 ### Faker docs
 
 Every call to any faker namespace will return a url to the faker docs.
-
 
 For example:
 

@@ -2,7 +2,7 @@
 import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
 import console from "./services/logger.ts";
 
-const allMethods = new Map();
+// const allMethods = new Map();
 const skipNamespaces = [
   "definitions",
   "locale",
