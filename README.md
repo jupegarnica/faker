@@ -12,6 +12,10 @@ Goals:
 
 **Source at: https://github.com/jupegarnica/faker**
 
+
+
+
+
 ## Usage
 
 Make an HTTP request with search params like status, body, header or delay to
@@ -28,6 +32,9 @@ content-length: 4
 
 hola
 ```
+
+**Try yourself: https://faker.deno.dev?body=hola&status=569**
+
 
 ### body
 
@@ -168,10 +175,24 @@ content-type: application/json; charset=utf-8
 }
 ```
 
+It can recibe any type of argument, like object, array, string, number.
 
+> But keep in mind that objects and arrays must be passed as json string.
+
+```http
+GET https://faker.deno.dev/datatype/number/{"max":3,"min":1}
+
+```
+
+If needed use `encodeURIComponent` to pass and argument with special characters.
 
 
 
 ### Faker docs
 
 Every call to any faker namespace will return a url to the faker docs.
+
+
+For example:
+
+https://fakerjs.dev/api/git.html

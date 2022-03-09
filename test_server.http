@@ -1,25 +1,24 @@
 @host = http://localhost:8000
 ###
 GET https://faker.deno.dev/pong
-# GET https://faker.deno.dev/faker
 
 ###
-
 GET /random/image
 
-
 ###
-
 GET /finance/account/4
 
 ###
-
 /lorem/sentences/2
 
 ###
-
 /helpers/userCard
 
 ###
-
 /ups/hola
+
+###
+/datatype/number/{"max":3,"min":1}
+
+###
+/git/commitEntry?status=569
