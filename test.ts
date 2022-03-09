@@ -1,4 +1,5 @@
 import {
+  assert,
   assertArrayIncludes,
   assertEquals,
   assertMatch,
@@ -241,7 +242,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "[faker] git/commmitMessage should work ",
+  name: "[faker] git/commitMessage should work ",
   fn: async () => {
     const response = await fetch(
       BASE_URL +
@@ -249,5 +250,35 @@ Deno.test({
     );
     const body = await response.json();
     assertEquals(body.data.length > 4, true);
+  },
+});
+
+Deno.test({
+  name: "[faker] should work with and accept-language not valid",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL +
+        `/git/branch`,
+      { headers: { "accept-language": "es_ES;q=0.9,en_US;q=0.8,en;q=0.7" } },
+    );
+    const body = await response.json();
+    assertEquals(body.data.length > 2, true);
+  },
+});
+
+Deno.test({
+  name: "[faker] unique should work",
+  // only: true,
+  fn: async () => {
+    const arr =[1, 2, 3, 4, 5, 6]
+    const path = BASE_URL +
+      `/unique/datatype/number/{"max":${arr.length},"min":1}`;
+    const set = new Set(arr);
+
+    for (let index = 0; index < arr.length; index++) {
+      const { data } = await (await fetch(path)).json();
+      assert(set.has(data));
+      set.delete(data);
+    }
   },
 });

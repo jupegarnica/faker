@@ -121,7 +121,11 @@ if (import.meta.main) {
     let status = Number(searchParams.get("status"));
     const _delay = searchParams.get("delay");
     const delay = _delay ? Number(_delay) : 0;
-    let headers = { "Access-Control-Allow-Origin": "*", ..._headers };
+    const headers = new Headers(_headers);
+    headers.set(
+      "Access-Control-Allow-Origin",
+      "*",
+    );
     try {
       if (delay) {
         await wait(delay);
@@ -130,26 +134,34 @@ if (import.meta.main) {
         // RENDER DOCS
         const path = pathname === "/" ? "./README.md" : "." + pathname;
         body = await renderMarkdownToHtml(path, baseUrl);
-        headers = { ...headers, "content-type": "text/html; charset=utf-8" };
+        headers.set("content-type", "text/html; charset=utf-8");
       } else if (pathname.toLowerCase() === "/pong") {
         // PONG
         body = request.body ?? body;
-        headers = {
-          ...headers,
-          ...Object.fromEntries(request.headers.entries()),
-        } as Headers;
+        request.headers.forEach((value, key) => headers.set(key, value));
       } else if (pathname !== "/") {
         // FAKER
         const fakerPath = pathname.replace(".", "/").split("/").filter(Boolean);
-        const language = request.headers.get("accept-language") || "es";
-        faker.setLocale(language);
+        const language = request.headers.get("accept-language") || "";
+        const locale = language in faker.locales ? language : "es";
+        faker.setLocale(locale);
 
-        let [path, ...restPath] = ["", ...fakerPath];
         // deno-lint-ignore no-explicit-any
         let node: any = faker;
         // deno-lint-ignore ban-types
         let method: Function = () => null;
+        let data;
+        let message;
+        // deno-lint-ignore no-explicit-any
+        let args: any[] = [];
+        const isUnique = fakerPath[0] === "unique";
+        let pathToFindMethod = ["", ...fakerPath];
 
+        if (isUnique) {
+          pathToFindMethod = fakerPath;
+        }
+
+        let [path, ...restPath] = pathToFindMethod;
         for (let index = 0; index < fakerPath.length; index++) {
           [path, ...restPath] = restPath || [];
           const nextNode = node[path] ? node[path] : node;
@@ -159,20 +171,31 @@ if (import.meta.main) {
           }
           node = nextNode;
         }
-        let data, message;
         try {
-          data = method(
-            ...restPath
-              .map(decodeURIComponent)
-              .map(stringToItsType),
-          );
+          args = restPath
+            .filter(Boolean)
+            .map(decodeURIComponent)
+            .map(stringToItsType);
+
+          if (isUnique) {
+            data = faker.unique(method, args, { maxRetries: 10 });
+          } else {
+            data = method(...args);
+          }
+
           status ||= 200;
           if (!data) {
             message = `faker.${fakerPath.join(".")}() not valid`;
             status = 404;
           }
         } catch (error) {
-          logger.error(error);
+          logger.error(error.message);
+          logger.debug(error,{
+            restPath,
+            fakerPath,
+            args,
+            methodName: method.name,
+          });
           status = 400;
           message = error.message;
         }
@@ -187,19 +210,17 @@ if (import.meta.main) {
           null,
           2,
         );
-        headers = {
-          ...headers,
-          "content-type": "application/json; charset=utf-8",
-        };
+        headers.set("content-type", "application/json; charset=utf-8");
       }
 
       status ||= 200;
+      logger[status](request.method, pathname);
       return new Response(body, {
         status,
         headers,
       });
     } catch (error) {
-      logger.error(error);
+      logger.critical(error);
       return new Response(String(error), {
         status: 500,
         headers,
