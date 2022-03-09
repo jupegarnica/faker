@@ -5,11 +5,11 @@ import console from "./services/logger.ts";
 const allMethods = new Map();
 const skipNamespaces = [
   "definitions",
-  'locale',
+  "locale",
   "locales",
   "localeFallback",
 ];
-const namespaces = []
+const namespaces = [];
 for (const namespace in faker) {
   if (skipNamespaces.includes(namespace)) continue;
   namespaces.push(namespace);
