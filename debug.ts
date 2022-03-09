@@ -2,7 +2,7 @@
 import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
 import console from "./services/logger.ts";
 
-const args = [{ min: 1, max: 4 }]
+const args = [{ min: 1, max: 4 }];
 console.log(
   faker.unique(faker.random.number, args),
   faker.unique(faker.random.number, args),

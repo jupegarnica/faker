@@ -270,7 +270,7 @@ Deno.test({
   name: "[faker] unique should work",
   // only: true,
   fn: async () => {
-    const arr =[1, 2, 3, 4, 5, 6]
+    const arr = [1, 2, 3, 4, 5, 6];
     const path = BASE_URL +
       `/unique/datatype/number/{"max":${arr.length},"min":1}`;
     const set = new Set(arr);

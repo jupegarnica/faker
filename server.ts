@@ -190,7 +190,7 @@ if (import.meta.main) {
           }
         } catch (error) {
           logger.error(error.message);
-          logger.debug(error,{
+          logger.debug(error, {
             restPath,
             fakerPath,
             args,
