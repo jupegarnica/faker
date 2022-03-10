@@ -51,7 +51,7 @@
     },
     "options": {
       "useTabs": false,
-      "lineWidth": 40,
+      "lineWidth": 80,
       "indentWidth": 2,
       "singleQuote": false,
       "proseWrap": "always"

@@ -11,12 +11,10 @@ logger.use(
     multiline: false,
   }),
   transportToEmail({
-    hostname:
-      Deno.env.get("SMTP_HOST") || "",
+    hostname: Deno.env.get("SMTP_HOST") || "",
     port: Deno.env.get("SMTP_PORT") ||
       "",
-    username:
-      Deno.env.get("SMTP_USER") || "",
+    username: Deno.env.get("SMTP_USER") || "",
     password: Deno.env.get("SMTP_PASS"),
     to: "juan@garn.dev",
     from: "juan@garn.dev",
