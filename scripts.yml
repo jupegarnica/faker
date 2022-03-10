@@ -15,7 +15,8 @@ scripts:
   test-ci:
     desc: Runs the tests
     env:
-      LOG_LEVEL: critical
+      LOG_LEVEL: DEBUG
+      # NO_COLOR: '1'
     cmd:
       pll:
         - timeout 17 vr server-ci || exit 0
