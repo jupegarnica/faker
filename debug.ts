@@ -1,47 +1,30 @@
-// import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
-import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
-import console from "./services/logger.ts";
+import logger, {
+  formatToAnsiColors,
+} from "https://deno.land/x/garn_logger@0.0.13/mod.ts";
 
-const args = [{ min: 1, max: 4 }];
-console.log(
-  faker.unique(faker.random.number, args),
-  faker.unique(faker.random.number, args),
-  faker.unique(faker.random.number, args),
-  faker.unique(faker.random.number, args),
-  faker.unique(faker.random.number, args),
+import { transportToEmail } from "../garn-logger/src/middleware/transport_to_email.ts";
+
+logger.setFilter(
+  Deno.env.get("LOG_LEVEL") || "DEBUG",
+);
+logger.use(
+  formatToAnsiColors({
+    multiline: false,
+  }),
+  transportToEmail({
+    hostname: Deno.env.get("SMTP_HOST") || "localhost",
+    port: Deno.env.get("SMTP_PORT") || "1025",
+    username: Deno.env.get("SMTP_USER"),
+    password: Deno.env.get("SMTP_PASS"),
+    to: "juan@garn.dev",
+    from: "juan@garn.dev",
+    logLevel: "DEBUG",
+    debounceTime: 3000,
+  }),
 );
 
-// for (const locale in faker.locales) {
-//   console.log(
-//     locale,
-//   );
-// }
 
-// // const allMethods = new Map();
-// const skipNamespaces = [
-//   "definitions",
-//   "locale",
-//   "locales",
-//   "localeFallback",
-// ];
-// const namespaces = [];
-// for (const namespace in faker) {
-//   if (skipNamespaces.includes(namespace)) continue;
-//   namespaces.push(namespace);
-// for (const method in faker[namespace]) {
-//   if (typeof faker[namespace][method] !== "function") continue;
-//   const otherNamespace = allMethods.get(method);
-//   if (
-//     otherNamespace
-//   ) {
-//     console.error(namespace, method, "repeated at", otherNamespace);
-//     console.new(faker[namespace][method]());
-//     console.older(faker[otherNamespace][method]());
-//     // confirm();
-//     console.count("");
-//   }
-//   allMethods.set(method, namespace);
-// }
-// }
+logger.log('hola mundo');
 
-// console.log(JSON.stringify(namespaces, null, 2));
+export { logger };
+export default logger;

@@ -15,13 +15,27 @@ scripts:
   test-ci:
     desc: Runs the tests
     env:
-      LOG_LEVEL: CRITICAL
+      LOG_LEVEL: BUG
+      SMTP_HOST: smtp.mailersend.net
+      SMTP_PORT: '587'
+      SMTP_USER: MS_VnNl1J@garn.dev
+      SMTP_PASS: EZNbhrCC4EuFPtAe
       # NO_COLOR: '1'
     cmd:
       pll:
         - timeout 17 vr server-ci || exit 0
         - sleep 1 && vr test --no-check
     gitHook: pre-push
+
+  debug:
+    desc: debug
+    env:
+      LOG_LEVEL: BUG
+      SMTP_HOST: smtp.mailersend.net
+      SMTP_PORT: '587'
+      SMTP_USER: MS_VnNl1J@garn.dev
+      SMTP_PASS: EZNbhrCC4EuFPtAe
+    cmd: deno run -A --watch debug.ts
 
   cache:
     cmd: deno cache server.ts
