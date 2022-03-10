@@ -23,8 +23,7 @@ logger.use(
   }),
 );
 
-
-logger.log('hola mundo');
+logger.log("hola mundo");
 
 export { logger };
 export default logger;

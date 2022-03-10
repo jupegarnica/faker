@@ -22,7 +22,5 @@ logger.use(
   // }),
 );
 
-
-
 export { logger };
 export default logger;
