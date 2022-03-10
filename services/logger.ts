@@ -15,8 +15,11 @@ logger.use(
       Deno.env.get("SMTP_HOST") || "",
     port: Deno.env.get("SMTP_PORT") ||
       "",
-    user: Deno.env.get("SMTP_USER"),
+    username:
+      Deno.env.get("SMTP_USER") || "",
     password: Deno.env.get("SMTP_PASS"),
+    to: "juan@garn.dev",
+    from: "juan@garn.dev",
   }),
 );
 
