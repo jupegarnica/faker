@@ -1,5 +1,5 @@
-import { delay as wait } from "https://deno.land/std@0.128.0/async/mod.ts";
-import { serve } from "https://deno.land/std@0.128.0/http/server.ts";
+import { delay as wait } from "https://deno.land/std@0.129.0/async/mod.ts";
+import { serve } from "https://deno.land/std@0.129.0/http/server.ts";
 import { CSS, render } from "https://deno.land/x/gfm@0.1.19/mod.ts";
 import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
 // import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";

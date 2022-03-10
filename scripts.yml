@@ -15,7 +15,7 @@ scripts:
   test-ci:
     desc: Runs the tests
     env:
-      LOG_LEVEL: DEBUG
+      LOG_LEVEL: CRITICAL
       # NO_COLOR: '1'
     cmd:
       pll:
