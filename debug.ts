@@ -23,9 +23,9 @@ logger.use(
   }),
 );
 
-logger.log("hola mundo",Deno.env.get("SMTP_HOST"));
+logger.log("hola mundo", Deno.env.get("SMTP_HOST"));
 logger.dim("hola mundo", Deno.env.toObject());
-logger.error("hola mundo", 'error');
+logger.error("hola mundo", "error");
 logger.important("hola important");
 
 export { logger };
