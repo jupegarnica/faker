@@ -18,7 +18,7 @@ logger.use(
     password: Deno.env.get("SMTP_PASS"),
     to: Deno.env.get("SMTP_TO") || "",
     from: Deno.env.get("SMTP_FROM") || "",
-    logLevel: "DEBUG",
+    logLevel: Deno.env.get("LOG_LEVEL"),
     debounceTime: 3000,
   }),
 );
