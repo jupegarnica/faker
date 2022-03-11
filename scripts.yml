@@ -31,11 +31,12 @@ scripts:
     desc: debug
     env:
       LOG_LEVEL: BUG
-      SMTP_HOST: smtp.mailersend.net
-      SMTP_PORT: '587'
-      SMTP_USER: MS_VnNl1J@garn.dev
-      SMTP_PASS: EZNbhrCC4EuFPtAe
-    cmd: deno run -A --watch debug.ts
+      SMTP_HOST: localhost
+      SMTP_PORT: '1025'
+      SMTP_USER: ''
+      SMTP_PASS: ''
+    cmd: vr test-ci
+    # cmd: deno run -A --watch debug.ts
 
   cache:
     cmd: deno cache server.ts
