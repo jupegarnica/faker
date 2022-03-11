@@ -15,11 +15,7 @@ scripts:
   test-ci:
     desc: Runs the tests
     env:
-      LOG_LEVEL: BUG
-      SMTP_HOST: smtp.mailersend.net
-      SMTP_PORT: '587'
-      SMTP_USER: MS_VnNl1J@garn.dev
-      SMTP_PASS: EZNbhrCC4EuFPtAe
+      LOG_LEVEL: CRITICAL
       # NO_COLOR: '1'
     cmd:
       pll:
