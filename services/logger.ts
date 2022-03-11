@@ -1,8 +1,8 @@
 import logger, {
   formatToAnsiColors,
-} from "https://deno.land/x/garn_logger@0.0.13/mod.ts";
+} from "https://deno.land/x/garn_logger@0.0.14/mod.ts";
 
-import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.13/src/middleware/transport_to_email.ts";
+import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.14/src/middleware/transport_to_email.ts";
 logger.setFilter(
   Deno.env.get("LOG_LEVEL") || "DEBUG",
 );
