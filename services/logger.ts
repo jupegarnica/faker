@@ -1,11 +1,14 @@
 import logger, {
   formatToAnsiColors,
-} from "https://deno.land/x/garn_logger@0.0.14/mod.ts";
+} from "https://deno.land/x/garn_logger@0.0.15/mod.ts";
 
-import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.14/src/middleware/transport_to_email.ts";
+import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.15/src/middleware/transport_to_email.ts";
+
 logger.setFilter(
   Deno.env.get("LOG_LEVEL") || "DEBUG",
 );
+
+
 
 logger.use(
   formatToAnsiColors({
@@ -18,7 +21,7 @@ logger.use(
     password: Deno.env.get("SMTP_PASS"),
     to: Deno.env.get("SMTP_TO") || "",
     from: Deno.env.get("SMTP_FROM") || "",
-    logLevel: Deno.env.get("LOG_LEVEL"),
+    logLevel: Deno.env.get("EMAIL_LOG_LEVEL") || 'CRITICAL',
     debounceTime: 3000,
   }),
 );

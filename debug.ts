@@ -1,8 +1,8 @@
 import logger, {
   formatToAnsiColors,
-} from "https://deno.land/x/garn_logger@0.0.14/mod.ts";
+} from "https://deno.land/x/garn_logger@0.0.15/mod.ts";
 
-import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.14/src/middleware/transport_to_email.ts";
+import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.15/src/middleware/transport_to_email.ts";
 
 logger.setFilter(
   Deno.env.get("LOG_LEVEL") || "DEBUG",
@@ -23,10 +23,7 @@ logger.use(
   }),
 );
 
-logger.log("hola mundo", Deno.env.get("SMTP_HOST"));
-logger.dim("hola mundo", Deno.env.toObject());
+logger.log("hola mundo", Deno.env.get("LOG_LEVEL"));
+// logger.dim("hola mundo", Deno.env.toObject());
 logger.error("hola mundo", "error");
 logger.important("hola important");
-
-export { logger };
-export default logger;

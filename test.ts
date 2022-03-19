@@ -66,8 +66,8 @@ Deno.test({
     const body = await response.text();
     assertEquals(response.status, 500);
     assertEquals(
-      body,
-      "RangeError: The status provided (601) is outside the range [200, 599].",
+      body.includes("RangeError: The status provided (601)"),
+      true,
     );
   },
 });

@@ -37,11 +37,6 @@
     "files": {
       "include": [],
       "exclude": []
-    },
-    "rules": {
-      "tags": [],
-      "exclude": [],
-      "include": []
     }
   },
   "fmt": {
