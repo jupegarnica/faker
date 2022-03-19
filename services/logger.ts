@@ -8,8 +8,6 @@ logger.setFilter(
   Deno.env.get("LOG_LEVEL") || "DEBUG",
 );
 
-
-
 logger.use(
   formatToAnsiColors({
     multiline: false,
@@ -21,7 +19,7 @@ logger.use(
     password: Deno.env.get("SMTP_PASS"),
     to: Deno.env.get("SMTP_TO") || "",
     from: Deno.env.get("SMTP_FROM") || "",
-    logLevel: Deno.env.get("EMAIL_LOG_LEVEL") || 'CRITICAL',
+    logLevel: Deno.env.get("EMAIL_LOG_LEVEL") || "CRITICAL",
     debounceTime: 3000,
   }),
 );
