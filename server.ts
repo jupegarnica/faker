@@ -73,6 +73,7 @@ const createHtml = ({ CSS, body }: { CSS: string; body: string }) =>
         main {
           max-width: 800px;
           margin: 0 auto;
+          padding: 1em;
         }
         html, body {
             margin: 0;
