@@ -64,7 +64,7 @@ Deno.test({
   fn: async () => {
     const response = await fetch(BASE_URL + "/?status=601");
     const body = await response.text();
-    assertEquals(response.status, 500);
+    assertEquals(response.status, 400);
     assertEquals(
       body.includes("RangeError: The status provided (601)"),
       true,

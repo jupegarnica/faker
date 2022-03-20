@@ -223,6 +223,12 @@ if (import.meta.main) {
         headers,
       });
     } catch (error) {
+      if (error instanceof RangeError) {
+        return new Response(String(error), {
+          status: 400,
+          headers,
+        });
+      }
       logger.critical(error);
       return new Response(String(error), {
         status: 500,

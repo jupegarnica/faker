@@ -16,6 +16,7 @@ scripts:
     desc: Runs the tests
     env:
       LOG_LEVEL: CRITICAL
+      EMAIL_LOG_LEVEL: CRITICAL
       # NO_COLOR: '1'
     cmd:
       pll:
