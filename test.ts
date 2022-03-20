@@ -7,7 +7,6 @@ import {
 import "./server.ts";
 const BASE_URL = "http://localhost:8000";
 
-
 Deno.test({
   name: "base path should respond with the readme",
   fn: async () => {
