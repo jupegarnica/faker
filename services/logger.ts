@@ -1,8 +1,8 @@
 import logger, {
   formatToAnsiColors,
-} from "https://deno.land/x/garn_logger@0.0.15/mod.ts";
+} from "https://deno.land/x/garn_logger@0.0.16/mod.ts";
 
-import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.15/src/middleware/transport_to_email.ts";
+import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.16/src/middleware/transport_to_email.ts";
 
 logger.setFilter(
   Deno.env.get("LOG_LEVEL") || "DEBUG",
@@ -21,6 +21,7 @@ logger.use(
     from: Deno.env.get("SMTP_FROM") || "",
     logLevel: Deno.env.get("EMAIL_LOG_LEVEL") || "CRITICAL",
     debounceTime: 3000,
+    subject: "FAKER LOGS",
   }),
 );
 
