@@ -182,10 +182,55 @@ GET https://faker.deno.dev/datatype/number/{"max":3,"min":1}
 
 If needed use `encodeURIComponent` to pass and argument with special characters.
 
+
+
 ### Faker docs
 
 Every call to any faker namespace will return a url to the faker docs.
 
 For example:
 
-https://fakerjs.dev/api/git.html
+```http
+GET https://faker.deno.dev/image/nature/200/100
+
+HTTP/1.1 200 OK
+content-encoding: gzip
+
+{
+  "data": "http://placeimg.com/200/100/nature",
+  "docs": "https://fakerjs.dev/api/image.html#nature",
+  "status": 200,
+  "language": "es"
+}
+```
+
+### Faker useful examples
+
+
+```http
+GET https://faker.deno.dev/helpers/createTransaction
+
+HTTP/1.1 200 OK
+
+{
+  "data": {
+    "amount": "266.29",
+    "date": "2012-02-02T00:00:00.000Z",
+    "business": "Vázquez, Guardado and Magaña",
+    "name": "Investment Account (...6212)",
+    "type": "withdrawal",
+    "account": "98293641"
+  },
+  "docs": "https://fakerjs.dev/api/helpers.html#createTransaction",
+  "status": 200,
+  "language": "es"
+}
+```
+```http
+GET https://faker.deno.dev/image/dataUri/20/20
+GET https://faker.deno.dev/lorem/paragraphs
+GET https://faker.deno.dev/internet/email
+GET https://faker.deno.dev/commerce/color
+GET https://faker.deno.dev/datatype/json
+GET https://faker.deno.dev/git/commitMessage
+```
