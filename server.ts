@@ -218,7 +218,11 @@ if (import.meta.main) {
 
       status ||= 200;
       logger.dim(request.headers.get("x-forwarded-for"));
-      logger[status](request.method, pathname, {body:searchParams.get("body"), status: searchParams.get('status'), headers: searchParams.get('headers')});
+      logger[status](request.method, pathname, {
+        body: searchParams.get("body"),
+        status: searchParams.get("status"),
+        headers: searchParams.get("headers"),
+      });
       return new Response(body, {
         status,
         headers,
