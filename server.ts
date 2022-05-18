@@ -111,7 +111,7 @@ async function renderMarkdownToHtml(
 }
 
 if (import.meta.main) {
-  logger.info("Listen at http://localhost:8000/");
+  // logger.info("Listen at http://localhost:8000/");
 
   await serve(async (request: Request) => {
     const { pathname, searchParams, protocol, host } = new URL(request.url);
@@ -217,7 +217,8 @@ if (import.meta.main) {
       }
 
       status ||= 200;
-      logger[status](request.method, pathname);
+      logger.dim(request.headers.get("x-forwarded-for"));
+      logger[status](request.method, pathname, searchParams);
       return new Response(body, {
         status,
         headers,
