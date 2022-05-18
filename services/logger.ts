@@ -1,6 +1,6 @@
 import logger, {
   formatToAnsiColors,
-} from "https://deno.land/x/garn_logger@0.0.16/mod.ts";
+} from "https://deno.land/x/garn_logger@0.0.21/mod.ts";
 
 import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.16/src/middleware/transport_to_email.ts";
 
