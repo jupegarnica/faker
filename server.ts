@@ -218,7 +218,7 @@ if (import.meta.main) {
 
       status ||= 200;
       logger.dim(request.headers.get("x-forwarded-for"));
-      logger[status](request.method, pathname, searchParams);
+      logger[status](request.method, pathname, JSON.stringify(searchParams));
       return new Response(body, {
         status,
         headers,
