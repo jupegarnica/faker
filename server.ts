@@ -96,20 +96,20 @@ async function renderMarkdownToHtml(
   const timer = `Render ${path}`;
   logger.time(timer);
   try {
-    logger.time('Read file');
+    logger.time("Read file");
 
     const markdown: string = await Deno.readTextFile(path);
-    logger.timeEnd('Read file');
+    logger.timeEnd("Read file");
 
-    logger.time('render markdown');
+    logger.time("render markdown");
     const readmeContent: string = render(markdown, {
       baseUrl,
       allowIframes: false,
     });
-    logger.timeEnd('render markdown');
-    logger.time('create html');
+    logger.timeEnd("render markdown");
+    logger.time("create html");
     const text = createHtml({ CSS, body: readmeContent });
-    logger.timeEnd('create html');
+    logger.timeEnd("create html");
     return text;
   } catch (error) {
     throw error;
