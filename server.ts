@@ -93,15 +93,23 @@ async function renderMarkdownToHtml(
   path: string,
   baseUrl = "/",
 ): Promise<string> {
-  const timer = `Render path ${path} on`;
+  const timer = `Render ${path}`;
+  logger.time(timer);
   try {
-    logger.time(timer);
+    logger.time('Read file');
+
     const markdown: string = await Deno.readTextFile(path);
+    logger.timeEnd('Read file');
+
+    logger.time('render markdown');
     const readmeContent: string = render(markdown, {
       baseUrl,
       allowIframes: false,
     });
+    logger.timeEnd('render markdown');
+    logger.time('create html');
     const text = createHtml({ CSS, body: readmeContent });
+    logger.timeEnd('create html');
     return text;
   } catch (error) {
     throw error;
