@@ -93,9 +93,9 @@ async function renderMarkdownToHtml(
   path: string,
   baseUrl = "/",
 ): Promise<string> {
-  // const timer = `Render path ${path} on`;
+  const timer = `Render path ${path} on`;
   try {
-    // console.time(timer);
+    logger.time(timer);
     const markdown: string = await Deno.readTextFile(path);
     const readmeContent: string = render(markdown, {
       baseUrl,
@@ -106,7 +106,7 @@ async function renderMarkdownToHtml(
   } catch (error) {
     throw error;
   } finally {
-    // console.timeEnd(timer);
+    logger.timeEnd(timer);
   }
 }
 
@@ -114,6 +114,9 @@ if (import.meta.main) {
   // logger.info("Listen at http://localhost:8000/");
 
   await serve(async (request: Request) => {
+    const timer = request.url;
+    logger.time(timer);
+
     const { pathname, searchParams, protocol, host } = new URL(request.url);
     const baseUrl = `${protocol}//${host}`;
     let body = searchParams.get("body") as BodyInit;
@@ -239,6 +242,10 @@ if (import.meta.main) {
         status: 500,
         headers,
       });
+    }
+    finally {
+      logger.timeEnd(timer);
+
     }
   });
 }
