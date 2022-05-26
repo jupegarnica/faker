@@ -242,10 +242,8 @@ if (import.meta.main) {
         status: 500,
         headers,
       });
-    }
-    finally {
+    } finally {
       logger.timeEnd(timer);
-
     }
   });
 }
