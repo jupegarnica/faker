@@ -1,38 +1,25 @@
 {
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#526ed5",
-    "activityBar.activeBorder": "#e698a9",
-    "activityBar.background": "#526ed5",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#e698a9",
-    "activityBarBadge.foreground": "#15202b",
-    "sash.hoverBorder": "#526ed5",
-    "statusBar.background": "#3050c4",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#526ed5",
-    "statusBarItem.remoteBackground": "#3050c4",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#3050c4",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#3050c499",
-    "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#3050c4",
-  "peacock.remoteColor": "#3050c4",
-
   "deno.enable": true,
   "deno.lint": true,
-  "deno.unstable": true,
-  "deno.suggest.imports.hosts": {
-    "https://deno.land/": true
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#64d5ce",
+    "activityBar.background": "#64d5ce",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#c84fcf",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#64d5ce",
+    "statusBar.background": "#3ccac1",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#2da69e",
+    "statusBarItem.remoteBackground": "#3ccac1",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#3ccac1",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#3ccac199",
+    "titleBar.inactiveForeground": "#15202b99"
   },
-  "deno.suggest.imports.autoDiscover": true,
-  "deno.codeLens.implementations": true,
-  "deno.codeLens.references": true,
-  "deno.codeLens.referencesAllFunctions": true,
-  "deno.codeLens.testArgs": [
-    "--allow-all"
-  ],
-  "deno.codeLens.test": true
+  "peacock.color": "#3ccac1"
 }
