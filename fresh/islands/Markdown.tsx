@@ -34,7 +34,7 @@ export default function Md(props: Props) {
         <title>{props.path ?? "Not Found"}</title>
         <link rel="stylesheet" href={`/pico.classless.min.css?build=${__FRSH_BUILD_ID}`} />
       </Head>
-      <div style="text-align: center">
+      <div data-theme="dark"  style="text-align: center">
         {md && <div style="margin: 0 auto; text-align: left; max-width: 800px" dangerouslySetInnerHTML={{ __html: marked(md) }} />}
         {error && <h1 style="color:red">{error}</h1>}
       </div>

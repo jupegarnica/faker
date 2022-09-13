@@ -95,10 +95,10 @@ scripts:
       - vr fmt --check
       - vr test-ci
 
-  commitlint:
-    # cmd: echo --- ${GIT_ARGS} ---
-    cmd: deno run --allow-read="./.git" commitlint.ts
-    gitHook: commit-msg
+  # commitlint:
+  #   # cmd: echo --- ${GIT_ARGS} ---
+  #   cmd: deno run --allow-read="./.git" commitlint.ts
+  #   gitHook: commit-msg
   # tag:
   #   cmd: deno run -A --unstable https://deno.land/x/release/release.ts patch
   tag:
