@@ -154,11 +154,11 @@ content-type: application/json; charset=utf-8
 Once a path found a method on faker the rest of the path will be used as
 arguments.
 
-Using path `phone/phoneNumber/###-###-####` will call
-`faker.phone.phoneNumber('###-###-####')`
+Using path `phone/number/###-###-####` will call
+`faker.phone.number('###-###-####')`
 
 ```http
-GET https://faker.deno.dev/phone/phoneNumber/###-###-####
+GET https://faker.deno.dev/phone/number/###-###-####
 
 
 HTTP/1.1 200 OK
@@ -166,7 +166,7 @@ content-type: application/json; charset=utf-8
 
 {
   "data": "956 687 564",
-  "docs": "https://fakerjs.dev/api/phone.html#phoneNumber",
+  "docs": "https://fakerjs.dev/api/phone.html#number",
   "status": 200,
   "language": "es"
 }

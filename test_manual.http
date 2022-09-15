@@ -19,7 +19,7 @@ GET {{host}}/name/firstName
 accept-language: en
 
 ###
-GET {{host}}/phone/phoneNumber/###-###-####
+GET {{host}}/phone/number/###-###-####
 ###
 GET {{host}}/?status=204&body=ping&delay=1000
 ###

@@ -208,7 +208,7 @@ Deno.test({
   name: "[faker] should decode url argumentes",
   fn: async () => {
     const response = await fetch(
-      BASE_URL + `/phone/phoneNumber/${encodeURIComponent("(###) ###-####")}`,
+      BASE_URL + `/phone/number/${encodeURIComponent("(###) ###-####")}`,
     );
     const body = await response.json();
     assertMatch(body.data, /\(\d{3}\) \d{3}-\d{4}/);
