@@ -222,9 +222,8 @@ Deno.test({
 
     const response = await fetch(
       BASE_URL +
-        `/helpers/mustache/${encodeURIComponent("{{foo}} was {{baz}}")}/${
-          encodeURIComponent('{"foo": "bar", "baz": 42}')
-        }`,
+      `/helpers/mustache/${encodeURIComponent("{{foo}} was {{baz}}")}/${encodeURIComponent('{"foo": "bar", "baz": 42}')
+      }`,
     );
     const body = await response.json();
     assertEquals(body.data, "bar was 42");
@@ -238,7 +237,7 @@ Deno.test({
     const array = ["bob", "joe", "tim"];
     const response = await fetch(
       BASE_URL +
-        `/helpers/shuffle/${encodeURIComponent(JSON.stringify(array))}/`,
+      `/helpers/shuffle/${encodeURIComponent(JSON.stringify(array))}/`,
     );
     const body = await response.json();
     assertArrayIncludes(array, body.data);
@@ -250,7 +249,7 @@ Deno.test({
   fn: async () => {
     const response = await fetch(
       BASE_URL +
-        `/git/commitMessage`,
+      `/git/commitMessage`,
     );
     const body = await response.json();
     assertEquals(body.data.length > 4, true);
@@ -262,7 +261,7 @@ Deno.test({
   fn: async () => {
     const response = await fetch(
       BASE_URL +
-        `/git/branch`,
+      `/git/branch`,
       { headers: { "accept-language": "es_ES;q=0.9,en_US;q=0.8,en;q=0.7" } },
     );
     const body = await response.json();
@@ -285,5 +284,19 @@ Deno.test({
       assert(set.has(data));
       set.delete(data);
     }
+  },
+});
+
+
+Deno.test({
+  only: true,
+  name: "[faker] HELPERS FAKE should work",
+  fn: async () => {
+    const response = await fetch(
+      BASE_URL +
+      `/helpers/fake/${encodeURIComponent('Good Morning {{name.firstName}}!')}`,
+    );
+    const body = await response.json();
+    assertStringIncludes(body.data, 'Good Morning ');
   },
 });

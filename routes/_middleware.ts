@@ -12,7 +12,7 @@ import { MiddlewareHandlerContext } from "$fresh/server.ts";
 interface State {
   data: string;
 }
-function logRequest(status, pathname, searchParams, request) {
+function logRequest(status: number, pathname: string, searchParams: URLSearchParams, request: Request) {
   // logger.dim(request.headers.get("x-forwarded-for"));
   logger[status](request.method, pathname, {
     body: searchParams.get("body"),
@@ -21,33 +21,13 @@ function logRequest(status, pathname, searchParams, request) {
   });
 }
 
-const validFakerNameSpaces = [
-  "fake",
-  "unique",
-  "mersenne",
-  "random",
-  "helpers",
-  "datatype",
-  "address",
-  "animal",
-  "commerce",
-  "company",
-  "database",
-  "date",
-  "finance",
-  "git",
-  "hacker",
-  "image",
-  "internet",
-  "lorem",
-  "music",
-  "name",
-  "phone",
-  "system",
-  "time",
-  "vehicle",
-  "word",
-];
+const validFakerNameSpaces: string[] = [];
+const doNotInclude = ["_localeFallback", "_locale", "definitions", "locales"];
+for (const key in faker) {
+  if (doNotInclude.includes(key)) continue;
+  validFakerNameSpaces.push(key);
+}
+
 const docsBaseUrl = "https://fakerjs.dev";
 function createDocsLink(fakerPath: string[]) {
   let namespace = fakerPath[0];

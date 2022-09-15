@@ -206,26 +206,11 @@ content-encoding: gzip
 
 ### Faker useful examples
 
+Have a look to the full faker API here:
 
-```http
-GET https://faker.deno.dev/helpers/createTransaction
+- https://fakerjs.dev/api/
 
-HTTP/1.1 200 OK
 
-{
-  "data": {
-    "amount": "266.29",
-    "date": "2012-02-02T00:00:00.000Z",
-    "business": "Vázquez, Guardado and Magaña",
-    "name": "Investment Account (...6212)",
-    "type": "withdrawal",
-    "account": "98293641"
-  },
-  "docs": "https://fakerjs.dev/api/helpers.html#createTransaction",
-  "status": 200,
-  "language": "es"
-}
-```
 ```http
 GET https://faker.deno.dev/image/dataUri/20/20
 GET https://faker.deno.dev/lorem/paragraphs
