@@ -289,7 +289,7 @@ Deno.test({
 });
 
 Deno.test({
-  only: true,
+  // only: true,
   name: "[faker] HELPERS FAKE should work",
   fn: async () => {
     const response = await fetch(

@@ -26,7 +26,7 @@ GET {{host}}/?status=204&body=ping&delay=1000
 GET {{host}}/helpers/createTransaction
 
 ###
-GET {{host}}/helpers/fake/Good Morning "{{name.firstName}}"!
+# GET {{host}}/helpers/fake/Good Morning "{{name.firstName}}"!
 
 ###
 GET {{host}}/finance/account/4

@@ -2,7 +2,7 @@ import { delay as wait } from "https://deno.land/std@0.155.0/async/mod.ts";
 
 import logger from "../services/logger.ts";
 
-import { faker } from "https://cdn.skypack.dev/@faker-js/faker@v7.4.0?dts";
+import { faker } from "https://cdn.skypack.dev/@faker-js/faker@v7.5.0";
 // import { faker } from "https://unpkg.com/@faker-js/faker@7.5.0/dist/esm/index.js";
 // import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
 // import { faker } from "https://cdn.skypack.dev/@faker-js/faker@7.5.0";
