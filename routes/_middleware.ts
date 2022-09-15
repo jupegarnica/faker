@@ -1,6 +1,6 @@
 import { delay as wait } from "https://deno.land/std@0.130.0/async/mod.ts";
 
-// import logger from "./services/logger.ts";
+import logger from "../services/logger.ts";
 import { faker } from "https://unpkg.com/@faker-js/faker@6.0.0/dist/esm/index.js";
 // import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
 // import { faker } from "https://cdn.skypack.dev/@faker-js/faker@6.0.0";
@@ -63,8 +63,6 @@ function stringToItsType(
     return value;
   }
 }
-const logger = console;
-
 export async function handler(
   request: Request,
   ctx: MiddlewareHandlerContext<State>,
@@ -84,7 +82,7 @@ export async function handler(
   );
 
   // logger.log({ pathname, searchParams, protocol, host, baseUrl });
-  logger.warn({ body, status, delay, pathname });
+  logger.dim({ body, status, delay, pathname });
 
   if (delay) {
     await wait(delay);
@@ -185,8 +183,6 @@ export async function handler(
     });
   }
   if (status || body || _headers) {
-    console.log({ status, body, headers });
-
     try {
       status ||= 200;
       return new Response(body, {
