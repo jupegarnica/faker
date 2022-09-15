@@ -10,6 +10,14 @@ import { MiddlewareHandlerContext } from "$fresh/server.ts";
 interface State {
   data: string;
 }
+function logRequest(status, pathname, searchParams, request) {
+  logger.dim(request.headers.get("x-forwarded-for"));
+  logger[status](request.method, pathname, {
+    body: searchParams.get("body"),
+    status: searchParams.get("status"),
+    headers: searchParams.get("headers"),
+  });
+}
 
 const validFakerNameSpaces = [
   "fake",
@@ -81,19 +89,17 @@ export async function handler(
     "*",
   );
 
-  // logger.log({ pathname, searchParams, protocol, host, baseUrl });
-  logger.dim({ body, status, delay, pathname });
 
   if (delay) {
     await wait(delay);
   }
   if (pathname.toLowerCase() === "/pong") {
-    console.log("PONG");
 
     // PONG
     body = request.body ?? body;
     request.headers.forEach((value, key) => headers.set(key, value));
     status ||= 200;
+    logRequest(status, pathname, searchParams, request)
     return new Response(body, {
       status,
       headers,
@@ -105,7 +111,6 @@ export async function handler(
     !pathname.startsWith("/_frsh") &&
     !pathname.startsWith("/static")
   ) {
-    logger.log("FAKER", { pathname });
     // FAKER
     const fakerPath = pathname.replace(".", "/").split("/").filter(Boolean);
     const language = request.headers.get("accept-language") || "";
@@ -177,6 +182,7 @@ export async function handler(
       2,
     );
     headers.set("content-type", "application/json; charset=utf-8");
+    logRequest(status, pathname, searchParams, request)
     return new Response(body, {
       status,
       headers,
@@ -185,6 +191,7 @@ export async function handler(
   if (status || body || _headers) {
     try {
       status ||= 200;
+
       return new Response(body, {
         status,
         headers,
@@ -196,6 +203,8 @@ export async function handler(
         status,
         headers,
       });
+    } finally {
+      logRequest(status, pathname, searchParams, request)
     }
   }
   const resp = await ctx.next();

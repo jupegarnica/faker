@@ -20,8 +20,8 @@ scripts:
       # NO_COLOR: '1'
     cmd:
       pll:
-        - timeout 17 vr server-ci || exit 0
-        - sleep 1 && vr test --no-check
+        - timeout 17 deno task start || exit 0
+        - sleep 1 && deno task test
     gitHook: pre-push
 
   debug:
@@ -67,18 +67,18 @@ scripts:
           echo "$FILES" > .stagedFiles
     gitHook: pre-commit
 
-  # post-commit:
-  #   desc: Commit formatted files
-  #   env:
-  #     VR_HOOKS: "false"
-  #   cmd: |
-  #         touch .stagedFiles
-  #         FILES=$(cat .stagedFiles)
-  #         rm .stagedFiles
-  #         [ -z "$FILES" ] && exit 0
-  #         echo "$FILES" | xargs git add &&
-  #         git commit -m "format: apply auto format"
-  #   gitHook: post-commit
+  post-commit:
+    desc: Commit formatted files
+    env:
+      VR_HOOKS: "false"
+    cmd: |
+          touch .stagedFiles
+          FILES=$(cat .stagedFiles)
+          rm .stagedFiles
+          [ -z "$FILES" ] && exit 0
+          echo "$FILES" | xargs git add &&
+          git commit -m "format: apply auto format"
+    gitHook: post-commit
 
   cov:
     desc: Shows uncovered lists
