@@ -129,7 +129,7 @@ export async function handler(
     let pathToFindMethod = ["", ...fakerPath];
 
     if (isUnique) {
-      [,...pathToFindMethod] = fakerPath;
+      [, ...pathToFindMethod] = fakerPath;
     }
 
     let [path, ...restPath] = pathToFindMethod;
