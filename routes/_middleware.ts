@@ -12,7 +12,12 @@ import { MiddlewareHandlerContext } from "$fresh/server.ts";
 interface State {
   data: string;
 }
-function logRequest(status: number, pathname: string, searchParams: URLSearchParams, request: Request) {
+function logRequest(
+  status: number,
+  pathname: string,
+  searchParams: URLSearchParams,
+  request: Request,
+) {
   // logger.dim(request.headers.get("x-forwarded-for"));
   logger[status](request.method, pathname, {
     body: searchParams.get("body"),
