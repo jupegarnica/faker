@@ -11,7 +11,7 @@ interface State {
   data: string;
 }
 function logRequest(status, pathname, searchParams, request) {
-  logger.dim(request.headers.get("x-forwarded-for"));
+  // logger.dim(request.headers.get("x-forwarded-for"));
   logger[status](request.method, pathname, {
     body: searchParams.get("body"),
     status: searchParams.get("status"),
