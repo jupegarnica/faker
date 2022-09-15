@@ -134,7 +134,10 @@ export async function handler(
         .map(stringToItsType);
 
       if (isUnique) {
-        data = faker.helpers.unique(method, args, { maxRetries: 50, maxTime: 100 });
+        data = faker.helpers.unique(method, args, {
+          maxRetries: 50,
+          maxTime: 100,
+        });
       } else {
         data = method(...args);
       }
