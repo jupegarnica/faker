@@ -29,16 +29,13 @@ scripts:
     # cmd: vr test-ci
     cmd: deno run -A --watch debug.ts
 
-  cache:
-    cmd: deno cache server.ts
-
   start:
     desc: Starts deploy server
-    cmd: deno run -A server.ts
+    cmd: deno task start
 
   dev:
     desc: Starts dev mode
-    cmd: deno run -A --watch --no-check server.ts
+    cmd: deno task start
 
   server-ci:
     desc: Starts deploy server

@@ -1,12 +1,12 @@
-import { delay as wait } from "https://deno.land/std@0.130.0/async/mod.ts";
-import { serve } from "https://deno.land/std@0.130.0/http/server.ts";
-import { CSS, render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
-import "https://esm.sh/prismjs@1.27.0/components/prism-http?no-check";
-// import "https://esm.sh/prismjs@1.27.0/components/prism-rest?no-check";
+import { delay as wait } from "https://deno.land/std@0.155.0/async/mod.ts";
+import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
+import { CSS, render } from "https://deno.land/x/gfm@0.1.25/mod.ts";
+import "https://esm.sh/prismjs@1.29.0/components/prism-http?no-check";
+// import "https://esm.sh/prismjs@1.29.0/components/prism-rest?no-check";
 // import logger from "./services/logger.ts";
-import { faker } from "https://unpkg.com/@faker-js/faker@6.0.0/dist/esm/index.js";
+import { faker } from "https://unpkg.com/@faker-js/faker@7.5.0/dist/esm/index.js";
 // import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
-// import { faker } from "https://cdn.skypack.dev/@faker-js/faker@6.0.0";
+// import { faker } from "https://cdn.skypack.dev/@faker-js/faker@7.5.0";
 
 const logger = {
   log() {},

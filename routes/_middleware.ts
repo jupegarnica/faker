@@ -1,9 +1,11 @@
-import { delay as wait } from "https://deno.land/std@0.130.0/async/mod.ts";
+import { delay as wait } from "https://deno.land/std@0.155.0/async/mod.ts";
 
 import logger from "../services/logger.ts";
-import { faker } from "https://unpkg.com/@faker-js/faker@6.0.0/dist/esm/index.js";
+
+import { faker } from "https://cdn.skypack.dev/@faker-js/faker@v7.4.0?dts";
+// import { faker } from "https://unpkg.com/@faker-js/faker@7.5.0/dist/esm/index.js";
 // import { faker } from "https://deno.land/x/deno_faker@v1.0.3/mod.ts";
-// import { faker } from "https://cdn.skypack.dev/@faker-js/faker@6.0.0";
+// import { faker } from "https://cdn.skypack.dev/@faker-js/faker@7.5.0";
 
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 
@@ -123,11 +125,11 @@ export async function handler(
     let message;
     // deno-lint-ignore no-explicit-any
     let args: any[] = [];
-    const isUnique = fakerPath[0] === "unique";
+    const isUnique = fakerPath[0] === "helpers" && fakerPath[1] === "unique";
     let pathToFindMethod = ["", ...fakerPath];
 
     if (isUnique) {
-      pathToFindMethod = fakerPath;
+      [,...pathToFindMethod] = fakerPath;
     }
 
     let [path, ...restPath] = pathToFindMethod;
@@ -147,7 +149,7 @@ export async function handler(
         .map(stringToItsType);
 
       if (isUnique) {
-        data = faker.unique(method, args, { maxRetries: 10 });
+        data = faker.unique(method, args, { maxRetries: 50, maxTime: 100 });
       } else {
         data = method(...args);
       }

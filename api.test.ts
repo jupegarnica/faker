@@ -4,7 +4,7 @@ import {
   assertEquals,
   assertMatch,
   assertStringIncludes,
-} from "https://deno.land/std@0.130.0/testing/asserts.ts";
+} from "https://deno.land/std@0.155.0/testing/asserts.ts";
 // import "./server.ts";
 const BASE_URL = "http://localhost:8000";
 
@@ -131,7 +131,7 @@ Deno.test({
   name: "[faker] should find method",
   fn: async () => {
     const response = await fetch(
-      BASE_URL + `/random/image`,
+      BASE_URL + `/image/city`,
     );
     const body = await response.json();
     assertEquals(response.status, 200);
@@ -164,19 +164,19 @@ Deno.test({
   },
 });
 
-Deno.test({
-  name: "[faker] work userCard",
-  fn: async () => {
-    const response = await fetch(
-      BASE_URL + `/helpers/userCard`,
-    );
-    const body = await response.json();
-    assertEquals(response.status, 200);
-    assertEquals(typeof body.data.address, "object");
-    assertEquals(typeof body.data.address.city, "string");
-    assertEquals(typeof body.data.website, "string");
-  },
-});
+// Deno.test({
+//   name: "[faker] work userCard",
+//   fn: async () => {
+//     const response = await fetch(
+//       BASE_URL + `/helpers/userCard`,
+//     );
+//     const body = await response.json();
+//     assertEquals(response.status, 200);
+//     assertEquals(typeof body.data.address, "object");
+//     assertEquals(typeof body.data.address.city, "string");
+//     assertEquals(typeof body.data.website, "string");
+//   },
+// });
 
 Deno.test({
   name: "[faker] docs must work",
@@ -184,7 +184,7 @@ Deno.test({
     const response = await fetch(
       BASE_URL + `/docs/helpers`,
     );
-    const body = await response.text();
+    await response.text();
     assertEquals(response.status, 200);
     // assertEquals(body.length > 5000, true);
   },
@@ -232,16 +232,16 @@ Deno.test({
 });
 
 Deno.test({
+  // only:true,
   name: "[faker] should decode url argumentes as array",
   fn: async () => {
-    // faker.helpers.randomize(['bob', 'joe', 'tim']);
     const array = ["bob", "joe", "tim"];
     const response = await fetch(
       BASE_URL +
-        `/helpers/randomize/${encodeURIComponent(JSON.stringify(array))}/`,
+        `/helpers/shuffle/${encodeURIComponent(JSON.stringify(array))}/`,
     );
     const body = await response.json();
-    assertArrayIncludes(array, [body.data]);
+    assertArrayIncludes(array, body.data);
   },
 });
 
@@ -273,11 +273,11 @@ Deno.test({
 Deno.test({
   name: "[faker] unique should work",
   // only: true,
-  ignore: true,
+  // ignore: true,
   fn: async () => {
     const arr = [1, 2, 3, 4, 5, 6];
     const path = BASE_URL +
-      `/unique/datatype/number/{"max":${arr.length},"min":1}`;
+      `/helpers/unique/datatype/number/{"max":${arr.length},"min":1}`;
     const set = new Set(arr);
 
     for (let index = 0; index < arr.length; index++) {

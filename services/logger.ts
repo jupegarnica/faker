@@ -5,7 +5,7 @@ import logger, {
 import { transportToEmail } from "https://deno.land/x/garn_logger@0.0.21/src/middleware/transport_to_email.ts";
 
 if (!Deno.env.get("SMTP_HOST")) {
-  await import("https://deno.land/x/dotenv/load.ts");
+  await import("https://deno.land/x/dotenv@v3.2.0/load.ts");
 }
 
 logger.setFilter(

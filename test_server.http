@@ -11,22 +11,12 @@ body
 GET {{host}}/?status=204&body=ping&delay=1000
 
 ###
-GET {{host}}/random/image
+GET {{host}}/image/city
 
 ###
 GET {{host}}/finance/account/4
+###
+{{host}}/helpers/unique/datatype/number/{"max":4,"min":1}
 
 ###
-/lorem/sentences/2
-
-###
-/helpers/userCard
-
-###
-/ups/hola
-
-###
-/datatype/number/{"max":2,"min":1}
-
-###
-/git/commitEntry?status=569
+{{host}}/git/commitEntry?status=569
