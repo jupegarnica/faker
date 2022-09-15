@@ -89,17 +89,15 @@ export async function handler(
     "*",
   );
 
-
   if (delay) {
     await wait(delay);
   }
   if (pathname.toLowerCase() === "/pong") {
-
     // PONG
     body = request.body ?? body;
     request.headers.forEach((value, key) => headers.set(key, value));
     status ||= 200;
-    logRequest(status, pathname, searchParams, request)
+    logRequest(status, pathname, searchParams, request);
     return new Response(body, {
       status,
       headers,
@@ -182,7 +180,7 @@ export async function handler(
       2,
     );
     headers.set("content-type", "application/json; charset=utf-8");
-    logRequest(status, pathname, searchParams, request)
+    logRequest(status, pathname, searchParams, request);
     return new Response(body, {
       status,
       headers,
@@ -204,7 +202,7 @@ export async function handler(
         headers,
       });
     } finally {
-      logRequest(status, pathname, searchParams, request)
+      logRequest(status, pathname, searchParams, request);
     }
   }
   const resp = await ctx.next();
