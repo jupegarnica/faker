@@ -6,12 +6,6 @@ export default function App(props: AppProps) {
     <>
       <Head>
         <meta name="description" content="faker js api rest" />
-        <style>
-            {`
-            html, body {
-                background-color: #222;
-            }`}
-        </style>
       </Head>
       <props.Component />
     </>

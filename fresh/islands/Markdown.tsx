@@ -1,6 +1,7 @@
 import { Head } from "$fresh/runtime.ts";
 import { marked } from "marked";
 import { useEffect, useState } from "preact/hooks";
+import { asset } from "$fresh/runtime.ts";
 marked.use({
   gfm: true,
   // pedantic: false,
@@ -18,7 +19,7 @@ export default function Md(props: Props) {
   const [error, setError] = useState("");
   const [md, setMd] = useState("");
   useEffect(() => {
-    fetch(`/md/${props.path}.md`)
+    fetch(asset(`/static/md/${props.path}.md`))
       .then((r) =>
         r.status >= 200 && r.status < 300 ? r.text() : Promise.reject(r)
       )
@@ -32,12 +33,29 @@ export default function Md(props: Props) {
     <>
       <Head>
         <title>{props.path ?? "Not Found"}</title>
-        <link rel="stylesheet" href={`/pico.classless.min.css?build=${__FRSH_BUILD_ID}`} />
+        <link
+          rel="stylesheet"
+          href={`/static/pico.classless.min.css?build=${__FRSH_BUILD_ID}`}
+        />
+        <style>
+          {`
+        html, body {
+          background-color: #141e26;
+          }
+          .markdown {
+            padding: 1rem;
+          }`}
+        </style>
       </Head>
-      <div data-theme="dark"  style="text-align: center">
-        {md && <div style="margin: 0 auto; text-align: left; max-width: 800px" dangerouslySetInnerHTML={{ __html: marked(md) }} />}
+      <article class="markdown" data-theme="dark" style="text-align: center">
+        {md && (
+          <div
+            style="margin: 0 auto; text-align: left; max-width: 800px"
+            dangerouslySetInnerHTML={{ __html: marked(md) }}
+          />
+        )}
         {error && <h1 style="color:red">{error}</h1>}
-      </div>
+      </article>
     </>
   );
 }

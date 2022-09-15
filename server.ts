@@ -13,8 +13,8 @@ const logger = {
   time() {},
   timeEnd() {},
   error() {},
-  debug(){},
-}
+  debug() {},
+};
 
 const validFakerNameSpaces = [
   "fake",

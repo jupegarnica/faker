@@ -1,18 +1,20 @@
-@host = http://localhost:8000
+@host=http://localhost:8000
 ###
-GET https://faker.deno.dev/pong
-Accept-Language: en
-Accept-Encoding: gzip, deflate
-User-Agent: deno/0.24.0
-Host: faker.deno.dev
-Connection: keep-alive
+GET {{host}}/pong
+Accept-Language: es
+x-hello: hola
+
+body
 
 
 ###
-GET /random/image
+GET {{host}}/?status=204&body=ping&delay=1000
 
 ###
-GET /finance/account/4
+GET {{host}}/random/image
+
+###
+GET {{host}}/finance/account/4
 
 ###
 /lorem/sentences/2

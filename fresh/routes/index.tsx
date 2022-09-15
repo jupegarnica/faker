@@ -1,7 +1,8 @@
  import Markdown from "../islands/Markdown.tsx";
-export default function Home() {
+
+ export default function Home() {
   return (
-    <div >
+    <div>
       <Markdown path="README" />
     </div>
   );

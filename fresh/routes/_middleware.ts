@@ -11,6 +11,58 @@ interface State {
     data: string;
 }
 
+const validFakerNameSpaces = [
+    "fake",
+    "unique",
+    "mersenne",
+    "random",
+    "helpers",
+    "datatype",
+    "address",
+    "animal",
+    "commerce",
+    "company",
+    "database",
+    "date",
+    "finance",
+    "git",
+    "hacker",
+    "image",
+    "internet",
+    "lorem",
+    "music",
+    "name",
+    "phone",
+    "system",
+    "time",
+    "vehicle",
+    "word",
+];
+const docsBaseUrl = "https://fakerjs.dev";
+function createDocsLink(fakerPath: string[]) {
+    let namespace = fakerPath[0];
+    const method = fakerPath[1];
+    if (!validFakerNameSpaces.includes(namespace)) {
+        namespace = "helpers";
+    }
+    return `${docsBaseUrl}/api/${namespace}.html#${method}`;
+}
+function stringToItsType(
+    value: string,
+): string | number | boolean | null | undefined | Record<string, unknown> {
+    if (value === "true") return true;
+    if (value === "false") return false;
+    if (value === "null") return null;
+    if (value === "undefined") return undefined;
+    if (value === "NaN") return NaN;
+    if (!isNaN(Number(value))) return Number(value);
+    try {
+        const result = JSON.parse(value);
+        return typeof result === "object" ? result : value;
+    } catch {
+        return value;
+    }
+}
 const logger = console;
 
 export async function handler(
@@ -18,7 +70,7 @@ export async function handler(
     ctx: MiddlewareHandlerContext<State>,
 ) {
     const { pathname, searchParams, protocol, host } = new URL(request.url);
-    const baseUrl = `${protocol}//${host}`;
+    // const baseUrl = `${protocol}//${host}`;
     let body = searchParams.get("body") as BodyInit;
     const requestedHeaders = searchParams.get("headers");
     const _headers = requestedHeaders
@@ -40,15 +92,23 @@ export async function handler(
         await wait(delay);
     }
     if (pathname.toLowerCase() === "/pong") {
+        console.log('PONG');
+
         // PONG
         body = request.body ?? body;
         request.headers.forEach((value, key) => headers.set(key, value));
+        status ||= 200;
         return new Response(body, {
-            status: status || 200,
+            status,
             headers,
         });
     }
-    if (pathname !== "/") {
+    if (pathname !== "/"
+        && !pathname.startsWith("/docs")
+        && !pathname.startsWith("/_frsh")
+        && !pathname.startsWith("/static")
+    ) {
+        logger.log('FAKER', { pathname });
         // FAKER
         const fakerPath = pathname.replace(".", "/").split("/").filter(Boolean);
         const language = request.headers.get("accept-language") || "";
@@ -111,7 +171,7 @@ export async function handler(
         body = JSON.stringify(
             {
                 data: data,
-                // docs: createDocsLink(fakerPath),
+                docs: createDocsLink(fakerPath),
                 status,
                 message,
                 language: faker.locale,
@@ -120,23 +180,30 @@ export async function handler(
             2,
         );
         headers.set("content-type", "application/json; charset=utf-8");
+        return new Response(body, {
+            status,
+            headers,
+        });
+
     }
+    if (status || body || _headers) {
+        console.log({ status, body, headers });
 
-    status ||= 200;
-    // logger.dim(request.headers.get("x-forwarded-for"));
-    // logger[status](request.method, pathname, {
-    //     body: searchParams.get("body"),
-    //     status: searchParams.get("status"),
-    //     headers: searchParams.get("headers"),
-    // });
-    return new Response(body, {
-        status,
-        headers,
-    });
-
-
-}
-
-const resp = await ctx.next();
-return resp;
+        try {
+            status ||= 200;
+            return new Response(body, {
+                status,
+                headers,
+            });
+        } catch (error) {
+            // logger.error(error.message);
+            status = 400;
+            return new Response(error.message, {
+                status,
+                headers,
+            });
+        }
+    }
+    const resp = await ctx.next();
+    return resp;
 }

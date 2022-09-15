@@ -3,6 +3,7 @@ import {
   assertArrayIncludes,
   assertEquals,
   assertMatch,
+  assertStringIncludes,
 } from "https://deno.land/std@0.130.0/testing/asserts.ts";
 // import "./server.ts";
 const BASE_URL = "http://localhost:8000";
@@ -13,7 +14,8 @@ Deno.test({
     const response = await fetch(BASE_URL + "/");
     const body = await response.text();
     assertEquals(response.status, 200);
-    assertEquals(body.length > 4000, true);
+
+    assertStringIncludes(body, `content="faker js api rest"`);
     assertEquals(
       response.headers.get("content-type"),
       "text/html; charset=utf-8",
@@ -41,6 +43,7 @@ Deno.test({
 });
 
 Deno.test({
+  // only:true,
   name: "should respond with status specified",
   fn: async () => {
     const response = await fetch(BASE_URL + "/?status=201");
@@ -60,14 +63,15 @@ Deno.test({
   },
 });
 Deno.test({
+  // only: true,
   name: "should fail if the status is out of range [200, 599]",
   fn: async () => {
     const response = await fetch(BASE_URL + "/?status=601");
     const body = await response.text();
     assertEquals(response.status, 400);
-    assertEquals(
-      body.includes("RangeError: The status provided (601)"),
-      true,
+    assertStringIncludes(
+      body,
+      "[200, 599]"
     );
   },
 });
@@ -178,11 +182,11 @@ Deno.test({
   name: "[faker] docs must work",
   fn: async () => {
     const response = await fetch(
-      BASE_URL + `/docs/helpers.md`,
+      BASE_URL + `/docs/helpers`,
     );
     const body = await response.text();
     assertEquals(response.status, 200);
-    assertEquals(body.length > 5000, true);
+    // assertEquals(body.length > 5000, true);
   },
 });
 
@@ -218,9 +222,8 @@ Deno.test({
 
     const response = await fetch(
       BASE_URL +
-        `/helpers/mustache/${encodeURIComponent("{{foo}} was {{baz}}")}/${
-          encodeURIComponent('{"foo": "bar", "baz": 42}')
-        }`,
+      `/helpers/mustache/${encodeURIComponent("{{foo}} was {{baz}}")}/${encodeURIComponent('{"foo": "bar", "baz": 42}')
+      }`,
     );
     const body = await response.json();
     assertEquals(body.data, "bar was 42");
@@ -234,7 +237,7 @@ Deno.test({
     const array = ["bob", "joe", "tim"];
     const response = await fetch(
       BASE_URL +
-        `/helpers/randomize/${encodeURIComponent(JSON.stringify(array))}/`,
+      `/helpers/randomize/${encodeURIComponent(JSON.stringify(array))}/`,
     );
     const body = await response.json();
     assertArrayIncludes(array, [body.data]);
@@ -246,7 +249,7 @@ Deno.test({
   fn: async () => {
     const response = await fetch(
       BASE_URL +
-        `/git/commitMessage`,
+      `/git/commitMessage`,
     );
     const body = await response.json();
     assertEquals(body.data.length > 4, true);
@@ -258,7 +261,7 @@ Deno.test({
   fn: async () => {
     const response = await fetch(
       BASE_URL +
-        `/git/branch`,
+      `/git/branch`,
       { headers: { "accept-language": "es_ES;q=0.9,en_US;q=0.8,en;q=0.7" } },
     );
     const body = await response.json();
@@ -269,6 +272,7 @@ Deno.test({
 Deno.test({
   name: "[faker] unique should work",
   // only: true,
+  ignore: true,
   fn: async () => {
     const arr = [1, 2, 3, 4, 5, 6];
     const path = BASE_URL +
