@@ -36,6 +36,11 @@ scripts:
   dev:
     desc: Starts dev mode
     cmd: deno task start
+    env:
+      LOG_LEVEL: DEBUG
+      EMAIL_LOG_LEVEL: CRITICAL
+      # NO_COLOR: '1'
+
 
   server-ci:
     desc: Starts deploy server
