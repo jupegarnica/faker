@@ -3,7 +3,10 @@
     "test":"deno test --allow-all",
     "test-watch":"deno test --watch",
     "start": "deno run -A main.ts",
-    "dev":"deno run -A --watch=static/,routes/ dev.ts"
+    "dev":"deno run -A --watch=static/,routes/ dev.ts",
+    "build-docker":"docker build --build-arg GIT_REVISION=$(git rev-parse HEAD) -t jupegarnica/faker.deno.dev .",
+    "run-docker":"docker run -p 8080:8080 faker.deno.dev",
+    "deploy-docker":"docker push jupegarnica/faker.deno.dev"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {
