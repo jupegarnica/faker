@@ -23,12 +23,17 @@ const options = {
   subject: "FAKER LOGS",
 };
 
+
+
 logger.use(
   formatToAnsiColors({
     multiline: false,
   }),
-  transportToEmail(options),
 );
+
+if (Deno.env.get("SMTP_HOST")) {
+  logger.use(transportToEmail(options));
+}
 
 export { logger };
 export default logger;

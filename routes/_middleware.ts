@@ -24,6 +24,7 @@ function logRequest(
     status: searchParams.get("status"),
     headers: searchParams.get("headers"),
   });
+  // logger.timeEnd(request.url);
 }
 
 const validFakerNameSpaces: string[] = [];
@@ -62,6 +63,7 @@ export async function handler(
   request: Request,
   ctx: MiddlewareHandlerContext<State>,
 ) {
+  // logger.time(request.url);
   const { pathname, searchParams, protocol, host } = new URL(request.url);
   // const baseUrl = `${protocol}//${host}`;
   let body = searchParams.get("body") as BodyInit;
@@ -75,6 +77,11 @@ export async function handler(
     "Access-Control-Allow-Origin",
     "*",
   );
+  const quiteMode = searchParams.get("quiet");
+
+  if (quiteMode) {
+    logger.setFilter("CRITICAL");
+  }
 
   if (delay) {
     await wait(delay);
@@ -192,9 +199,10 @@ export async function handler(
         headers,
       });
     } finally {
-      logRequest(status, pathname, searchParams, request);
+      logRequest(status || 200, pathname, searchParams, request);
     }
   }
   const resp = await ctx.next();
+  logRequest(status || 200, pathname, searchParams, request);
   return resp;
 }
