@@ -78,6 +78,8 @@ export async function handler(
     "*",
   );
   const quiteMode = searchParams.get("quiet");
+  console.log({ quiteMode });
+
 
   if (quiteMode) {
     logger.setFilter("CRITICAL");
