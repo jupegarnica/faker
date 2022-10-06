@@ -23,8 +23,6 @@ const options = {
   subject: "FAKER LOGS",
 };
 
-
-
 logger.use(
   formatToAnsiColors({
     multiline: false,
