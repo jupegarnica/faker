@@ -134,12 +134,12 @@ Deno.test({
       BASE_URL + `/image/city`,
       {
         redirect: "manual",
-      }
+      },
     );
     assertEquals(response.status, 307);
     const body = await response.json();
     assertEquals(typeof body.data, "string");
-    assertEquals( body.data.startsWith('http'), true);
+    assertEquals(body.data.startsWith("http"), true);
   },
 });
 
