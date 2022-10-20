@@ -77,9 +77,11 @@ export async function handler(
     "Access-Control-Allow-Origin",
     "*",
   );
-  const quiteMode = searchParams.get("quiet") || request.headers.get("x-quiet") || request.headers.get("quiet") || request.headers.get("quiteMode");
+  const quiteMode = searchParams.get("quiet") ||
+    request.headers.get("x-quiet") || request.headers.get("quiet") ||
+    request.headers.get("quiteMode");
 
-  let logLevel = request.headers.get("logLevel") || '';
+  let logLevel = request.headers.get("logLevel") || "";
 
   if (quiteMode) {
     logLevel = "CRITICAL";
