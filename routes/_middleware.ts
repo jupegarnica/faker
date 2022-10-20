@@ -161,7 +161,6 @@ export async function handler(
         data = method(...args);
       }
 
-      status ||= 200;
       if (!data) {
         message = `faker.${fakerPath.join(".")}() not valid`;
         status = 404;
@@ -194,7 +193,7 @@ export async function handler(
       // temporal redirect status code
       status ||= 307;
     }
-
+    status ||= 200;
     headers.set("content-type", "application/json; charset=utf-8");
     logRequest(status, pathname, searchParams, request);
     return new Response(body, {
