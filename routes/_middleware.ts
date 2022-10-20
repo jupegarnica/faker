@@ -188,6 +188,13 @@ export async function handler(
       null,
       2,
     );
+    // if  data is an URL, redirect to it
+    if (typeof data === "string" && data.startsWith("http")) {
+      headers.set("Location", data);
+      // temporal redirect status code
+      status ||= 307;
+    }
+
     headers.set("content-type", "application/json; charset=utf-8");
     logRequest(status, pathname, searchParams, request);
     return new Response(body, {
