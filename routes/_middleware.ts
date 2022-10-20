@@ -77,7 +77,7 @@ export async function handler(
     "Access-Control-Allow-Origin",
     "*",
   );
-  const quiteMode = searchParams.get("quiet");
+  const quiteMode = searchParams.get("quiet") || request.headers.get("quiet");
 
   if (quiteMode) {
     logger.setFilter("CRITICAL");
