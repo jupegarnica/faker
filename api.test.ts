@@ -132,10 +132,14 @@ Deno.test({
   fn: async () => {
     const response = await fetch(
       BASE_URL + `/image/city`,
+      {
+        redirect: "manual",
+      }
     );
+    assertEquals(response.status, 307);
     const body = await response.json();
-    assertEquals(response.status, 200);
     assertEquals(typeof body.data, "string");
+    assertEquals( body.data.startsWith('http'), true);
   },
 });
 
