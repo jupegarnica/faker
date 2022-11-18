@@ -19,7 +19,11 @@ function logRequest(
   request: Request,
 ) {
   logger[status](request.method, pathname);
-  searchParams.toString() && logger.dim('searchParams:', [...searchParams].map(([key, value]) => `${key}=${value}`).join(" "));
+  searchParams.toString() &&
+    logger.dim(
+      "searchParams:",
+      [...searchParams].map(([key, value]) => `${key}=${value}`).join(" "),
+    );
 }
 
 const validFakerNameSpaces: string[] = [];
