@@ -18,13 +18,8 @@ function logRequest(
   searchParams: URLSearchParams,
   request: Request,
 ) {
-  // logger.dim(request.headers.get("x-forwarded-for"));
-  logger[status](request.method, pathname, {
-    body: searchParams.get("body"),
-    status: searchParams.get("status"),
-    headers: searchParams.get("headers"),
-  });
-  // logger.timeEnd(request.url);
+  logger[status](request.method, pathname);
+  searchParams.toString() && logger.dim('searchParams:', [...searchParams].map(([key, value]) => `${key}=${value}`).join(" "));
 }
 
 const validFakerNameSpaces: string[] = [];

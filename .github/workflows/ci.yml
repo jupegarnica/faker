@@ -18,3 +18,4 @@ jobs:
         env:
           VR_HOOKS: "false"
         run: vr ci
+      - run: deno task docker
