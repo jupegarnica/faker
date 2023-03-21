@@ -18,11 +18,13 @@ async function logRequest(
   searchParams: URLSearchParams,
   request: Request,
 ) {
-  const searchParamsString = [...searchParams].map(([key, value]) => `${key}=${value}`).join(" ");
-  const body = request.body
-  && request.headers.get("content-type")?.includes("application/json")
-  ? await request.json()
-  : '';
+  const searchParamsString = [...searchParams].map(([key, value]) =>
+    `${key}=${value}`
+  ).join(" ");
+  const body = request.body &&
+      request.headers.get("content-type")?.includes("application/json")
+    ? await request.json()
+    : "";
   logger[status](request.method, pathname, searchParamsString, body);
 }
 
