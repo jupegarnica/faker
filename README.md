@@ -131,7 +131,7 @@ Default language is `es`, but can be specified with the `accept-language`
 header.
 
 To know the languages includes checkout the docs at
-[/docs/localization.md](/docs/localization.md#locales-included)
+[/docs/localization.md](/docs/localization#locales-included)
 
 ```http
 GET https://faker.deno.dev/name/firstName
