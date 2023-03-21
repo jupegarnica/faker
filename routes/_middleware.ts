@@ -12,18 +12,18 @@ import { MiddlewareHandlerContext } from "$fresh/server.ts";
 interface State {
   data: string;
 }
-function logRequest(
+async function logRequest(
   status: number,
   pathname: string,
   searchParams: URLSearchParams,
   request: Request,
 ) {
-  logger[status](request.method, pathname);
-  searchParams.toString() &&
-    logger.dim(
-      "searchParams:",
-      [...searchParams].map(([key, value]) => `${key}=${value}`).join(" "),
-    );
+  const searchParamsString = [...searchParams].map(([key, value]) => `${key}=${value}`).join(" ");
+  const body = request.body
+  && request.headers.get("content-type")?.includes("application/json")
+  ? await request.json()
+  : '';
+  logger[status](request.method, pathname, searchParamsString, body);
 }
 
 const validFakerNameSpaces: string[] = [];
@@ -102,7 +102,7 @@ export async function handler(
     body = request.body ?? body;
     request.headers.forEach((value, key) => headers.set(key, value));
     status ||= 200;
-    logRequest(status, pathname, searchParams, request);
+    await logRequest(status, pathname, searchParams, request);
     return new Response(body, {
       status,
       headers,
@@ -194,7 +194,7 @@ export async function handler(
     }
     status ||= 200;
     headers.set("content-type", "application/json; charset=utf-8");
-    logRequest(status, pathname, searchParams, request);
+    await logRequest(status, pathname, searchParams, request);
     return new Response(body, {
       status,
       headers,
@@ -216,10 +216,10 @@ export async function handler(
         headers,
       });
     } finally {
-      logRequest(status || 200, pathname, searchParams, request);
+      await logRequest(status || 200, pathname, searchParams, request);
     }
   }
   const resp = await ctx.next();
-  logRequest(status || 200, pathname, searchParams, request);
+  await logRequest(status || 200, pathname, searchParams, request);
   return resp;
 }
