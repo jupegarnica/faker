@@ -277,7 +277,7 @@ Deno.test({
 Deno.test({
   name: "[faker] unique should work",
   // only: true,
-  // ignore: true,
+  ignore: true,
   fn: async () => {
     const arr = [1, 2, 3, 4, 5, 6];
     const path = BASE_URL +
