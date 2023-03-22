@@ -97,13 +97,13 @@ export async function handler(
   if (pathname.startsWith("/logger")) {
     status ||= 200;
     logger[status](request.method, pathname);
-    logger.query(searchParams.toString());
-
+    const searchParamsString = searchParams.toString();
+    searchParamsString && logger.query(searchParamsString);
     let headersString = "";
     request.headers.forEach((value, key) =>
       headersString += `${key}: ${value}\n`
     );
-    logger.headers(headersString);
+    headersString && logger.headers(headersString);
     let bodyString = "";
     try {
       bodyString = JSON.stringify(await request.json(), null, 2);
@@ -114,7 +114,7 @@ export async function handler(
         // ignore
       }
     }
-    logger.body(bodyString);
+    bodyString && logger.body(bodyString);
     return new Response("OK", {
       status,
       headers,
