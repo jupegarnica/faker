@@ -12,31 +12,15 @@ import { MiddlewareHandlerContext } from "$fresh/server.ts";
 interface State {
   data: string;
 }
-async function logRequest(
+function logRequest(
   status: number,
   pathname: string,
   searchParams: URLSearchParams,
   request: Request,
-  pong = false,
 ) {
-  let body = null;
-  if (!pong) {
-    try {
-      body = await request.json();
-    } catch {
-      try {
-        body = await request.text();
-      } catch {
-        body = "Could not parse body";
-      }
-    }
-  }
 
   const searchParamsString = searchParams.toString();
-  logger[status](request.method, pathname, {
-    searchParamsString,
-    body,
-  });
+  logger[status](request.method, pathname, searchParamsString);
 }
 
 const validFakerNameSpaces: string[] = [];
@@ -110,17 +94,39 @@ export async function handler(
   if (delay) {
     await wait(delay);
   }
+
+  if (pathname.toLowerCase() === "/logger") {
+    status ||= 200;
+    logger[status](request.method, pathname);
+    logger.query(searchParams.toString());
+
+    const headersString = request.headers.toString();
+    logger.headers(headersString);
+    try {
+      const bodyString = await request.text();
+      logger.body(bodyString);
+    } catch  {
+      // ignore
+    }
+   return new Response("OK", {
+      status,
+      headers,
+    });
+  }
+
   if (pathname.toLowerCase() === "/pong") {
     // PONG
     body = request.body ?? body;
     request.headers.forEach((value, key) => headers.set(key, value));
     status ||= 200;
-    await logRequest(status, pathname, searchParams, request, true);
+    await logRequest(status, pathname, searchParams, request);
     return new Response(body, {
       status,
       headers,
     });
   }
+
+
   if (
     pathname !== "/" &&
     !pathname.startsWith("/docs") &&

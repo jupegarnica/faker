@@ -1,7 +1,7 @@
-POST https://faker.deno.dev/nexo
+POST https://faker.deno.dev/debug-log
 content-type: application/json
 
 {
-  "name": "Nexo",
+  "name": "debug-log",
   "email": "asd@gmail.com"
 }
