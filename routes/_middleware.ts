@@ -18,7 +18,6 @@ function logRequest(
   searchParams: URLSearchParams,
   request: Request,
 ) {
-
   const searchParamsString = searchParams.toString();
   logger[status](request.method, pathname, searchParamsString);
 }
@@ -105,10 +104,10 @@ export async function handler(
     try {
       const bodyString = await request.text();
       logger.body(bodyString);
-    } catch  {
+    } catch {
       // ignore
     }
-   return new Response("OK", {
+    return new Response("OK", {
       status,
       headers,
     });
@@ -125,7 +124,6 @@ export async function handler(
       headers,
     });
   }
-
 
   if (
     pathname !== "/" &&
