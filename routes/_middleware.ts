@@ -99,14 +99,20 @@ export async function handler(
     logger[status](request.method, pathname);
     logger.query(searchParams.toString());
 
-    const headersString = request.headers.toString();
+    let headersString = ''
+    request.headers.forEach((value, key) => headersString += `${key}: ${value}\n`)
     logger.headers(headersString);
+    let bodyString = ''
     try {
-      const bodyString = await request.text();
-      logger.body(bodyString);
+      bodyString = await request.json();
     } catch {
-      // ignore
+      try {
+        bodyString = await request.text();
+      } catch {
+        // ignore
+      }
     }
+    logger.body(bodyString);
     return new Response("OK", {
       status,
       headers,
