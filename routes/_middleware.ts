@@ -22,11 +22,11 @@ async function logRequest(
   let body = "";
   try {
     body = request.body &&
-      request.headers.get("content-type")?.includes("application/json")
+        request.headers.get("content-type")?.includes("application/json")
       ? await request.json()
       : await request.text();
   } catch {
-    body = 'body failed to parse'
+    body = "body failed to parse";
   }
   logger[status](request.method, pathname, { searchParamsString, body });
 }
