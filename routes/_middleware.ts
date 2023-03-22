@@ -94,7 +94,7 @@ export async function handler(
     await wait(delay);
   }
 
-  if (pathname.toLowerCase() === "/logger") {
+  if (pathname.startsWith("/logger")) {
     status ||= 200;
     logger[status](request.method, pathname);
     logger.query(searchParams.toString());
