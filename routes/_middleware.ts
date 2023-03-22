@@ -17,18 +17,10 @@ async function logRequest(
   pathname: string,
   searchParams: URLSearchParams,
   request: Request,
+  body: any = null,
 ) {
   const searchParamsString = searchParams.toString();
-  let body = "";
-  try {
-    body = request.body &&
-        request.headers.get("content-type")?.includes("application/json")
-      ? await request.json()
-      : await request.text();
-  } catch {
-    body = "body failed to parse";
-  }
-  logger[status](request.method, pathname, { searchParamsString, body });
+  logger[status](request.method, pathname, { searchParamsString, body: body ? request.body : null });
 }
 
 const validFakerNameSpaces: string[] = [];
@@ -199,7 +191,7 @@ export async function handler(
     }
     status ||= 200;
     headers.set("content-type", "application/json; charset=utf-8");
-    await logRequest(status, pathname, searchParams, request);
+    await logRequest(status, pathname, searchParams, request, true);
     return new Response(body, {
       status,
       headers,
