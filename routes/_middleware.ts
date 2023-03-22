@@ -18,24 +18,17 @@ async function logRequest(
   searchParams: URLSearchParams,
   request: Request,
 ) {
-  // const searchParamsString = [...searchParams].map(([key, value]) =>
-  //   `${key}=${value}`
-  // ).join(" ");
   const searchParamsString = searchParams.toString();
   let body = "";
   try {
     body = request.body &&
-        request.headers.get("content-type")?.includes("application/json")
+      request.headers.get("content-type")?.includes("application/json")
       ? await request.json()
-      : "";
+      : await request.text();
   } catch {
-    try {
-      body = await request.text();
-    } catch {
-      body = "";
-    }
+    body = 'body failed to parse'
   }
-  logger[status](request.method, pathname, searchParamsString, body);
+  logger[status](request.method, pathname, { searchParamsString, body });
 }
 
 const validFakerNameSpaces: string[] = [];
