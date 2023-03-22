@@ -25,7 +25,7 @@ const options = {
 
 logger.use(
   formatToAnsiColors({
-    multiline: false,
+    multiline: true,
   }),
 );
 
