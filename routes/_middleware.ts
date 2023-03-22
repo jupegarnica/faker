@@ -20,7 +20,10 @@ async function logRequest(
   body: any = null,
 ) {
   const searchParamsString = searchParams.toString();
-  logger[status](request.method, pathname, { searchParamsString, body: body ? request.body : null });
+  logger[status](request.method, pathname, {
+    searchParamsString,
+    body: body ? request.body : null,
+  });
 }
 
 const validFakerNameSpaces: string[] = [];
