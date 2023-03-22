@@ -106,7 +106,7 @@ export async function handler(
     logger.headers(headersString);
     let bodyString = "";
     try {
-      bodyString = await request.json();
+      bodyString = JSON.stringify(await request.json(), null, 2);
     } catch {
       try {
         bodyString = await request.text();
