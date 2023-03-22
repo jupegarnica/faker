@@ -23,22 +23,19 @@ async function logRequest(
   if (!pong) {
     try {
       body = await request.json();
-
     } catch {
       try {
         body = await request.text();
+      } catch {
+        body = "Could not parse body";
       }
-      catch {
-        body = 'Could not parse body'
-      }
-
     }
   }
 
   const searchParamsString = searchParams.toString();
   logger[status](request.method, pathname, {
     searchParamsString,
-    body
+    body,
   });
 }
 
