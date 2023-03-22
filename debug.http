@@ -1,0 +1,7 @@
+POST https://faker.deno.dev/nexo
+content-type: application/json
+
+{
+  "name": "Nexo",
+  "email": "asd@gmail.com"
+}

@@ -17,12 +17,28 @@ async function logRequest(
   pathname: string,
   searchParams: URLSearchParams,
   request: Request,
-  body: any = null,
+  pong = false,
 ) {
+  let body = null;
+  if (!pong) {
+    try {
+      body = await request.json();
+
+    } catch {
+      try {
+        body = await request.text();
+      }
+      catch {
+        body = 'Could not parse body'
+      }
+
+    }
+  }
+
   const searchParamsString = searchParams.toString();
   logger[status](request.method, pathname, {
     searchParamsString,
-    body: body ? request.body : null,
+    body
   });
 }
 
@@ -102,7 +118,7 @@ export async function handler(
     body = request.body ?? body;
     request.headers.forEach((value, key) => headers.set(key, value));
     status ||= 200;
-    await logRequest(status, pathname, searchParams, request);
+    await logRequest(status, pathname, searchParams, request, true);
     return new Response(body, {
       status,
       headers,
@@ -194,7 +210,7 @@ export async function handler(
     }
     status ||= 200;
     headers.set("content-type", "application/json; charset=utf-8");
-    await logRequest(status, pathname, searchParams, request, true);
+    await logRequest(status, pathname, searchParams, request);
     return new Response(body, {
       status,
       headers,
