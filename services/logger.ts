@@ -21,7 +21,10 @@ const options = {
   logLevel: Deno.env.get("EMAIL_LOG_LEVEL") || "CRITICAL",
   debounceTime: 3000,
   subject: "FAKER LOGS",
+
 };
+console.log(options);
+
 
 logger.use(
   formatToAnsiColors({
