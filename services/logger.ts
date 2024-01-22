@@ -19,10 +19,9 @@ const options = {
   to: Deno.env.get("SMTP_TO") || "",
   from: Deno.env.get("SMTP_FROM") || "",
   logLevel: Deno.env.get("EMAIL_LOG_LEVEL") || "CRITICAL",
-  debounceTime: 3000,
+  debounceTime: 30_000,
   subject: "FAKER LOGS",
 };
-console.log(options);
 
 logger.use(
   formatToAnsiColors({
