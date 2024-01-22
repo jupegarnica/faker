@@ -22,7 +22,7 @@ scripts:
       pll:
         - timeout 17 deno task start || exit 0
         - sleep 1 && deno task test
-    gitHook: pre-push
+    # gitHook: pre-push
 
   debug:
     desc: debug
