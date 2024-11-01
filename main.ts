@@ -10,20 +10,23 @@ const app = new Hono();
 app.get("/", (context: Context) => {
   const language = context.req.header("Accept-Language") || "es";
   const faker = createFaker(language);
-  let helpText = `Available endpoints:\n`;
+  let helpText = `<html><body><h1>Available endpoints:</h1>`;
   // extract category and method from the faker instance
   const categories = Object.keys(faker);
   for (const category of categories) {
     if (category === "locale") continue;
     if (category === "definitions") continue;
     if (category.startsWith('_')) continue;
-    helpText += `\n${category}:\n`.toLocaleUpperCase();
+    helpText += `<h2>${category.toUpperCase()}:</h2>`;
     const methods = Object.keys((faker as any)[category]);
     for (const method of methods) {
-      helpText += `  /${category}/${method}/\n`;
+      console.log(faker[category][method].toString());
+
+      helpText += `<p><a href="/${category}/${method}/">/${category}/${method}/</a></p>`;
     }
   }
-  return context.text(helpText);
+  helpText += `</body></html>`;
+  return context.html(helpText);
 });
 
 app.all("/:category/:method/*", async (context: Context) => {
@@ -45,7 +48,7 @@ app.all("/:category/:method/*", async (context: Context) => {
       data,
       docs: `https://fakerjs.dev/api/${category}.md#${method}`,
       status: 200,
-      language: languageParsed
+      language,
     });
   } else {
     return context.json({ error: "Invalid endpoint" }, 404);
