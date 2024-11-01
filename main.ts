@@ -8,26 +8,27 @@ const Faker = FakerNameSpace.Faker;
 const app = new Hono();
 
 app.get("/", (context: Context) => {
-  const helpText = `
-    Basic
-    GET https://faker.deno.dev/name/firstName
-
-    Language
-    Default language is es, but can be specified with the accept-language header.
-
-    Passing arguments
-    Once a path found a method on faker the rest of the path will be used as arguments.
-  `;
+  const language = context.req.header("Accept-Language") || "es";
+  const faker = createFaker(language);
+  let helpText = `Available endpoints:\n`;
+  // extract category and method from the faker instance
+  const categories = Object.keys(faker);
+  for (const category of categories) {
+    if (category === "locale") continue;
+    if (category === "definitions") continue;
+    if (category.startsWith('_')) continue;
+    helpText += `\n${category}:\n`.toLocaleUpperCase();
+    const methods = Object.keys((faker as any)[category]);
+    for (const method of methods) {
+      helpText += `  /${category}/${method}/\n`;
+    }
+  }
   return context.text(helpText);
 });
 
 app.all("/:category/:method/*", async (context: Context) => {
   const language = context.req.header("Accept-Language") || "es";
-  const languageParsed = language.split(",")[0].split("-")[0];
-  // @ts-ignore
-  const lang: LocaleDefinition = FakerNameSpace[languageParsed] || FakerNameSpace.es;
-
-  const faker = new Faker({ locale: [lang] });
+  const faker = createFaker(language);
 
   const { category, method } = context.req.param();
   const args = context.req.param("*")?.split("/").map(arg => {
@@ -50,5 +51,13 @@ app.all("/:category/:method/*", async (context: Context) => {
     return context.json({ error: "Invalid endpoint" }, 404);
   }
 });
+
+function createFaker(language: string): typeof Faker {
+  const languageParsed = language.split(",")[0].split("-")[0];
+  // @ts-ignore
+  const lang: LocaleDefinition = FakerNameSpace[languageParsed] || FakerNameSpace.es;
+
+  return new Faker({ locale: [lang] }) as unknown as typeof Faker;
+}
 
 Deno.serve(app.fetch);
