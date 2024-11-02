@@ -25,3 +25,16 @@ GET http://localhost:8000/
 HTTP/1.1 200 OK
 
 ###
+
+--
+id: adjective
+---
+GET http://localhost:8000/word/adjective
+Accepted-Language: es
+
+HTTP/1.1 200 OK
+
+<% console.log(adjective.response) %>
+
+
+###
