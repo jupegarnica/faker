@@ -3,8 +3,8 @@
     "hono": "jsr:@hono/hono@^4.6.8"
   },
   "tasks": {
-    "start": "deno run --allow-net main.ts",
-    "dev": "deno run --allow-net --watch main.ts"
+    "start": "deno run --allow-net main.tsx",
+    "dev": "deno run --allow-net --watch main.tsx"
   },
   "compilerOptions": {
     "jsx": "precompile",

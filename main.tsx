@@ -5,34 +5,55 @@ import type { LocaleDefinition } from "npm:@faker-js/faker";
 const Faker = FakerNameSpace.Faker;
 
 const app = new Hono();
+type HelpProps = {
+  categories: { category: string; methods: string[] }[];
+};
+
+export function Help({ categories }: HelpProps) {
+  return (
+    <html>
+      <body>
+        <h1>Available endpoints:</h1>
+        {categories.map(({ category, methods }) => (
+          <div key={category}>
+            <h2>{category.toUpperCase()}:</h2>
+            {methods.map((method) => (
+              <p key={method}>
+                <a href={`/${category}/${method}/`}>/{category}/{method}/</a>
+              </p>
+            ))}
+          </div>
+        ))}
+      </body>
+    </html>
+  );
+}
 
 app.get("/", (context: Context) => {
   const language = context.req.header("Accept-Language") || "en";
   const faker = createFaker(language);
-  let helpText = `<html><body><h1>Available endpoints:</h1>`;
+  const categories: { category: string; methods: string[] }[] = [];
+
   // extract category and method from the faker instance
-  const categories = Object.keys(faker);
-  for (const category of categories) {
+  const categoryKeys = Object.keys(faker);
+  for (const category of categoryKeys) {
     if (category === "rawDefinitions") continue;
     if (category === "definitions") continue;
     if (category === "helpers") continue;
     if (category.startsWith("_")) continue;
-    helpText += `<h2>${category.toUpperCase()}:</h2>`;
     const methods = Object.keys((faker as any)[category]);
-    for (const method of methods) {
-      if (method.startsWith("_")) continue;
-      if ( (faker as any)[category][method] instanceof Faker) {
-        continue;
-      }
-      if (typeof (faker as any)[category][method] !== "function") {
-        continue;
-      }
-
-      helpText += `<p><a href="/${category}/${method}/">/${category}/${method}/</a></p>`;
+    const validMethods = methods.filter((method) => {
+      if (method.startsWith("_")) return false;
+      if ((faker as any)[category][method] instanceof Faker) return false;
+      if (typeof (faker as any)[category][method] !== "function") return false;
+      return true;
+    });
+    if (validMethods.length > 0) {
+      categories.push({ category, methods: validMethods });
     }
   }
-  helpText += `</body></html>`;
-  return context.html(helpText);
+
+  return context.html(<Help categories={categories} />);
 });
 
 app.all("/:category/:method/*", async (context: Context) => {
