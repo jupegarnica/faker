@@ -112,6 +112,17 @@ app.all("/:category/:method/*", async (context: Context) => {
   }
 });
 
+app.all("/pong", async (context: Context) => {
+  const body = await context.req.text();
+  const headers = context.req.raw.headers;
+
+  headers.forEach((value, key) => {
+    context.res.headers.set(key, value);
+  });
+
+  return context.text(body);
+});
+
 Deno.serve(app.fetch);
 
 type HelpProps = {
