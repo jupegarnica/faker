@@ -1,3 +1,27 @@
 GET http://localhost:8000?status=202
 
 HTTP/1.1 202 Accepted
+
+###
+
+GET http://localhost:8000?body=hello
+
+HTTP/1.1 200 OK
+Content-Length: 5
+Content-Type: text/plain;charset=UTF-8
+
+hello
+
+###
+GET http://localhost:8000?delay=200&body=hello
+
+HTTP/1.1 200 OK
+
+###
+
+
+GET http://localhost:8000/
+
+HTTP/1.1 200 OK
+
+###
