@@ -16,8 +16,7 @@ app.use(
     return (
       <html>
         <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <Style>{css`
+          <Style>{css`
           html {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #f4f4f9;
@@ -152,14 +151,14 @@ app.get("/", (context: Context) => {
   return context.render(<Help categories={categories} />);
 });
 
-app.all("/:category/:method/:args?", async (context: Context) => {
+app.all("/:category/:method/*", async (context: Context) => {
   const langRaw = context.req.header("Accept-Language") || "en";
   const { faker, language } = createFaker(langRaw);
 
   const { category, method } = context.req.param();
   const args =
     context.req
-      .param("args")
+      .param("*")
       ?.split("/")
       .map((arg) => {
         try {
@@ -168,7 +167,6 @@ app.all("/:category/:method/:args?", async (context: Context) => {
           return decodeURIComponent(arg);
         }
       }) || [];
-      console.log({args});
 
   try {
     // @ts-ignore
@@ -181,8 +179,7 @@ app.all("/:category/:method/:args?", async (context: Context) => {
     return context.json(data);
   } catch (error: unknown) {
     console.error({ category, method, args, error, language });
-    context.status(400);
-    return context.render(<ErrorHelp error={error as Error} category={category} method={method} args={args} />);
+    return context.render(<ErrorHelp error={error as Error} category={category} method={method} args={args} />, 400);
   }
 });
 
@@ -283,13 +280,57 @@ content-type: text/plain
 {"a":1}`)}
         </pre>
       </section>
-      <section id="endpoints">
-        <h1>Fakerjs endpoints</h1>
+      <section id="faker">
+        <h1>Fakerjs</h1>
+        <h2>Oficial docs:</h2>
         <p>
-          The following endpoints are available to get random data using faker.js. The API will return a JSON response with the data generated.
+          Official docs: <a href="https://fakerjs.dev">https://fakerjs.dev</a>
+        </p>
+        <h2>Language:</h2>
+        <p>
+           Default language is <strong>es</strong>, but can be specified with the <code>accept-language</code> header.
         </p>
         <p>
-          Oficial docs: <a href="https://fakerjs.dev">https://fakerjs.dev</a>
+          To know the languages included, check out the docs at <a href="https://fakerjs.dev/guide/localization.html#available-locales">https://fakerjs.dev/guide/localization.html#available-locales</a>
+        </p>
+        <pre>
+          {raw(`GET https://faker.deno.dev/name/firstName
+accept-language: en
+
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+
+"Chesley"`)}
+        </pre>
+        <h2>Passing Arguments:</h2>
+        <p>
+          Once a path finds a method on Faker, the rest of the path will be used as arguments.
+        </p>
+        <p>
+          Using path <code>phone/number/###-###-####</code> will call <code>faker.phone.number('###-###-####')</code>
+        </p>
+        <pre>
+          {raw(`GET https://faker.deno.dev/phone/number/###-###-####
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+
+"956 687 564"`)}
+        </pre>
+        <p>
+          It can receive any type of argument, like object, array, string, number.
+        </p>
+        <p>
+          But keep in mind that objects and arrays must be passed as JSON strings.
+        </p>
+        <pre>
+          {raw(`GET https://faker.deno.dev/datatype/number/{"max":3,"min":1}`)}
+        </pre>
+        <p>
+          If needed, use <code>encodeURIComponent</code> to pass an argument with special characters.
+        </p>
+        <h2>Endpoints:</h2>
+        <p>
+          The following endpoints are available to get random data using faker.js. The API will return a JSON response with the data generated.
         </p>
         <div id="grid">
           {categories.map(({ category, methods }) => (
@@ -304,7 +345,6 @@ content-type: text/plain
           ))}
         </div>
       </section>
-
     </div>
   );
 }
