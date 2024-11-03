@@ -1,7 +1,0 @@
-version: '3'
-services:
-  app:
-    # command: deno task dev
-    build: "."
-    ports:
-      - "8000:8000"

@@ -1,5 +1,0 @@
-!.vim
-.env
-*.log
-coverage
-.stagedFiles

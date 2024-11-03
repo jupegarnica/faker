@@ -1,7 +1,0 @@
-POST https://faker.deno.dev/debug-log
-content-type: application/json
-
-{
-  "name": "debug-log",
-  "email": "asd@gmail.com"
-}

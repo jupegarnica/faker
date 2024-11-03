@@ -1,16 +1,13 @@
 {
-  "tasks": {
-    "test":"deno test --allow-all",
-    "test-watch":"deno test --watch",
-    "start": "deno run -A main.ts",
-    "dev":"deno run -A --watch=static/,routes/ dev.ts",
-    "build-docker":"docker build --build-arg GIT_REVISION=$(git rev-parse HEAD) -t jupegarnica/faker.deno.dev .",
-    "run-docker":"docker run -p 8080:8080 faker.deno.dev",
-    "deploy-docker":"deno task build-docker && docker push jupegarnica/faker.deno.dev"
+  "imports": {
+    "hono": "jsr:@hono/hono@^4.6.8"
   },
-  "importMap": "./import_map.json",
+  "tasks": {
+    "start": "deno run --allow-net main.tsx",
+    "dev": "deno run --allow-net --watch main.tsx"
+  },
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
   }
 }
