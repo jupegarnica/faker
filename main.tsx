@@ -152,14 +152,14 @@ app.get("/", (context: Context) => {
   return context.render(<Help categories={categories} />);
 });
 
-app.all("/:category/:method/*", async (context: Context) => {
+app.all("/:category/:method/:args?", async (context: Context) => {
   const langRaw = context.req.header("Accept-Language") || "en";
   const { faker, language } = createFaker(langRaw);
 
   const { category, method } = context.req.param();
   const args =
     context.req
-      .param("*")
+      .param("args")
       ?.split("/")
       .map((arg) => {
         try {
@@ -168,6 +168,7 @@ app.all("/:category/:method/*", async (context: Context) => {
           return decodeURIComponent(arg);
         }
       }) || [];
+      console.log({args});
 
   try {
     // @ts-ignore
