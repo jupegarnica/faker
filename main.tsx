@@ -16,7 +16,8 @@ app.use(
     return (
       <html>
         <head>
-          <Style>{css`
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <Style>{css`
           html {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #f4f4f9;
@@ -179,7 +180,8 @@ app.all("/:category/:method/*", async (context: Context) => {
     return context.json(data);
   } catch (error: unknown) {
     console.error({ category, method, args, error, language });
-    return context.render(<ErrorHelp error={error as Error} category={category} method={method} args={args} />, 400);
+    context.status(400);
+    return context.render(<ErrorHelp error={error as Error} category={category} method={method} args={args} />);
   }
 });
 
