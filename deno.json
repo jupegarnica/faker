@@ -4,10 +4,19 @@
   },
   "tasks": {
     "start": "deno run --allow-net main.tsx",
-    "dev": "deno run --allow-net --watch main.tsx"
+    "dev": "deno run --allow-net --watch main.tsx",
+    "deploy": "deployctl deploy main.tsx"
   },
   "compilerOptions": {
     "jsx": "precompile",
     "jsxImportSource": "hono/jsx"
+  },
+  "deploy": {
+    "project": "9c1cc2e0-fc36-48c7-8ae9-e99ae1776cc0",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.tsx"
   }
 }
