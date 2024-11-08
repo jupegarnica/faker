@@ -2,10 +2,15 @@
   "imports": {
     "hono": "jsr:@hono/hono@^4.6.8"
   },
+  "version": "0.2.0",
+  "exports": {
+    ".": "./main.tsx"
+  },
   "tasks": {
     "start": "deno run --allow-net main.tsx",
     "dev": "deno run --allow-net --watch main.tsx",
-    "deploy": "deployctl deploy main.tsx"
+    "deploy": "deployctl deploy main.tsx",
+    "bump": "deno run -A jsr:@m3o/version minor deno.json"
   },
   "compilerOptions": {
     "jsx": "precompile",
