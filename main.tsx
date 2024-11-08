@@ -19,15 +19,15 @@ app.use(
           <Style>{css`
           html {
             font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: var(--background-color);
+            color: var(--text-color);
             line-height: 1.6;
           }
           body {
             margin: 0;
             padding: 20px;
             text-align: center;
-            background-color: #f4f4f9;
+            background-color: var(--background-color);
           }
           .max-width {
             max-width: 1000px;
@@ -35,20 +35,20 @@ app.use(
             text-align: left;
             padding: 1em 2em;
             border-radius: 5px;
-            background-color: #fff;
+            background-color: var(--content-background-color);
           }
           h1, h2, h3 {
-            color: #444;
+            color: var(--heading-color);
           }
           a {
-            color: #007acc;
+            color: var(--link-color);
             text-decoration: none;
           }
           a:hover {
             text-decoration: underline;
           }
           pre {
-            background: #e8e8e8;
+            background: var(--pre-background-color);
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
@@ -68,14 +68,52 @@ app.use(
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
           }
+          :root {
+            --light--background-color: #f4f4f9;
+            --light--text-color: #333;
+            --light--content-background-color: #fff;
+            --light--heading-color: #444;
+            --light--link-color: #007acc;
+            --light--pre-background-color: #e8e8e8;
+            --dark--background-color: #333;
+            --dark--text-color: #f4f4f9;
+            --dark--content-background-color: #444;
+            --dark--heading-color: #f4f4f9;
+            --dark--link-color: #1e90ff;
+            --dark--pre-background-color: #555;
 
+
+
+          }
+          @media (prefers-color-scheme: dark) {
+            :root {
+            --background-color: var(--dark--background-color);
+            --text-color: var(--dark--text-color);
+            --content-background-color: var(--dark--content-background-color);
+            --heading-color: var(--dark--heading-color);
+            --link-color: var(--dark--link-color);
+            --pre-background-color: var(--dark--pre-background-color);
+            }
+          }
+          @media (prefers-color-scheme: light) {
+            :root {
+            --background-color: var(--light--background-color);
+            --text-color: var(--light--text-color);
+            --content-background-color: var(--light--content-background-color);
+            --heading-color: var(--light--heading-color);
+            --link-color: var(--light--link-color);
+            --pre-background-color: var(--light--pre-background-color);
+            }
+          }
         `}</Style>
         </head>
-        <body>
+        <body className="">
+
           <div className="max-width">
             {children}
           </div>
         </body>
+
       </html>
     )
   })
@@ -289,7 +327,7 @@ content-type: text/plain
         </p>
         <h2>Language:</h2>
         <p>
-           Default language is <strong>es</strong>, but can be specified with the <code>accept-language</code> header.
+          Default language is <strong>es</strong>, but can be specified with the <code>accept-language</code> header.
         </p>
         <p>
           To know the languages included, check out the docs at <a href="https://fakerjs.dev/guide/localization.html#available-locales">https://fakerjs.dev/guide/localization.html#available-locales</a>
