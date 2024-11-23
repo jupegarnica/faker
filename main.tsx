@@ -81,9 +81,10 @@ app.use(
             --dark--heading-color: #f4f4f9;
             --dark--link-color: #1e90ff;
             --dark--pre-background-color: #555;
-
-
-
+            --light--input-background-color: #fff;
+            --light--input-text-color: #000;
+            --dark--input-background-color: #444;
+            --dark--input-text-color: #f4f4f9;
           }
           @media (prefers-color-scheme: dark) {
             :root {
@@ -93,6 +94,8 @@ app.use(
             --heading-color: var(--dark--heading-color);
             --link-color: var(--dark--link-color);
             --pre-background-color: var(--dark--pre-background-color);
+            --input-background-color: var(--dark--input-background-color);
+            --input-text-color: var(--dark--input-text-color);
             }
           }
           @media (prefers-color-scheme: light) {
@@ -103,7 +106,63 @@ app.use(
             --heading-color: var(--light--heading-color);
             --link-color: var(--light--link-color);
             --pre-background-color: var(--light--pre-background-color);
+            --input-background-color: var(--light--input-background-color);
+            --input-text-color: var(--light--input-text-color);
             }
+          }
+          form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-radius: 5px;
+            background-color: var(--content-background-color);
+          }
+          form div {
+            display: flex;
+            flex-direction: column;
+          }
+          .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+          }
+          form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          form input, form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: var(--input-background-color);
+            color: var(--input-text-color);
+          }
+          form textarea {
+            resize: vertical;
+          }
+          form input[type="number"] {
+            width: 100px;
+          }
+          #copy-url {
+            background: none;
+            border: none;
+            cursor: copy;
+            padding: 0;
+            position: absolute;
+            right: 0.8em;
+            top: 0.8em;
+          }
+          .url {
+             position: relative;
+             cursor: copy;
+
+          }
+          #copy-url,
+          #copy-url svg path{
+            fill: var(--text-color, 'green');
+            cursor: copy;
           }
         `}</Style>
         </head>
@@ -156,8 +215,15 @@ app.use(async (context: Context, next) => {
   if (overrrideStatusCode && context.res.status !== overrrideStatusCode) {
     context.status(overrrideStatusCode);
   }
+
   if (body) {
-    return context.text(body);
+    let _headers;
+    try {
+      _headers = JSON.parse(headers || "{}");
+    } catch {
+      _headers = {};
+    }
+    return context.text(body, overrrideStatusCode, _headers);
   }
   await next();
 
@@ -265,6 +331,34 @@ content-length: 4
 hola`)}
         </pre>
         <p>Try yourself: <a href="https://faker.deno.dev?body=hola&status=569">https://faker.deno.dev?body=hola&status=569</a></p>
+      </section>
+      <section id="creation">
+        <h2>Create Your Request</h2>
+        <h3>URL:</h3>
+        <div className="url">
+          <span id="copy-url">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM20 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H20C21.1 23 22 22.1 22 21V7C22 5.9 21.1 5 20 5ZM20 21H8V7H20V21Z" fill="currentColor" />
+            </svg>
+          </span>
+          <pre id="dynamic-url">https://faker.deno.dev/</pre>
+        </div>
+        <form id="creation-form">
+          <div className="row">
+            <label htmlFor="status">Status:</label>
+            <input type="number" id="status" name="status" min="200" max="599" />
+            <label htmlFor="delay">Delay (ms):</label>
+            <input type="number" id="delay" name="delay" />
+          </div>
+          <div>
+            <label htmlFor="body">Body:</label>
+            <textarea id="body" name="body" rows="4"></textarea>
+          </div>
+          <div>
+            <label htmlFor="headers">Headers (JSON):</label>
+            <textarea id="headers" name="headers" rows="4">{`{}`}</textarea>
+          </div>
+        </form>
       </section>
       <section id="params">
         <h3>Body</h3>
@@ -384,6 +478,76 @@ content-type: application/json; charset=utf-8
           ))}
         </div>
       </section>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('creation-form');
+          const dynamicUrl = document.getElementById('dynamic-url');
+          const headersTextarea = form.headers;
+          const bodyTextarea = form.body;
+          const copyButton = document.querySelector('.url');
+          const baseUrl = window.location.origin;
+
+          bodyTextarea.addEventListener('input', () => {
+            const body = form.body.value;
+            let headers;
+            try {
+              headers = JSON.parse(headersTextarea.value);
+            } catch {
+              headers = {};
+            }
+            try {
+              JSON.parse(body);
+              headers["Content-Type"] = "application/json";
+            } catch {
+              if (body.trim().startsWith('<?xml') && body.trim().endsWith('>')) {
+                headers["Content-Type"] = "application/xml";
+              } else if (body.trim().startsWith('<') && body.trim().endsWith('>')) {
+                headers["Content-Type"] = "text/html";
+              } else if (body.trim().startsWith('---') || body.trim().includes(':')) {
+                headers["Content-Type"] = "application/x-yaml";
+              } else {
+                headers["Content-Type"] = "text/plain";
+              }
+            }
+            headersTextarea.value = JSON.stringify(headers, null, 2);
+          });
+
+          form.addEventListener('input', () => {
+            const status = form.status.value;
+            const body = form.body.value;
+            const headers = form.headers.value;
+            const delay = form.delay.value;
+
+            const params = new URLSearchParams();
+            if (status) params.append('status', status);
+            if (body) {
+              params.append('body', body);
+            }
+            if (headers) params.append('headers', headers);
+            if (delay) params.append('delay', delay);
+
+            dynamicUrl.textContent = \`\${baseUrl}/?\${params.toString()}\`;
+          });
+
+          function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+              document.execCommand('copy');
+            } catch (err) {
+              console.error('Could not copy text: ', err);
+            }
+            document.body.removeChild(textarea);
+          }
+
+          copyButton.addEventListener('click', () => {
+            copyToClipboard(dynamicUrl.innerText);
+          });
+        });
+        `}}></script>
     </div>
   );
 }
