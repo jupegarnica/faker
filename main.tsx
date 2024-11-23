@@ -311,11 +311,11 @@ hola`)}
           </div>
           <div>
             <label htmlFor="body">Body:</label>
-            <input type="text" id="body" name="body" />
+            <textarea id="body" name="body" rows="4"></textarea>
           </div>
           <div>
             <label htmlFor="headers">Headers (JSON):</label>
-            <textarea id="headers" name="headers" rows="4"></textarea>
+            <textarea id="headers" name="headers" rows="4">{`{}`}</textarea>
           </div>
           <div>
             <label htmlFor="delay">Delay (ms):</label>
@@ -447,9 +447,28 @@ content-type: application/json; charset=utf-8
         document.addEventListener('DOMContentLoaded', () => {
           const form = document.getElementById('creation-form');
           const dynamicUrl = document.getElementById('dynamic-url');
+          const headersTextarea = form.headers;
+          const bodyTextarea = form.body;
+
+          bodyTextarea.addEventListener('input', () => {
+            const body = form.body.value;
+            let headers;
+            try {
+              headers = JSON.parse(headersTextarea.value);
+            } catch {
+              headers = {};
+            }
+            try {
+              JSON.parse(body);
+              headers["Content-Type"] = "application/json";
+              headersTextarea.value = JSON.stringify(headers, null, 2);
+            } catch {
+              headers["Content-Type"] = "text/plain";
+              headersTextarea.value = JSON.stringify(headers, null, 2);
+            }
+          });
 
           form.addEventListener('input', () => {
-            console.log('input', form);
             const status = form.status.value;
             const body = form.body.value;
             const headers = form.headers.value;
@@ -457,7 +476,9 @@ content-type: application/json; charset=utf-8
 
             const params = new URLSearchParams();
             if (status) params.append('status', status);
-            if (body) params.append('body', body);
+            if (body) {
+              params.append('body', body);
+            }
             if (headers) params.append('headers', headers);
             if (delay) params.append('delay', delay);
 
