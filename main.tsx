@@ -114,8 +114,6 @@ app.use(
             display: flex;
             flex-direction: column;
             gap: 15px;
-            padding: 20px;
-            border: 1px solid #ccc;
             border-radius: 5px;
             background-color: var(--content-background-color);
           }
@@ -123,11 +121,11 @@ app.use(
             display: flex;
             flex-direction: column;
           }
-          form div.row {
+          .row {
             display: flex;
             flex-direction: row;
-            gap: 15px;
             align-items: center;
+            gap: 10px;
           }
           form label {
             font-weight: bold;
@@ -147,14 +145,24 @@ app.use(
           form input[type="number"] {
             width: 100px;
           }
-          button#copy-url {
+          #copy-url {
             background: none;
             border: none;
-            cursor: pointer;
+            cursor: copy;
             padding: 0;
+            position: absolute;
+            right: 0.8em;
+            top: 0.8em;
           }
-          button#copy-url svg {
+          .url {
+             position: relative;
+             cursor: copy;
+
+          }
+          #copy-url,
+          #copy-url svg path{
             fill: var(--text-color, 'green');
+            cursor: copy;
           }
         `}</Style>
         </head>
@@ -319,13 +327,13 @@ hola`)}
       </section>
       <section id="creation">
         <h2>Create Your Request</h2>
-        <h3>Dynamic URL:</h3>
-        <div className="row">
-          <button id="copy-url" type="button">
+        <h3>URL:</h3>
+        <div className="url">
+          <span id="copy-url">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM20 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H20C21.1 23 22 22.1 22 21V7C22 5.9 21.1 5 20 5ZM20 21H8V7H20V21Z" fill="currentColor"/>
             </svg>
-          </button>
+          </span>
           <pre id="dynamic-url">https://faker.deno.dev/</pre>
         </div>
         <form id="creation-form">
@@ -470,7 +478,7 @@ content-type: application/json; charset=utf-8
           const dynamicUrl = document.getElementById('dynamic-url');
           const headersTextarea = form.headers;
           const bodyTextarea = form.body;
-          const copyButton = document.getElementById('copy-url');
+          const copyButton = document.querySelector('.url');
 
           bodyTextarea.addEventListener('input', () => {
             const body = form.body.value;
