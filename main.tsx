@@ -164,6 +164,9 @@ app.use(
             fill: var(--text-color, 'green');
             cursor: copy;
           }
+          form input:invalid, form textarea:invalid {
+            border-color: red;
+          }
         `}</Style>
         </head>
         <body className="">
@@ -348,7 +351,7 @@ hola`)}
             <label htmlFor="status">Status:</label>
             <input type="number" id="status" name="status" min="200" max="599" />
             <label htmlFor="delay">Delay (ms):</label>
-            <input type="number" id="delay" name="delay" />
+            <input type="number" id="delay" name="delay" min="0" step="100" />
           </div>
           <div>
             <label htmlFor="body">Body:</label>
@@ -488,6 +491,15 @@ content-type: application/json; charset=utf-8
           const copyButton = document.querySelector('.url');
           const baseUrl = window.location.origin;
 
+          function validateInput(input) {
+            try {
+              JSON.parse(input.value);
+              input.style.borderColor = '';
+            } catch {
+              input.style.borderColor = 'red';
+            }
+          }
+
           bodyTextarea.addEventListener('input', () => {
             const body = form.body.value;
             let headers;
@@ -511,6 +523,11 @@ content-type: application/json; charset=utf-8
               }
             }
             headersTextarea.value = JSON.stringify(headers, null, 2);
+            validateInput(bodyTextarea);
+          });
+
+          headersTextarea.addEventListener('input', () => {
+            validateInput(headersTextarea);
           });
 
           form.addEventListener('input', () => {
