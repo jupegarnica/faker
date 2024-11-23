@@ -217,7 +217,13 @@ app.use(async (context: Context, next) => {
   }
 
   if (body) {
-    return context.text(body);
+    let _headers;
+    try {
+      _headers = JSON.parse(headers || "{}");
+    } catch {
+      _headers = {};
+    }
+    return context.text(body, overrrideStatusCode, _headers);
   }
   await next();
 
