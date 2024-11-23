@@ -266,6 +266,30 @@ hola`)}
         </pre>
         <p>Try yourself: <a href="https://faker.deno.dev?body=hola&status=569">https://faker.deno.dev?body=hola&status=569</a></p>
       </section>
+      <section id="creation">
+        <h2>Create Your Request</h2>
+        <form id="creation-form">
+          <div>
+            <label htmlFor="status">Status:</label>
+            <input type="number" id="status" name="status" min="200" max="599" />
+          </div>
+          <div>
+            <label htmlFor="body">Body:</label>
+            <input type="text" id="body" name="body" />
+          </div>
+          <div>
+            <label htmlFor="headers">Headers (JSON):</label>
+            <textarea id="headers" name="headers"></textarea>
+          </div>
+          <div>
+            <label htmlFor="delay">Delay (ms):</label>
+            <input type="number" id="delay" name="delay" />
+          </div>
+        </form>
+        <h3>Dynamic URL:</h3>
+        <pre id="dynamic-url">https://faker.deno.dev/</pre>
+      </section>
+
       <section id="params">
         <h3>Body</h3>
         <p>Specify a search body param to retrieve a response with that body.</p>
@@ -384,6 +408,28 @@ content-type: application/json; charset=utf-8
           ))}
         </div>
       </section>
+      <script dangerouslySetInnerHTML={{__html:`
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('creation-form');
+          const dynamicUrl = document.getElementById('dynamic-url');
+
+          form.addEventListener('input', () => {
+            console.log('input', form);
+            const status = form.status.value;
+            const body = form.body.value;
+            const headers = form.headers.value;
+            const delay = form.delay.value;
+
+            const params = new URLSearchParams();
+            if (status) params.append('status', status);
+            if (body) params.append('body', body);
+            if (headers) params.append('headers', headers);
+            if (delay) params.append('delay', delay);
+
+            dynamicUrl.textContent = \`https://faker.deno.dev/?\${params.toString()}\`;
+          });
+        });
+        `}}></script>
     </div>
   );
 }
