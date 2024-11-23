@@ -491,11 +491,18 @@ content-type: application/json; charset=utf-8
             try {
               JSON.parse(body);
               headers["Content-Type"] = "application/json";
-              headersTextarea.value = JSON.stringify(headers, null, 2);
             } catch {
-              headers["Content-Type"] = "text/plain";
-              headersTextarea.value = JSON.stringify(headers, null, 2);
+              if (body.trim().startsWith('<?xml') && body.trim().endsWith('>')) {
+                headers["Content-Type"] = "application/xml";
+              } else if (body.trim().startsWith('<') && body.trim().endsWith('>')) {
+                headers["Content-Type"] = "text/html";
+              } else if (body.trim().startsWith('---') || body.trim().includes(':')) {
+                headers["Content-Type"] = "application/x-yaml";
+              } else {
+                headers["Content-Type"] = "text/plain";
+              }
             }
+            headersTextarea.value = JSON.stringify(headers, null, 2);
           });
 
           form.addEventListener('input', () => {
