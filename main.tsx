@@ -147,6 +147,15 @@ app.use(
           form input[type="number"] {
             width: 100px;
           }
+          button#copy-url {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+          }
+          button#copy-url svg {
+            fill: var(--text-color, 'green');
+          }
         `}</Style>
         </head>
         <body className="">
@@ -313,7 +322,9 @@ hola`)}
         <h3>Dynamic URL:</h3>
         <div className="row">
           <button id="copy-url" type="button">
-            <img src="copy-icon.png" alt="Copy" style={{ width: '20px', height: '20px' }} />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM20 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H20C21.1 23 22 22.1 22 21V7C22 5.9 21.1 5 20 5ZM20 21H8V7H20V21Z" fill="currentColor"/>
+            </svg>
           </button>
           <pre id="dynamic-url">https://faker.deno.dev/</pre>
         </div>
