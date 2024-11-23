@@ -20,7 +20,7 @@ HTTP/1.1 200 OK
 ###
 
 
-GET http://localhost:8000/
+GET http://0.0.0.0:8000/?status=200&body=%3Ch1%3Ehola%3C%2Fh1%3E&headers=%7B%0A++%22Content-Type%22%3A+%22text%2Fhtml%22%0A%7D
 
 HTTP/1.1 200 OK
 

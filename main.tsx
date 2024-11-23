@@ -215,6 +215,7 @@ app.use(async (context: Context, next) => {
   if (overrrideStatusCode && context.res.status !== overrrideStatusCode) {
     context.status(overrrideStatusCode);
   }
+
   if (body) {
     return context.text(body);
   }
@@ -331,7 +332,7 @@ hola`)}
         <div className="url">
           <span id="copy-url">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM20 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H20C21.1 23 22 22.1 22 21V7C22 5.9 21.1 5 20 5ZM20 21H8V7H20V21Z" fill="currentColor"/>
+              <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM20 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H20C21.1 23 22 22.1 22 21V7C22 5.9 21.1 5 20 5ZM20 21H8V7H20V21Z" fill="currentColor" />
             </svg>
           </span>
           <pre id="dynamic-url">https://faker.deno.dev/</pre>
@@ -479,6 +480,7 @@ content-type: application/json; charset=utf-8
           const headersTextarea = form.headers;
           const bodyTextarea = form.body;
           const copyButton = document.querySelector('.url');
+          const baseUrl = window.location.origin;
 
           bodyTextarea.addEventListener('input', () => {
             const body = form.body.value;
@@ -519,8 +521,9 @@ content-type: application/json; charset=utf-8
             if (headers) params.append('headers', headers);
             if (delay) params.append('delay', delay);
 
-            dynamicUrl.textContent = \`https://faker.deno.dev/?\${params.toString()}\`;
+            dynamicUrl.textContent = \`\${baseUrl}/?\${params.toString()}\`;
           });
+
           function copyToClipboard(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
