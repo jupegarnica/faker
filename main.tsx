@@ -123,6 +123,12 @@ app.use(
             display: flex;
             flex-direction: column;
           }
+          form div.row {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            align-items: center;
+          }
           form label {
             font-weight: bold;
             margin-bottom: 5px;
@@ -304,10 +310,19 @@ hola`)}
       </section>
       <section id="creation">
         <h2>Create Your Request</h2>
+        <h3>Dynamic URL:</h3>
+        <div className="row">
+          <button id="copy-url" type="button">
+            <img src="copy-icon.png" alt="Copy" style={{ width: '20px', height: '20px' }} />
+          </button>
+          <pre id="dynamic-url">https://faker.deno.dev/</pre>
+        </div>
         <form id="creation-form">
-          <div>
+          <div className="row">
             <label htmlFor="status">Status:</label>
             <input type="number" id="status" name="status" min="200" max="599" />
+            <label htmlFor="delay">Delay (ms):</label>
+            <input type="number" id="delay" name="delay" />
           </div>
           <div>
             <label htmlFor="body">Body:</label>
@@ -317,13 +332,7 @@ hola`)}
             <label htmlFor="headers">Headers (JSON):</label>
             <textarea id="headers" name="headers" rows="4">{`{}`}</textarea>
           </div>
-          <div>
-            <label htmlFor="delay">Delay (ms):</label>
-            <input type="number" id="delay" name="delay" />
-          </div>
         </form>
-        <h3>Dynamic URL:</h3>
-        <pre id="dynamic-url">https://faker.deno.dev/</pre>
       </section>
       <section id="params">
         <h3>Body</h3>
@@ -443,12 +452,14 @@ content-type: application/json; charset=utf-8
           ))}
         </div>
       </section>
-      <script dangerouslySetInnerHTML={{__html:`
+      <script dangerouslySetInnerHTML={{
+        __html: `
         document.addEventListener('DOMContentLoaded', () => {
           const form = document.getElementById('creation-form');
           const dynamicUrl = document.getElementById('dynamic-url');
           const headersTextarea = form.headers;
           const bodyTextarea = form.body;
+          const copyButton = document.getElementById('copy-url');
 
           bodyTextarea.addEventListener('input', () => {
             const body = form.body.value;
@@ -483,6 +494,22 @@ content-type: application/json; charset=utf-8
             if (delay) params.append('delay', delay);
 
             dynamicUrl.textContent = \`https://faker.deno.dev/?\${params.toString()}\`;
+          });
+          function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+              document.execCommand('copy');
+            } catch (err) {
+              console.error('Could not copy text: ', err);
+            }
+            document.body.removeChild(textarea);
+          }
+
+          copyButton.addEventListener('click', () => {
+            copyToClipboard(dynamicUrl.innerText);
           });
         });
         `}}></script>
