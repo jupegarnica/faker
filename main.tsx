@@ -81,9 +81,10 @@ app.use(
             --dark--heading-color: #f4f4f9;
             --dark--link-color: #1e90ff;
             --dark--pre-background-color: #555;
-
-
-
+            --light--input-background-color: #fff;
+            --light--input-text-color: #000;
+            --dark--input-background-color: #444;
+            --dark--input-text-color: #f4f4f9;
           }
           @media (prefers-color-scheme: dark) {
             :root {
@@ -93,6 +94,8 @@ app.use(
             --heading-color: var(--dark--heading-color);
             --link-color: var(--dark--link-color);
             --pre-background-color: var(--dark--pre-background-color);
+            --input-background-color: var(--dark--input-background-color);
+            --input-text-color: var(--dark--input-text-color);
             }
           }
           @media (prefers-color-scheme: light) {
@@ -103,7 +106,40 @@ app.use(
             --heading-color: var(--light--heading-color);
             --link-color: var(--light--link-color);
             --pre-background-color: var(--light--pre-background-color);
+            --input-background-color: var(--light--input-background-color);
+            --input-text-color: var(--light--input-text-color);
             }
+          }
+          form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: var(--content-background-color);
+          }
+          form div {
+            display: flex;
+            flex-direction: column;
+          }
+          form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          form input, form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: var(--input-background-color);
+            color: var(--input-text-color);
+          }
+          form textarea {
+            resize: vertical;
+          }
+          form input[type="number"] {
+            width: 100px;
           }
         `}</Style>
         </head>
@@ -279,7 +315,7 @@ hola`)}
           </div>
           <div>
             <label htmlFor="headers">Headers (JSON):</label>
-            <textarea id="headers" name="headers"></textarea>
+            <textarea id="headers" name="headers" rows="4"></textarea>
           </div>
           <div>
             <label htmlFor="delay">Delay (ms):</label>
@@ -289,7 +325,6 @@ hola`)}
         <h3>Dynamic URL:</h3>
         <pre id="dynamic-url">https://faker.deno.dev/</pre>
       </section>
-
       <section id="params">
         <h3>Body</h3>
         <p>Specify a search body param to retrieve a response with that body.</p>
