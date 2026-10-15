@@ -319,21 +319,21 @@ function Help({ categories }: HelpProps) {
           <li>Be responded with a specific body, status, or headers.</li>
           <li>Get random fake data using faker.js</li>
           <li>Get delayed response.</li>
-          <li>Live at: <a href="https://faker.deno.dev/">https://faker.deno.dev/</a></li>
+          <li>Live at: <a href="https://faker.garn.dev/">https://faker.garn.dev/</a></li>
           <li>Source at: <a href="https://github.com/jupegarnica/faker">https://github.com/jupegarnica/faker</a></li>
         </ul>
         <h2>Usage</h2>
         <p>Make an HTTP request with search params like status, body, header, or delay to get the response you want.</p>
         <h3>Example:</h3>
         <pre>
-          {raw(`GET https://faker.deno.dev/?body=hola&delay=1000&status=400
+          {raw(`GET https://faker.garn.dev/?body=hola&delay=1000&status=400
 HTTP/1.1 400 Bad Request
 content-type: text/plain
 content-length: 4
 
 hola`)}
         </pre>
-        <p>Try yourself: <a href="https://faker.deno.dev?body=hola&status=569">https://faker.deno.dev?body=hola&status=569</a></p>
+        <p>Try yourself: <a href="https://faker.garn.dev?body=hola&status=569">https://faker.garn.dev?body=hola&status=569</a></p>
       </section>
       <section id="creation">
         <h2>Create Your Request</h2>
@@ -344,7 +344,7 @@ hola`)}
               <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM20 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H20C21.1 23 22 22.1 22 21V7C22 5.9 21.1 5 20 5ZM20 21H8V7H20V21Z" fill="currentColor" />
             </svg>
           </span>
-          <pre id="dynamic-url">https://faker.deno.dev/</pre>
+          <pre id="dynamic-url">https://faker.garn.dev/</pre>
         </div>
         <form id="creation-form">
           <div className="row">
@@ -367,7 +367,7 @@ hola`)}
         <h3>Body</h3>
         <p>Specify a search body param to retrieve a response with that body.</p>
         <pre>
-          {raw(`GET https://faker.deno.dev/?body=hola
+          {raw(`GET https://faker.garn.dev/?body=hola
 HTTP/1.1 200 OK
 content-type: text/plain
 content-length: 4
@@ -377,7 +377,7 @@ hola`)}
         <h3>Response Status</h3>
         <p>Specify a search status param to get back that code status. The status must be inside the range 200 to 599.</p>
         <pre>
-          {raw(`GET https://faker.deno.dev/?status=301
+          {raw(`GET https://faker.garn.dev/?status=301
 HTTP/1.1 301 Moved Permanently
 content-type: text/plain
 content-length: 0`)}
@@ -385,7 +385,7 @@ content-length: 0`)}
         <h3>Headers</h3>
         <p>Specify a search header param as a JSON string to get them back.</p>
         <pre>
-          {raw(`GET https://faker.deno.dev/?headers={"x-hello":"world"}
+          {raw(`GET https://faker.garn.dev/?headers={"x-hello":"world"}
 HTTP/1.1 200 OK
 x-hello: world
 content-length: 0`)}
@@ -393,12 +393,12 @@ content-length: 0`)}
         <h3>Delay</h3>
         <p>Specify a search delay param in milliseconds in order to delay the response.</p>
         <pre>
-          {raw(`GET https://faker.deno.dev/?delay=1000`)}
+          {raw(`GET https://faker.garn.dev/?delay=1000`)}
         </pre>
         <h3>/pong</h3>
         <p>Replay with the same body and header as the request</p>
         <pre>
-          {raw(`POST https://faker.deno.dev/pong
+          {raw(`POST https://faker.garn.dev/pong
 ?status=201
 &delay=100
 &body=willBeIgnored
@@ -430,7 +430,7 @@ content-type: text/plain
           To know the languages included, check out the docs at <a href="https://fakerjs.dev/guide/localization.html#available-locales">https://fakerjs.dev/guide/localization.html#available-locales</a>
         </p>
         <pre>
-          {raw(`GET https://faker.deno.dev/name/firstName
+          {raw(`GET https://faker.garn.dev/name/firstName
 accept-language: en
 
 HTTP/1.1 200 OK
@@ -446,7 +446,7 @@ content-type: application/json; charset=utf-8
           Using path <code>phone/number/###-###-####</code> will call <code>faker.phone.number('###-###-####')</code>
         </p>
         <pre>
-          {raw(`GET https://faker.deno.dev/phone/number/###-###-####
+          {raw(`GET https://faker.garn.dev/phone/number/###-###-####
 HTTP/1.1 200 OK
 content-type: application/json; charset=utf-8
 
@@ -459,7 +459,7 @@ content-type: application/json; charset=utf-8
           But keep in mind that objects and arrays must be passed as JSON strings.
         </p>
         <pre>
-          {raw(`GET https://faker.deno.dev/datatype/number/{"max":3,"min":1}`)}
+          {raw(`GET https://faker.garn.dev/datatype/number/{"max":3,"min":1}`)}
         </pre>
         <p>
           If needed, use <code>encodeURIComponent</code> to pass an argument with special characters.
