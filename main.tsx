@@ -3,8 +3,8 @@ import { logger } from 'hono/logger'
 import { StatusCode } from "hono/utils/http-status";
 import { raw, } from "hono/utils/html";
 import { Style, css } from "hono/css";
-import * as FakerNameSpace from "npm:@faker-js/faker";
-import type { LocaleDefinition } from "npm:@faker-js/faker";
+import * as FakerNameSpace from "@faker-js/faker";
+import type { LocaleDefinition } from "@faker-js/faker";
 import { jsxRenderer } from 'hono/jsx-renderer'
 const Faker = FakerNameSpace.Faker;
 
@@ -302,7 +302,7 @@ app.all("/pong", async (context: Context) => {
   return context.text(body);
 });
 
-Deno.serve(app.fetch);
+export default app;
 
 type HelpProps = {
   categories: { category: string; methods: string[] }[];

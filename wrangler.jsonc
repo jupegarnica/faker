@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "faker",
+  "main": "main.tsx",
+  "compatibility_date": "2026-10-15",
+  "routes": [
+    {
+      "pattern": "faker.garn.dev",
+      "custom_domain": true
+    }
+  ],
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "faker",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@faker-js/faker": "9.1.0",
+    "hono": "^4.6.8"
+  }
+}
